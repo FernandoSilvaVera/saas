@@ -1,0 +1,308 @@
+/* ------ Medium devices (tablets, 991px and up) -----*/
+@media (min-width: 992px) {
+  .pl_important {
+    padding-left: 5rem !important;
+  }
+}
+
+/* ------ Medium devices (tablets, 991px and down) -----*/
+@media (max-width: 991px) {
+  html {
+    font-size: 62.5%;
+  }
+
+  br {
+    display: none;
+  }
+
+  .row {
+    --bs-gutter-y: 2rem;
+  }
+
+  h2 {
+    line-height: 3rem;
+  }
+
+  /* ================= Price Section ============ */
+  .price_page_top .row .col-lg-4 {
+    justify-content: flex-start !important;
+  }
+  .price_page_top {
+    padding: 2rem 2.4rem 3.2rem 2.4rem;
+  }
+
+  /* ================= Side bar ================= */
+  .sidebar {
+    position: fixed;
+    transform: translateX(-26rem);
+    z-index: 999999;
+  }
+  .dashboard {
+    grid-template-columns: 1fr;
+  }
+  .overlay {
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.3);
+    position: fixed;
+    z-index: 99999;
+    pointer-events: none;
+    opacity: 0;
+    transition: 0.3s ease-in;
+  }
+
+  /* sidebar_expanded */
+  .sidebar_expanded .sidebar {
+    transform: translateX(0);
+  }
+
+  .sidebar_expanded .overlay {
+    opacity: 1;
+    pointer-events: all;
+  }
+
+  /* ============= Main Content ========== */
+  .main_content_wrap {
+    width: 100vw;
+  }
+
+  /* ============= Table Section ============= */
+  tbody tr td,
+  thead tr th {
+    padding: 0 4rem;
+  }
+
+  table td {
+    white-space: nowrap;
+  }
+
+  .table_wrap {
+    width: 100%;
+    overflow-x: auto;
+  }
+
+  .table_wrap::-webkit-scrollbar {
+    scrollbar-width: 0;
+    display: none;
+  }
+
+  thead {
+    position: relative;
+    top: 0;
+  }
+
+  /* ============== Subscription Info =============== */
+  .contact_form.pb_40 {
+    padding-bottom: 2.5rem;
+  }
+  .subscription_table_wrap tbody tr td {
+    padding: 2rem 4rem;
+  }
+  .subscription_table_wrap tbody tr td:first-child {
+    padding: 0;
+  }
+  .subscription_table_wrap {
+    min-height: auto;
+  }
+  .w-33 {
+    width: 100% !important;
+  }
+
+  .three_form_cols {
+    gap: 2rem;
+    flex-direction: column;
+  }
+
+  .form_groups.pb_45,
+  .form_groups.pb_40 {
+    padding-bottom: 3rem;
+  }
+
+  .subscription_table_info td.pr_24 {
+    padding-right: 0 !important;
+  }
+
+  /* ============= create_user_page ============= */
+  .create_user_page .row {
+    flex-direction: column-reverse;
+  }
+  .create_user_page .row > div > div {
+    height: auto;
+  }
+
+  /* ============= app_tab ============= */
+  .app_tab_wrap > .col-lg-3,
+  .app_tab_wrap > .col-lg-9 {
+    width: 100% !important;
+  }
+
+  .tab-pane .row {
+    gap: 0;
+  }
+
+  .app_tab {
+    min-height: auto;
+    overflow-x: auto;
+    display: flex;
+    gap: 2rem;
+    padding: 0 2rem;
+    height: 4.3rem;
+  }
+  .app_tab::-webkit-scrollbar {
+    scrollbar-width: 0;
+    display: none;
+  }
+  .app_tab button {
+    white-space: nowrap;
+    padding: 0;
+    margin: 0;
+    border: none;
+  }
+
+  /* ============= Template Section ============= */
+  .template_font_styles > .form_group:first-child,
+  .template_font_styles > .form_group:last-child,
+  .template_section .container-fluid > .row .col-lg-9,
+  .template_section .container-fluid > .row .col-lg-3 {
+    width: 100%;
+  }
+
+  .template_section .container-fluid > .row {
+    flex-direction: column-reverse;
+  }
+}
+
+/*----- sm devices (tablets, 767px and down) -----*/
+@media (max-width: 767px) {
+  html {
+    font-size: 62.5%;
+  }
+
+  .gap_24 {
+    gap: 2rem;
+  }
+
+  h1 {
+    font-size: 2rem;
+  }
+
+  .form_groups {
+    flex-direction: column;
+  }
+  .form_group {
+    width: 100% !important;
+  }
+
+  /* =============== account_info_section =============== */
+  .account_info_section {
+    padding-bottom: 2.4rem;
+  }
+
+  .account_info_form_group {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  /* =============== User list Section =============== */
+  tbody tr td,
+  thead tr th {
+    padding: 0 3rem;
+  }
+
+  /* ============== Subscription Info =============== */
+  .subscription_table_wrap tbody tr td {
+    padding: 2rem 3rem;
+  }
+  .account_info_form_group .button {
+    margin: auto;
+    width: 100%;
+  }
+
+  /* ================== History Section =============== */
+  .history_section table tr td:not(:first-child),
+  .history_section tr th:not(:first-child) {
+    padding-right: 3rem;
+    padding-left: 3rem;
+  }
+  .history_section tr th:first-child,
+  .history_section tr td:first-child {
+    padding-right: 3rem;
+  }
+  .pagination_wrap {
+    justify-content: center !important;
+  }
+  .numbers {
+    gap: 1rem;
+    padding: 0 1.8rem;
+  }
+  .numbers a {
+    font-size: 1.4rem;
+  }
+  .numbers a.active {
+    height: 4.4rem;
+    width: 4.4rem;
+  }
+  .pagination {
+    padding: 0 2rem;
+    height: 4rem;
+  }
+  .pagination_arrow img {
+    width: 0.8rem;
+  }
+
+  /* ============= preview_template ============ */
+  .preview_template_left,
+  .preview_template_main {
+    min-height: auto;
+  }
+
+  /* ============ Modal ============= */
+  .modal-body {
+    padding: 3rem 3rem;
+    border-radius: 1.2rem;
+  }
+  .modal_close {
+    position: absolute;
+    right: 1rem;
+    top: 1rem;
+    display: block;
+    z-index: 99;
+  }
+}
+
+/*----- xs devices (landscape phones, 575px and down) -----*/
+@media (max-width: 575px) {
+  html {
+    font-size: 2.32vw;
+  }
+
+  /* ============= App Section ============= */
+  .app_top {
+    flex-direction: column;
+    align-items: flex-start !important;
+    gap: 1.5rem;
+  }
+
+  .apptop_right .button {
+    width: 50%;
+  }
+
+  .apptop_right {
+    width: 100%;
+  }
+
+  .app_top .select.app_top_select,
+  .selected_tab {
+    width: 100%;
+  }
+
+  /* ============ Modal ============= */
+  .modal-dialog {
+    width: 100%;
+    padding: 0;
+    margin: 0;
+  }
+  .modal-content {
+    border-radius: 0;
+  }
+}
