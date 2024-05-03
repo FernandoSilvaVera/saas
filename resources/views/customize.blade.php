@@ -42,17 +42,6 @@
                     </div>
                 </div>
 
-                <div class="header_right d-flex gap_24 align-items-center">
-                    <a href="#">
-                        <img src="./img/notification.svg" class="w_24" alt="">
-                    </a>
-                    <a href="#" class="">
-                        <img src="./img/setting.svg" class="w_24" alt="">
-                    </a>
-                    <a href="#">
-                        <img src="./img/header_img.png" class="header_img" alt="">
-                    </a>
-                </div>
             </div>
 
             <!-- main_content -->

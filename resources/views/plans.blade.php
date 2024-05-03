@@ -40,24 +40,14 @@
                         <img src="./img/hamburger.svg" class="hamburger_bar" alt="">
                         <img src="./img/close.svg" class="close" alt="">
                     </div>
-                    <h1>Plans</h1>
                 </div>
 
-                <div class="header_right d-flex gap_24 align-items-center">
-                    <a href="#">
-                        <img src="./img/notification.svg" class="w_24" alt="">
-                    </a>
-                    <a href="#" class="">
-                        <img src="./img/setting.svg" class="w_24" alt="">
-                    </a>
-                    <a href="#">
-                        <img src="./img/header_img.png" class="header_img" alt="">
-                    </a>
-                </div>
             </div>
 
             <!-- main_content -->
             <div class="main_content pl_24 pr_24 pb_60 w-100">
+
+		@include('includes/login')
 
                 <!-- Modal -->
                 <div class="modal fade" id="login_modal" tabindex="-1" role="dialog" aria-labelledby="login_modalTitle"
@@ -139,25 +129,18 @@
                 <div class="price_page_top pt_30 pb_30 pl_35 pr_35 mb_25 bg-white rounded_lg">
                     <div class="row align-items-center">
                         <div class="col-lg-8">
-                            <h2>You need a more personalized plan?</h2>
+                            <h2>¿Necesitas un plan más personalizado?</h2>
                         </div>
                         <div class="col-lg-4  d-flex align-items-center justify-content-end">
-                            <button data-bs-toggle="modal" data-bs-target="#login_modal" class="button">Contact us
+                            <button data-bs-toggle="modal" data-bs-target="#login_modal" class="button">Contáctanos
                             </button>
                         </div>
                     </div>
-
                 </div>
 
                 <!-- price_section -->
                 <div class="price_section">
                     <div class="container-fluid">
-                        <div class="price_top pb_24">
-                            <h2 class="pb_10">Choose Your Plans</h2>
-                            <p>You will bw charged for the plan after the admin approves your vendor
-                                account</p>
-                        </div>
-
                         <div class="nav nav-tabs price_tabs monthly-tab" id="myTab" role="tablist">
                             <button class="nav-link price_tab active" id="monthly-tab" data-bs-toggle="tab"
                                 data-bs-target="#monthly" type="button" role="tab" aria-controls="monthly"
@@ -174,154 +157,55 @@
                             <div class="tab-pane fade show active" id="monthly" role="tabpanel"
                                 aria-labelledby="monthly-tab">
                                 <div class="row">
-                                    <div class="col-lg-3 col-md-6">
-                                        <div class="price_box">
-                                            <h5 class="price_title">Starter</h5>
 
-                                            <h2 class="price"><span>$15</span> per month</h2>
+					@foreach($plans as $plan)
 
-                                            <div class="price_lists">
-                                                <p>Unlimited Client</p>
-                                                <p>Unlimited Invoice</p>
-                                                <p>2 Staff</p>
-                                                <p>250 Recurring Profile</p>
-                                                <p>50 Auto-billing Profile</p>
-                                                <p>1 GB File Storage</p>
-                                            </div>
+					    <div class="col-lg-3 col-md-6">
+						<div class="price_box">
+						    <h5 class="price_title">{{$plan->name}}</h5>
 
-                                            <a href="#" class="button w-100">Get Started</a>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-3 col-md-6">
-                                        <div class="price_box">
-                                            <h5 class="price_title">Basic</h5>
+						    <div class="price_lists">
+							<p><strong>Limite de palabras:</strong> {{$plan->word_limit}}</p>
+							<p><strong>Resumenes:</strong> {{$plan->summaries}}</p>
+							<p><strong>Nº Test:</strong> {{$plan->test_questions_count}}</p>
+							<p><strong>Nº Editores:</strong> {{$plan->editors_count}}</p>
+							@if ($plan->voiceover > 0)
+								<p><strong>Locución en línea:</strong> {{$plan->voiceover}}</p>
+						        @endif
+						    </div>
 
-                                            <h2 class="price"><span>$29</span> per month</h2>
+						    <a href="/saas/public/buy/{{$plan->stripe_monthly_price_id}}" class="button w-100">{{$plan->monthly_price}}€ / mes</a>
+						</div>
+					    </div>
 
-                                            <div class="price_lists">
-                                                <p>Unlimited Client</p>
-                                                <p>Unlimited Invoice</p>
-                                                <p>5 Staff</p>
-                                                <p>500 Recurring Profile</p>
-                                                <p>100 Auto-billing Profile</p>
-                                                <p>2 GB File Storage</p>
-                                            </div>
+					@endforeach
 
-                                            <a href="#" class="button w-100">Get Started</a>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-3 col-md-6">
-                                        <div class="price_box">
-                                            <h5 class="price_title">Studio</h5>
-
-                                            <h2 class="price"><span>$52</span> per month</h2>
-
-                                            <div class="price_lists">
-                                                <p>Unlimited Client</p>
-                                                <p>Unlimited Invoice</p>
-                                                <p>10 Staff</p>
-                                                <p>1000 Recurring Profile</p>
-                                                <p>250 Auto-billing Profile</p>
-                                                <p>4 GB File Storage</p>
-                                            </div>
-
-                                            <a href="#" class="button w-100">Get Started</a>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-3 col-md-6">
-                                        <div class="price_box">
-                                            <h5 class="price_title">Company</h5>
-
-                                            <h2 class="price"><span>$85</span> per month</h2>
-
-                                            <div class="price_lists">
-                                                <p>Unlimited Client</p>
-                                                <p>Unlimited Invoice</p>
-                                                <p>20 Staff</p>
-                                                <p>Unlimited Recurring Profile</p>
-                                                <p>500 Auto-billing Profile</p>
-                                                <p>8 GB File Storage</p>
-                                            </div>
-
-                                            <a href="#" class="button w-100">Get Started</a>
-                                        </div>
-                                    </div>
                                 </div>
                             </div>
                             <div class="tab-pane fade" id="yearly" role="tabpanel" aria-labelledby="yearly-tab">
                                 <div class="row">
-                                    <div class="col-lg-3 col-md-6">
-                                        <div class="price_box">
-                                            <h5 class="price_title">Starter</h5>
 
-                                            <h2 class="price"><span>$25</span> per month</h2>
+					@foreach($plans as $plan)
 
-                                            <div class="price_lists">
-                                                <p>Unlimited Client</p>
-                                                <p>Unlimited Invoice</p>
-                                                <p>2 Staff</p>
-                                                <p>250 Recurring Profile</p>
-                                                <p>50 Auto-billing Profile</p>
-                                                <p>1 GB File Storage</p>
-                                            </div>
+					    <div class="col-lg-3 col-md-6">
+						<div class="price_box">
+						    <h5 class="price_title">{{$plan->name}}</h5>
+						    <div class="price_lists">
+							<p><strong>Limite de palabras:</strong> {{$plan->word_limit}}</p>
+							<p><strong>Resumenes:</strong> {{$plan->summaries}}</p>
+							<p><strong>Nº Test:</strong> {{$plan->test_questions_count}}</p>
+							<p><strong>Nº Editores:</strong> {{$plan->editors_count}}</p>
+							@if ($plan->voiceover > 0)
+								<p><strong>Locución en línea:</strong> {{$plan->voiceover}}</p>
+						        @endif
+						    </div>
 
-                                            <a href="#" class="button w-100">Get Started</a>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-3 col-md-6">
-                                        <div class="price_box">
-                                            <h5 class="price_title">Basic</h5>
+						    <a href="/saas/public/buy/{{$plan->stripe_annual_price_id}}" class="button w-100">{{$plan->annual_price}}€ / año</a>
+						</div>
+					    </div>
 
-                                            <h2 class="price"><span>$39</span> per month</h2>
+					@endforeach
 
-                                            <div class="price_lists">
-                                                <p>Unlimited Client</p>
-                                                <p>Unlimited Invoice</p>
-                                                <p>5 Staff</p>
-                                                <p>500 Recurring Profile</p>
-                                                <p>100 Auto-billing Profile</p>
-                                                <p>2 GB File Storage</p>
-                                            </div>
-
-                                            <a href="#" class="button w-100">Get Started</a>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-3 col-md-6">
-                                        <div class="price_box">
-                                            <h5 class="price_title">Studio</h5>
-
-                                            <h2 class="price"><span>$52</span> per month</h2>
-
-                                            <div class="price_lists">
-                                                <p>Unlimited Client</p>
-                                                <p>Unlimited Invoice</p>
-                                                <p>10 Staff</p>
-                                                <p>1000 Recurring Profile</p>
-                                                <p>250 Auto-billing Profile</p>
-                                                <p>4 GB File Storage</p>
-                                            </div>
-
-                                            <a href="#" class="button w-100">Get Started</a>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-3 col-md-6">
-                                        <div class="price_box">
-                                            <h5 class="price_title">Company</h5>
-
-                                            <h2 class="price"><span>$95</span> per month</h2>
-
-                                            <div class="price_lists">
-                                                <p>Unlimited Client</p>
-                                                <p>Unlimited Invoice</p>
-                                                <p>20 Staff</p>
-                                                <p>Unlimited Recurring Profile</p>
-                                                <p>500 Auto-billing Profile</p>
-                                                <p>8 GB File Storage</p>
-                                            </div>
-
-                                            <a href="#" class="button w-100">Get Started</a>
-                                        </div>
-                                    </div>
                                 </div>
                             </div>
 

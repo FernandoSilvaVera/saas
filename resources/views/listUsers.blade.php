@@ -41,20 +41,8 @@
                         <img src="./img/hamburger.svg" class="hamburger_bar" alt="">
                         <img src="./img/close.svg" class="close" alt="">
                     </div>
-                    <h1>List User</h1>
                 </div>
 
-                <div class="header_right d-flex gap_24 align-items-center">
-                    <a href="#">
-                        <img src="./img/notification.svg" class="w_24" alt="">
-                    </a>
-                    <a href="#" class="">
-                        <img src="./img/setting.svg" class="w_24" alt="">
-                    </a>
-                    <a href="#">
-                        <img src="./img/header_img.png" class="header_img" alt="">
-                    </a>
-                </div>
             </div>
 
             <!-- main_content -->
@@ -65,98 +53,27 @@
                     <div class="container-fluid">
 
                         <div class="contact_top pb_20">
-                            <h2>Canceled Subscribed</h2>
                         </div>
 
                         <div class="table_wrap">
                             <table>
                                 <thead>
                                     <tr>
-                                        <th>User Name</th>
+                                        <th>Nombre</th>
+                                        <th>Email</th>
                                         <th>Card Number</th>
-                                        <th>Start Date</th>
-                                        <th>End Date</th>
                                         <th>Status</th>
                                     </tr>
                                 </thead>
                                 <tbody>
+				@foreach($users as $user)
                                     <tr>
-                                        <td>Erik Malmberg</td>
+                                        <td>{{$user->name}}</td>
+                                        <td>{{$user->email}}</td>
                                         <td>XXXX-XXXX-XXXX-2582</td>
-                                        <td>10/02/2020</td>
-                                        <td>10/02/2024</td>
-                                        <td>Closed</td>
+                                        <td>Suscrito</td>
                                     </tr>
-                                    <tr>
-                                        <td>Tom Plath</td>
-                                        <td>XXXX-XXXX-XXXX-2582</td>
-                                        <td>10/02/2020</td>
-                                        <td>10/02/2024</td>
-                                        <td>Closed</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Joseph Kelley</td>
-                                        <td>XXXX-XXXX-XXXX-2582</td>
-                                        <td>10/02/2020</td>
-                                        <td>10/02/2024</td>
-                                        <td>Closed</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Cindy Welsh</td>
-                                        <td>XXXX-XXXX-XXXX-2582</td>
-                                        <td>10/02/2020</td>
-                                        <td>10/02/2024</td>
-                                        <td>Closed</td>
-                                    </tr>
-                                    <tr>
-                                        <td>James Myrick</td>
-                                        <td>XXXX-XXXX-XXXX-2582</td>
-                                        <td>10/02/2020</td>
-                                        <td>10/02/2024</td>
-                                        <td>Closed</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Tom Plath</td>
-                                        <td>XXXX-XXXX-XXXX-2582</td>
-                                        <td>10/02/2020</td>
-                                        <td>10/02/2024</td>
-                                        <td>Closed</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Joseph Kelley</td>
-                                        <td>XXXX-XXXX-XXXX-2582</td>
-                                        <td>10/02/2020</td>
-                                        <td>10/02/2024</td>
-                                        <td>Closed</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Cindy Welsh</td>
-                                        <td>XXXX-XXXX-XXXX-2582</td>
-                                        <td>10/02/2020</td>
-                                        <td>10/02/2024</td>
-                                        <td>Closed</td>
-                                    </tr>
-                                    <tr>
-                                        <td>James Myrick</td>
-                                        <td>XXXX-XXXX-XXXX-2582</td>
-                                        <td>10/02/2020</td>
-                                        <td>10/02/2024</td>
-                                        <td>Closed</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Cindy Welsh</td>
-                                        <td>XXXX-XXXX-XXXX-2582</td>
-                                        <td>10/02/2020</td>
-                                        <td>10/02/2024</td>
-                                        <td>Closed</td>
-                                    </tr>
-                                    <tr>
-                                        <td>James Myrick</td>
-                                        <td>XXXX-XXXX-XXXX-2582</td>
-                                        <td>10/02/2020</td>
-                                        <td>10/02/2024</td>
-                                        <td>Closed</td>
-                                    </tr>
+				@endforeach
                                 </tbody>
                             </table>
                         </div>

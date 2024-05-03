@@ -41,20 +41,8 @@
                         <img src="./img/hamburger.svg" class="hamburger_bar" alt="">
                         <img src="./img/close.svg" class="close" alt="">
                     </div>
-                    <h1>History</h1>
                 </div>
 
-                <div class="header_right d-flex gap_24 align-items-center">
-                    <a href="#">
-                        <img src="./img/notification.svg" class="w_24" alt="">
-                    </a>
-                    <a href="#" class="">
-                        <img src="./img/setting.svg" class="w_24" alt="">
-                    </a>
-                    <a href="#">
-                        <img src="./img/header_img.png" class="header_img" alt="">
-                    </a>
-                </div>
             </div>
 
             <!-- main_content -->
@@ -65,7 +53,7 @@
                     <div class="container-fluid">
 
                         <div class="contact_top pb_20">
-                            <h2>Canceled Subscribed</h2>
+                            <h2>Historial</h2>
                         </div>
 
                         <div class="table_wrap">

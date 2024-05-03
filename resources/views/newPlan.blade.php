@@ -47,32 +47,13 @@
             <div class="main_content pl_24 pr_24 pb_60 w-100">
 
                 <!-- Create user Section -->
+
                 <div class="create_user_page">
                     <div class="container-fluid">
                         <div class="row">
                             <div class="col-lg-3">
                                 <div class="section_padding_bg">
-                                    <div class="pb_15">
-                                                <div class="form_group">
-                                                    <label for="Company" class="d-flex pb_10">Plan</label>
-                                                    <select id="selectPlan" onchange="setPlan('{{$plans}}')" class="input_field select_field" name="Company" style="width:90%">
-							<option value="0">- Selecciona -</option>
-							@foreach($plans as $plan)
-								<option value="{{$plan->id}}">{{$plan->name}}</option>
-							@endforeach
-                                                    </select>
-						</div>
-                                    </div>
-                                    <div class="pb_15">
-					<div class="form_group">
-					    <label for="Company" class="d-flex pb_10">Pago</label>
-					    <select id="payment" class="input_field select_field" name="Company" style="width:90%">
-					    </select>
-					</div>
-                                    </div>
-
-					@include('includes/newPlanSettings', ['bloquearCampos' => true])
-
+					@include('includes/newPlanSettings', ['bloquearCampos' => false])
                                 </div>
                             </div>
 
@@ -81,34 +62,43 @@
                                     <div class="container-fluid">
 
                                         <form action="#" class="contact_form">
+
                                             <div class="form_groups d-flex gap_24 pb_20 align-items-center">
-                                                <div class="form_group w-50">
-                                                    <label for="FName" class="d-flex pb_10">Nombre</label>
-                                                    <input id="name" type="text" class="input_field w-100" placeholder="Type here"
-                                                        required>
-                                                </div>
                                                 <div class="form_group w-100">
-                                                    <label for="Email" class="d-flex pb_10">Correo</label>
-                                                    <input id="email" type="text" class="input_field w-100" placeholder="Type here"
+                                                    <label for="planName" class="d-flex pb_10">Nombre del plan</label>
+                                                    <input id="planName" type="text" class="input_field w-100" placeholder=""
                                                         required>
                                                 </div>
                                             </div>
+
                                             <div class="form_groups d-flex gap_24 pb_20 align-items-center">
                                                 <div class="form_group w-50">
-                                                    <label for="Password" class="d-flex pb_10">Contraseña</label>
-                                                    <input id="password" type="password" class="input_field w-100" placeholder="Type here"
+                                                    <label for="priceMontly" class="d-flex pb_10">Precio Mensual</label>
+                                                    <input id="priceMontly" type="number" class="input_field w-100" placeholder=""
                                                         required>
                                                 </div>
                                                 <div class="form_group w-50">
-                                                    <label for="Confirm-Password" class="d-flex pb_10">Confirmar
-                                                        Contraseña</label>
-                                                    <input id="repeatPass" type="password" class="input_field w-100" placeholder="Type here"
+                                                    <label for="priceYear" class="d-flex pb_10">Precio Anual</label>
+                                                    <input id="priceYear" type="number" class="input_field w-100" placeholder=""
                                                         required>
                                                 </div>
                                             </div>
-                                            <div class="form_group d-flex justify-content-end">
-                                                <button onclick="createUser()" type="submit" class="button">Crear nueva cuenta</button>
+
+					    <div class="form_groups d-flex gap_24 pb_20 align-items-center">
+						    <div class="pb_15">
+							<h4 class="pb_5">Plan personalizado (si se marca no aparecerá para los clientes)</h4>
+							<div class="check_box">
+							    <div id="customPlan" class="check">
+								<img src="./img/check_mark.svg" alt="">
+							    </div>
+							</div>
+						    </div>
                                             </div>
+
+                                            <div class="form_group d-flex justify-content-end">
+                                                <button onclick="createPlan()" class="button">Crear nuevo plan</button>
+                                            </div>
+
                                         </form>
                                     </div>
                                 </div>
@@ -125,7 +115,7 @@
     <script src="js/jquery-3.4.1.min.js"></script>
     <script src="js/plugins.js"></script>
     <script src="js/main.js"></script>
-    <script src="{{ asset('js/createUsers.js') }}"></script>
+    <script src="{{ asset('js/newPlan.js') }}"></script>
 
 
 

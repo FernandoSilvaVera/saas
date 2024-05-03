@@ -40,20 +40,8 @@
                         <img src="./img/hamburger.svg" class="hamburger_bar" alt="">
                         <img src="./img/close.svg" class="close" alt="">
                     </div>
-                    <h1>Contact Us</h1>
                 </div>
 
-                <div class="header_right d-flex gap_24 align-items-center">
-                    <a href="#">
-                        <img src="./img/notification.svg" class="w_24" alt="">
-                    </a>
-                    <a href="#" class="">
-                        <img src="./img/setting.svg" class="w_24" alt="">
-                    </a>
-                    <a href="#">
-                        <img src="./img/header_img.png" class="header_img" alt="">
-                    </a>
-                </div>
             </div>
 
             <!-- main_content -->
@@ -63,53 +51,16 @@
                 <div class="contact_section section_padding_bg">
                     <div class="container-fluid">
                         <div class="contact_top pb_24">
-                            <h2 class="pb_10">Choose Your Plans</h2>
-                            <p>You will bw charged for the plan after the admin approves your vendor
-                                account</p>
+                            <h2 class="pb_10">Para dudas o incidencias</h2>
                         </div>
 
                         <form action="#" class="contact_form">
-                            <div class="form_groups d-flex gap_24 pb_20 align-items-center">
-                                <div class="form_group w-50">
-                                    <label for="FName" class="d-flex pb_10">First Name</label>
-                                    <input type="text" class="input_field w-100" placeholder="Type here" required>
-                                </div>
-                                <div class="form_group w-50">
-                                    <label for="LName" class="d-flex pb_10">Last Name</label>
-                                    <input type="text" class="input_field w-100" placeholder="Last Name" required>
-                                </div>
-                            </div>
-                            <div class="form_groups d-flex gap_24 pb_20 align-items-center">
-                                <div class="form_group w-50">
-                                    <label for="Email" class="d-flex pb_10">Email Address</label>
-                                    <input type="text" class="input_field w-100" placeholder="Type here" required>
-                                </div>
-                                <div class="form_group w-50">
-                                    <label for="Mobile" class="d-flex pb_10">Mobile</label>
-                                    <input type="text" class="input_field w-100" placeholder="Type here" required>
-                                </div>
-                            </div>
-                            <div class="form_groups d-flex gap_24 pb_20 align-items-center">
-                                <div class="form_group w-50">
-                                    <label for="FName" class="d-flex pb_10">Country</label>
-                                    <select class="input_field select_field w-100" name="Country">
-                                        <option value="Select" selected>Select</option>
-                                        <option value="option 1">option 1</option>
-                                        <option value="option 2">option 2</option>
-                                        <option value="option 3">option 3</option>
-                                    </select>
-                                </div>
-                                <div class="form_group w-50">
-                                    <label for="FName" class="d-flex pb_10">Job Title</label>
-                                    <input type="text" class="input_field w-100" placeholder="Type here" required>
-                                </div>
-                            </div>
                             <div class="form_group w-100 pb_20">
-                                <label for="FName" class="d-flex pb_10">Message</label>
-                                <textarea name="message" class="w-100" placeholder="Type here"></textarea>
+                                <label for="FName" class="d-flex pb_10">Mensaje</label>
+                                <textarea name="message" class="w-100" placeholder="Escribe aquí"></textarea>
                             </div>
                             <div class="form_group d-flex justify-content-end">
-                                <button type="submit" class="button">Submit</button>
+                                <button onclick="sendTicket()" type="submit" class="button">Enviar</button>
                             </div>
                         </form>
 

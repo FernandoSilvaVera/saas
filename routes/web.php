@@ -1,6 +1,10 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AppController;
+use App\Http\Controllers\PlansController;
+use App\Http\Controllers\UsersController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -13,17 +17,17 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('app');
-});
+Route::get('/', [AppController::class, 'index']);
+Route::get('/app', [AppController::class, 'index']);
 
+Route::get('/plans', [PlansController::class, 'index']);
+Route::get('/buy/{id}', [PlansController::class, 'buy']);
 
-Route::get('/app', function () {
-	return view('app');
-});
+Route::get('/createUsers', [UsersController::class, 'createUsers']);
+Route::get('/listUsers', [UsersController::class, 'listUsers']);
 
-Route::get('/plans', function () {
-	return view('plans');
+Route::get('/newPlan', function () {
+	return view('newPlan');
 });
 
 Route::get('/contact', function () {
@@ -44,12 +48,4 @@ Route::get('/account', function () {
 
 Route::get('/customize', function () {
 	return view('customize');
-});
-
-Route::get('/createUsers', function () {
-	return view('createUsers');
-});
-
-Route::get('/listUsers', function () {
-	return view('listUsers');
 });

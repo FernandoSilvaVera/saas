@@ -35,4 +35,32 @@ $(document).ready(function() {
 		}
 	});
 
+
+	$('#saveTemplate').click(function() {
+		var jsonData = {};
+		jsonData.logo_path = $('#file-input1').val();
+		jsonData.favicon_path = $('#file-input2').val();
+		jsonData.template_name = $('#templateName').val();
+		jsonData.css_left = $('#leftBackground').val();
+		jsonData.css_right = $('#rightBackground').val();
+		jsonData.css_top = $('#topBackground').val();
+		jsonData.css_icons = $('#topIconsBackground').val();
+		jsonData.typography = $('#fontFamily').val();
+		jsonData.font_size = $('#fontSize').val();
+
+		$.ajax({
+			url: '/saas/public/api/templates',
+			type: 'POST',
+			contentType: 'application/json',
+			data: JSON.stringify(jsonData),
+			success: function(response) {
+				alert("template guardado")
+			},
+			error: function(xhr, status, error) {
+
+			}
+		});
+	});
+
+
 });
