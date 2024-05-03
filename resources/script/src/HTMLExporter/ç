@@ -1,0 +1,44 @@
+<?PHP
+namespace HTMLExporter;
+
+class HTMLExporter {
+
+	private $outputPath = "";
+
+	public function __construct($outputPath) {
+		$this->outputPath = $outputPath;
+	}
+
+	public function saveHTMLFile($html, $nameFile) {
+		$outputPath = $this->outputPath . $nameFile;
+		file_put_contents($outputPath, $html);
+	}
+
+	public function saveImages($images, $isEPUB = false){
+		foreach($images as $image){
+			$imageData = $image->getImageString();
+			$imageName = basename($image->getSource());
+			if($isEPUB){
+				$imagePath = $this->outputPath ."/media/" . $imageName;
+			}else{
+				$imagePath = $this->outputPath ."imagenes/media/" . $imageName;
+			}
+			file_put_contents($imagePath, $imageData);
+		}
+	}
+
+	public function saveImagesEPUB($images){
+		foreach($images as $image){
+			$imageData = $image->getImageString();
+			$imageName = basename($image->getSource());
+			$imagePath = $this->outputPath ."/media/" . $imageName;
+			file_put_contents($imagePath, $imageData);
+		}
+	}
+
+	public function copyLibraries(){
+	}
+
+}
+
+?>

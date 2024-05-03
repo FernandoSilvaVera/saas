@@ -1,0 +1,126 @@
+<?php
+
+namespace HTMLTemplate;
+
+use HTMLExporter\HTMLExporter;
+
+class HTMLTemplate {
+
+	private $html = "";
+
+	private $pages = 1;
+
+	private $htmlExporter = "";
+
+
+
+	private $contentLiLevels = array(
+		"MP 1. Salidas profesionales en la actividad física y el deporte y su relación con la Administración pública" => array(
+			"1.1. Terminología básica",
+			"1.2. ¿Por qué es necesario que existan profesionales cualificados/titulados en el desarrollo de actividades físicas y deportivas?" => array(
+				"1.2.1. Las exigencias normativas y su relación con la salud y la seguridad de los ciudadanos",
+				"1.2.2. Evolución de la actividad físico-deportiva en los últimos años",
+				"1.2.3. Asegurar los beneficios de la actividad física",
+				"1.2.4. Ideas finales"
+				),
+			"1.3. El «catálogo» de titulaciones/cualificaciones deportivas y sus posibilidades profesionales: ¿qué puedo hacer y quién lo puede hacer?" => array(
+				"1.3.1. Terminología básica y consideraciones previas",
+				"1.3.2. Titulaciones oficiales y no oficiales",
+				"1.3.3. Cualificaciones profesionales derivadas de un título o de un certificado de profesionalidad"
+				),
+			"1.4. Titulaciones/cualificaciones profesionales en el ámbito de la actividad física y del deporte y sus competencias profesionales" => array(
+				"1.4.1. Titulaciones de la actividad física y del deporte (oficiales)"
+				),
+			"1.5. Cualificaciones profesionales INCUAL (oficiales)",
+			"1.6. Posibilidades profesionales de cada una de las titulaciones/cualificaciones profesionales",
+			"1.7. Titulaciones de la familia de la actividad física y del deporte" => array(
+				"1.7.1. Graduado/licenciado en Ciencias de la Actividad Física y del Deporte (graduado/licenciado en CAFD)",
+				"1.7.2. Graduado en Educación con mención en Educación Física/maestro en Educación Física (graduado/maestro EF)",
+				"1.7.3. Técnico superior en Enseñanza y Animación Sociodeportiva (TSEASD, antiguo TAFAD)",
+				"1.7.4. Técnico superior en Acondicionamiento Físico (TSAF)",
+				"1.7.5. Técnico superior en Termalismo y Bienestar",
+				"1.7.6. Técnico en Conducción de Actividades Físico-Deportivas en el Medio Natural (TCAMN)",
+				"1.7.7. Técnico en Actividades Ecuestres",
+				"1.7.8. Técnico deportivo y técnico deportivo superior (TD y TDS según el régimen especial de la formación profesional)",
+				"1.7.9. Título profesional básico en Acceso y Conservación en Instalaciones Deportivas"
+				),
+			"1.8. Las ocupaciones (salidas) profesionales en la familia profesional de la actividad física y del deporte: Europa y España" => array(
+					"1.8.1. Ocupaciones profesionales según Europa",
+					"1.8.2. Ocupaciones profesionales según el Estado español",
+					"Ocupaciones profesionales según el Estado español (II)"
+					),
+			"1.9. Ocupaciones profesionales según Gambau (2014)" => array(
+					"1.9.1. Relación entre las principales ocupaciones profesionales y las titulaciones asociadas",
+					"1.9.2. Ocupaciones profesionales del graduado en CAFD según Europa",
+					"1.9.3. Ocupaciones profesionales del graduado en CAFD en España",
+					"1.9.4. Presente y futuro de las actividades y ocupaciones profesionales más demandadas",
+					"Presente y futuro de las actividades y ocupaciones profesionales más demandadas (II)",
+					"Presente y futuro de las actividades y ocupaciones profesionales más demandadas (III)",
+					"1.9.5. Alertas rojas-conclusiones",
+					"1.9.6. Categorías y grupos profesionales en la Administración pública y el encaje del graduado/licenciado en CAFD",
+					"1.9.7. Personal funcionario",
+					"Personal funcionario (II)",
+					"Personal laboral",
+					),
+			),
+		"Resumen",
+		"Mapa de contenidos",
+		"Recursos bibliográficos",
+		"Notas a pie",
+		"banana",
+	);
+
+	private $li = "";
+
+	public function __construct($htmlExporter) {
+		$this->htmlExporter = $htmlExporter;
+	}
+
+	public function loadTemplate($templatePath) {
+		$this->html = file_get_contents($templatePath);
+	}
+
+	public function processLiContent() {
+		$pages = [];
+		$this->li = $this->processLevel($this->contentLiLevels, 0, $pages);
+		return $pages;
+	}
+
+	public function insertContent($page){
+		$this->html = str_replace('{li}', $this->li, $this->html);
+		$this->html = str_replace('{page}', $page+1, $this->html);
+		$this->html = str_replace("{active} . $page}", $page+1, $this->html);
+	}
+
+	private function processLevel($contentLevel, $depth, &$position) {
+		$pos = count($position);
+		$liLevels = [
+			'<li class="{active}"><a class="primerNivel waves-effect" href="{pageLi}.html">{content}</a></li>',
+			'<li class="{active}"><a class="segundoNivel waves-effect" href="{pageLi}.html">{content}</a></li>',
+			'<li class="{active}"><a class="tercerNivel waves-effect" href="{pageLi}.html">{content}</a></li>',
+		];
+
+		$li = "";
+		foreach ($contentLevel as $positionContent => $content) {
+			if (is_array($content)) {
+				// Si es un array, llamar recursivamente y aumentar la profundidad
+				$li .= str_replace(['{content}', '{pageLi}', '{active}'], [$positionContent, count($position), "{active}".count($position)], $liLevels[$depth]);
+				$position[$positionContent] = $positionContent;
+				$liAux = $this->processLevel($content, $depth + 1, $position);
+				$li.= $liAux;
+			} else {
+				// Si no es un array, procesar el contenido actual
+				$li .= str_replace(['{content}', '{pageLi}', '{active}'], [$content, count($position), "{active}".count($position)], $liLevels[$depth]);
+				$position[$content] = $content;
+			}
+		}
+		return $li;
+	}
+
+	public function saveHTMLFile($page){
+		$this->htmlExporter->saveHTMLFile($this->html, "$page.html");
+	}
+
+}
+
+?>

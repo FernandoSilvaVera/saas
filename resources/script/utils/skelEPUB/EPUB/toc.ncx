@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ncx version="2005-1" xmlns="http://www.daisy.org/z3986/2005/ncx/">
+  <head>
+    <meta name="dtb:uid" content="urn:uuid:671f498c-e0b7-41ee-957e-598e7b8a611a" />
+    <meta name="dtb:depth" content="1" />
+    <meta name="dtb:totalPageCount" content="0" />
+    <meta name="dtb:maxPageNumber" content="0" />
+    <meta name="cover" content="portada_jpg" />
+  </head>
+  <docTitle>
+    <text>ud1_practicas_iniciacion_prof_curso2</text>
+  </docTitle>
+  <navMap>
+    <navPoint id="navPoint-0">
+      <navLabel>
+        <text>ud1_practicas_iniciacion_prof_curso2</text>
+      </navLabel>
+      <content src="text/title_page.xhtml" />
+    </navPoint>
+    <navPoint id="navPoint-1">
+      <navLabel>
+        <text>MP 1. Salidas profesionales en la actividad física y el deporte y su relación con la Administración pública</text>
+      </navLabel>
+      <content src="text/ch001.xhtml#mp-1.-salidas-profesionales-en-la-actividad-física-y-el-deporte-y-su-relación-con-la-administración-pública" />
+      <navPoint id="navPoint-2">
+        <navLabel>
+          <text>1.1. Terminología básica</text>
+        </navLabel>
+        <content src="text/ch001.xhtml#terminología-básica" />
+      </navPoint>
+      <navPoint id="navPoint-3">
+        <navLabel>
+          <text>1.2. ¿Por qué es necesario que existan profesionales cualificados/titulados en el desarrollo de actividades físicas y deportivas?</text>
+        </navLabel>
+        <content src="text/ch001.xhtml#por-qué-es-necesario-que-existan-profesionales-cualificadostitulados-en-el-desarrollo-de-actividades-físicas-y-deportivas" />
+        <navPoint id="navPoint-4">
+          <navLabel>
+            <text>1.2.1. Las exigencias normativas y su relación con la salud y la seguridad de los ciudadanos</text>
+          </navLabel>
+          <content src="text/ch001.xhtml#las-exigencias-normativas-y-su-relación-con-la-salud-y-la-seguridad-de-los-ciudadanos" />
+        </navPoint>
+        <navPoint id="navPoint-5">
+          <navLabel>
+            <text>1.2.2. Evolución de la actividad físico-deportiva en los últimos años</text>
+          </navLabel>
+          <content src="text/ch001.xhtml#evolución-de-la-actividad-físico-deportiva-en-los-últimos-años" />
+        </navPoint>
+        <navPoint id="navPoint-6">
+          <navLabel>
+            <text>1.2.3. Asegurar los beneficios de la actividad física</text>
+          </navLabel>
+          <content src="text/ch001.xhtml#asegurar-los-beneficios-de-la-actividad-física" />
+        </navPoint>
+        <navPoint id="navPoint-7">
+          <navLabel>
+            <text>1.2.4. Ideas finales</text>
+          </navLabel>
+          <content src="text/ch001.xhtml#ideas-finales" />
+        </navPoint>
+      </navPoint>
+      <navPoint id="navPoint-8">
+        <navLabel>
+          <text>1.3. El «catálogo» de titulaciones/cualificaciones deportivas y sus posibilidades profesionales: ¿qué puedo hacer y quién lo puede hacer?</text>
+        </navLabel>
+        <content src="text/ch001.xhtml#el-catálogo-de-titulacionescualificaciones-deportivas-y-sus-posibilidades-profesionales-qué-puedo-hacer-y-quién-lo-puede-hacer" />
+        <navPoint id="navPoint-9">
+          <navLabel>
+            <text>1.3.1. Terminología básica y consideraciones previas</text>
+          </navLabel>
+          <content src="text/ch001.xhtml#terminología-básica-y-consideraciones-previas" />
+        </navPoint>
+        <navPoint id="navPoint-10">
+          <navLabel>
+            <text>1.3.2. Titulaciones oficiales y no oficiales</text>
+          </navLabel>
+          <content src="text/ch001.xhtml#titulaciones-oficiales-y-no-oficiales" />
+        </navPoint>
+        <navPoint id="navPoint-11">
+          <navLabel>
+            <text>1.3.3. Cualificaciones profesionales derivadas de un título o de un certificado de profesionalidad</text>
+          </navLabel>
+          <content src="text/ch001.xhtml#cualificaciones-profesionales-derivadas-de-un-título-o-de-un-certificado-de-profesionalidad" />
+        </navPoint>
+      </navPoint>
+      <navPoint id="navPoint-12">
+        <navLabel>
+          <text>1.4. Titulaciones/cualificaciones profesionales en el ámbito de la actividad física y del deporte y sus competencias profesionales</text>
+        </navLabel>
+        <content src="text/ch001.xhtml#titulacionescualificaciones-profesionales-en-el-ámbito-de-la-actividad-física-y-del-deporte-y-sus-competencias-profesionales" />
+        <navPoint id="navPoint-13">
+          <navLabel>
+            <text>1.4.1. Titulaciones de la actividad física y del deporte (oficiales)</text>
+          </navLabel>
+          <content src="text/ch001.xhtml#titulaciones-de-la-actividad-física-y-del-deporte-oficiales" />
+        </navPoint>
+      </navPoint>
+      <navPoint id="navPoint-14">
+        <navLabel>
+          <text>1.5. Cualificaciones profesionales INCUAL (oficiales)</text>
+        </navLabel>
+        <content src="text/ch001.xhtml#cualificaciones-profesionales-incual-oficiales" />
+      </navPoint>
+      <navPoint id="navPoint-15">
+        <navLabel>
+          <text>1.6. Posibilidades profesionales de cada una de las titulaciones/cualificaciones profesionales</text>
+        </navLabel>
+        <content src="text/ch001.xhtml#posibilidades-profesionales-de-cada-una-de-las-titulacionescualificaciones-profesionales" />
+      </navPoint>
+      <navPoint id="navPoint-16">
+        <navLabel>
+          <text>1.7. Titulaciones de la familia de la actividad física y del deporte</text>
+        </navLabel>
+        <content src="text/ch001.xhtml#titulaciones-de-la-familia-de-la-actividad-física-y-del-deporte" />
+        <navPoint id="navPoint-17">
+          <navLabel>
+            <text>1.7.1. Graduado/licenciado en Ciencias de la Actividad Física y del Deporte (graduado/licenciado en CAFD)</text>
+          </navLabel>
+          <content src="text/ch001.xhtml#graduadolicenciado-en-ciencias-de-la-actividad-física-y-del-deporte-graduadolicenciado-en-cafd" />
+        </navPoint>
+        <navPoint id="navPoint-18">
+          <navLabel>
+            <text>1.7.2. Graduado en Educación con mención en Educación Física/maestro en Educación Física (graduado/maestro EF)</text>
+          </navLabel>
+          <content src="text/ch001.xhtml#graduado-en-educación-con-mención-en-educación-físicamaestro-en-educación-física-graduadomaestro-ef" />
+        </navPoint>
+        <navPoint id="navPoint-19">
+          <navLabel>
+            <text>1.7.3. Técnico superior en Enseñanza y Animación Sociodeportiva (TSEASD, antiguo TAFAD)</text>
+          </navLabel>
+          <content src="text/ch001.xhtml#técnico-superior-en-enseñanza-y-animación-sociodeportiva-tseasd-antiguo-tafad" />
+        </navPoint>
+        <navPoint id="navPoint-20">
+          <navLabel>
+            <text>1.7.4. Técnico superior en Acondicionamiento Físico (TSAF)</text>
+          </navLabel>
+          <content src="text/ch001.xhtml#técnico-superior-en-acondicionamiento-físico-tsaf" />
+        </navPoint>
+        <navPoint id="navPoint-21">
+          <navLabel>
+            <text>1.7.5. Técnico superior en Termalismo y Bienestar</text>
+          </navLabel>
+          <content src="text/ch001.xhtml#técnico-superior-en-termalismo-y-bienestar" />
+        </navPoint>
+        <navPoint id="navPoint-22">
+          <navLabel>
+            <text>1.7.6. Técnico en Conducción de Actividades Físico-Deportivas en el Medio Natural (TCAMN)</text>
+          </navLabel>
+          <content src="text/ch001.xhtml#técnico-en-conducción-de-actividades-físico-deportivas-en-el-medio-natural-tcamn" />
+        </navPoint>
+        <navPoint id="navPoint-23">
+          <navLabel>
+            <text>1.7.7. Técnico en Actividades Ecuestres</text>
+          </navLabel>
+          <content src="text/ch001.xhtml#técnico-en-actividades-ecuestres" />
+        </navPoint>
+        <navPoint id="navPoint-24">
+          <navLabel>
+            <text>1.7.8. Técnico deportivo y técnico deportivo superior (TD y TDS según el régimen especial de la formación profesional)</text>
+          </navLabel>
+          <content src="text/ch001.xhtml#técnico-deportivo-y-técnico-deportivo-superior-td-y-tds-según-el-régimen-especial-de-la-formación-profesional" />
+        </navPoint>
+        <navPoint id="navPoint-25">
+          <navLabel>
+            <text>1.7.9. Título profesional básico en Acceso y Conservación en Instalaciones Deportivas</text>
+          </navLabel>
+          <content src="text/ch001.xhtml#título-profesional-básico-en-acceso-y-conservación-en-instalaciones-deportivas" />
+        </navPoint>
+      </navPoint>
+      <navPoint id="navPoint-26">
+        <navLabel>
+          <text>1.8. Las ocupaciones (salidas) profesionales en la familia profesional de la actividad física y del deporte: Europa y España</text>
+        </navLabel>
+        <content src="text/ch001.xhtml#las-ocupaciones-salidas-profesionales-en-la-familia-profesional-de-la-actividad-física-y-del-deporte-europa-y-españa" />
+        <navPoint id="navPoint-27">
+          <navLabel>
+            <text>1.8.1. Ocupaciones profesionales según Europa</text>
+          </navLabel>
+          <content src="text/ch001.xhtml#ocupaciones-profesionales-según-europa" />
+        </navPoint>
+        <navPoint id="navPoint-28">
+          <navLabel>
+            <text>1.8.2. Ocupaciones profesionales según el Estado español</text>
+          </navLabel>
+          <content src="text/ch001.xhtml#ocupaciones-profesionales-según-el-estado-español" />
+        </navPoint>
+        <navPoint id="navPoint-29">
+          <navLabel>
+            <text>Ocupaciones profesionales según el Estado español (II)</text>
+          </navLabel>
+          <content src="text/ch001.xhtml#ocupaciones-profesionales-según-el-estado-español-ii" />
+        </navPoint>
+      </navPoint>
+      <navPoint id="navPoint-30">
+        <navLabel>
+          <text>1.9. Ocupaciones profesionales según Gambau (2014)</text>
+        </navLabel>
+        <content src="text/ch001.xhtml#ocupaciones-profesionales-según-gambau-2014" />
+        <navPoint id="navPoint-31">
+          <navLabel>
+            <text>1.9.1. Relación entre las principales ocupaciones profesionales y las titulaciones asociadas</text>
+          </navLabel>
+          <content src="text/ch001.xhtml#relación-entre-las-principales-ocupaciones-profesionales-y-las-titulaciones-asociadas" />
+        </navPoint>
+        <navPoint id="navPoint-32">
+          <navLabel>
+            <text>1.9.2. Ocupaciones profesionales del graduado en CAFD según Europa</text>
+          </navLabel>
+          <content src="text/ch001.xhtml#ocupaciones-profesionales-del-graduado-en-cafd-según-europa" />
+        </navPoint>
+        <navPoint id="navPoint-33">
+          <navLabel>
+            <text>1.9.3. Ocupaciones profesionales del graduado en CAFD en España</text>
+          </navLabel>
+          <content src="text/ch001.xhtml#ocupaciones-profesionales-del-graduado-en-cafd-en-españa" />
+        </navPoint>
+        <navPoint id="navPoint-34">
+          <navLabel>
+            <text>1.9.4. Presente y futuro de las actividades y ocupaciones profesionales más demandadas</text>
+          </navLabel>
+          <content src="text/ch001.xhtml#presente-y-futuro-de-las-actividades-y-ocupaciones-profesionales-más-demandadas" />
+        </navPoint>
+        <navPoint id="navPoint-35">
+          <navLabel>
+            <text>Presente y futuro de las actividades y ocupaciones profesionales más demandadas (II)</text>
+          </navLabel>
+          <content src="text/ch001.xhtml#presente-y-futuro-de-las-actividades-y-ocupaciones-profesionales-más-demandadas-ii" />
+        </navPoint>
+        <navPoint id="navPoint-36">
+          <navLabel>
+            <text>Presente y futuro de las actividades y ocupaciones profesionales más demandadas (III)</text>
+          </navLabel>
+          <content src="text/ch001.xhtml#presente-y-futuro-de-las-actividades-y-ocupaciones-profesionales-más-demandadas-iii" />
+        </navPoint>
+        <navPoint id="navPoint-37">
+          <navLabel>
+            <text>1.9.5. Alertas rojas-conclusiones</text>
+          </navLabel>
+          <content src="text/ch001.xhtml#alertas-rojas-conclusiones" />
+        </navPoint>
+        <navPoint id="navPoint-38">
+          <navLabel>
+            <text>1.9.6. Categorías y grupos profesionales en la Administración pública y el encaje del graduado/licenciado en CAFD</text>
+          </navLabel>
+          <content src="text/ch001.xhtml#categorías-y-grupos-profesionales-en-la-administración-pública-y-el-encaje-del-graduadolicenciado-en-cafd" />
+        </navPoint>
+        <navPoint id="navPoint-39">
+          <navLabel>
+            <text>1.9.7. Personal funcionario</text>
+          </navLabel>
+          <content src="text/ch001.xhtml#personal-funcionario" />
+        </navPoint>
+        <navPoint id="navPoint-40">
+          <navLabel>
+            <text>Personal funcionario (II)</text>
+          </navLabel>
+          <content src="text/ch001.xhtml#personal-funcionario-ii" />
+        </navPoint>
+        <navPoint id="navPoint-41">
+          <navLabel>
+            <text>1.9.8. Personal laboral</text>
+          </navLabel>
+          <content src="text/ch001.xhtml#personal-laboral" />
+        </navPoint>
+      </navPoint>
+    </navPoint>
+    <navPoint id="navPoint-42">
+      <navLabel>
+        <text>Resumen</text>
+      </navLabel>
+      <content src="text/ch002.xhtml#resumen" />
+    </navPoint>
+    <navPoint id="navPoint-43">
+      <navLabel>
+        <text>Mapa de contenidos</text>
+      </navLabel>
+      <content src="text/ch003.xhtml#mapa-de-contenidos" />
+    </navPoint>
+    <navPoint id="navPoint-44">
+      <navLabel>
+        <text>Recursos bibliográficos</text>
+      </navLabel>
+      <content src="text/ch004.xhtml#recursos-bibliográficos" />
+    </navPoint>
+    <navPoint id="navPoint-45">
+      <navLabel>
+        <text>Notas a pie</text>
+      </navLabel>
+      <content src="text/ch005.xhtml#notas-a-pie" />
+    </navPoint>
+  </navMap>
+</ncx>

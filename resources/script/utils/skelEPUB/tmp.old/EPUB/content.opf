@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package xmlns="http://www.idpf.org/2007/opf" version="2.0" unique-identifier="epub-id-1">
+  <metadata xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:opf="http://www.idpf.org/2007/opf">
+    <dc:title id="epub-title-1"/>
+    <dc:title id="epub-title-2"/>
+    <dc:date id="epub-date-1">2024-02-09T08:10:08Z</dc:date>
+    <dc:language>es</dc:language>
+    <dc:creator id="epub-creator-1"/>
+    <meta/>
+  </metadata>
+  <manifest>
+    <item id="ncx" href="toc.ncx" media-type="application/x-dtbncx+xml"/>
+    <item id="nav" href="nav.x.html" media-type="application/xhtml+xml"/>
+    <item id="style" href="styles/stylesheet1.css" media-type="text/css"/>
+    <item id="image1.jpeg" href="media/image1.jpeg" media-type="image/jpeg"/>
+    <item id="image3.jpeg" href="media/image3.jpeg" media-type="image/jpeg"/>
+    <item id="image4.jpeg" href="media/image4.jpeg" media-type="image/jpeg"/>
+    <item id="image7.jpeg" href="media/image7.jpeg" media-type="image/jpeg"/>
+    <item id="image9.jpeg" href="media/image9.jpeg" media-type="image/jpeg"/>
+    <item id="image15.jpeg" href="media/image15.jpeg" media-type="image/jpeg"/>
+    <item id="image16.jpeg" href="media/image16.jpeg" media-type="image/jpeg"/>
+    <item id="image17.jpeg" href="media/image17.jpeg" media-type="image/jpeg"/>
+    <item id="image18.jpeg" href="media/image18.jpeg" media-type="image/jpeg"/>
+    <item id="image19.jpeg" href="media/image19.jpeg" media-type="image/jpeg"/>
+    <item id="image20.jpeg" href="media/image20.jpeg" media-type="image/jpeg"/>
+    <item id="image21.jpeg" href="media/image21.jpeg" media-type="image/jpeg"/>
+    <item id="image22.jpeg" href="media/image22.jpeg" media-type="image/jpeg"/>
+    <item id="image23.jpeg" href="media/image23.jpeg" media-type="image/jpeg"/>
+    <item id="image24.jpeg" href="media/image24.jpeg" media-type="image/jpeg"/>
+    <item id="image25.jpeg" href="media/image25.jpeg" media-type="image/jpeg"/>
+    <item id="image26.jpeg" href="media/image26.jpeg" media-type="image/jpeg"/>
+    <item id="image27.jpeg" href="media/image27.jpeg" media-type="image/jpeg"/>
+    <item id="image28.jpeg" href="media/image28.jpeg" media-type="image/jpeg"/>
+    <item id="image29.jpeg" href="media/image29.jpeg" media-type="image/jpeg"/>
+    <item id="image30.jpeg" href="media/image30.jpeg" media-type="image/jpeg"/>
+    <item id="image31.jpeg" href="media/image31.jpeg" media-type="image/jpeg"/>
+    <item id="image32.jpeg" href="media/image32.jpeg" media-type="image/jpeg"/>
+    <item id="image33.jpeg" href="media/image33.jpeg" media-type="image/jpeg"/>
+    <item id="image34.jpeg" href="media/image34.jpeg" media-type="image/jpeg"/>
+    <item id="image36.jpeg" href="media/image36.jpeg" media-type="image/jpeg"/>
+    <item id="image37.jpeg" href="media/image37.jpeg" media-type="image/jpeg"/>
+    <item id="image38.jpeg" href="media/image38.jpeg" media-type="image/jpeg"/>
+    <item id="image39.jpeg" href="media/image39.jpeg" media-type="image/jpeg"/>
+    <item id="image40.jpeg" href="media/image40.jpeg" media-type="image/jpeg"/>
+    <item id="image41.jpeg" href="media/image41.jpeg" media-type="image/jpeg"/>
+    <item id="image42.jpeg" href="media/image42.jpeg" media-type="image/jpeg"/>
+    <item id="image43.jpeg" href="media/image43.jpeg" media-type="image/jpeg"/>
+    <item id="image44.jpeg" href="media/image44.jpeg" media-type="image/jpeg"/>
+    <item id="image45.jpeg" href="media/image45.jpeg" media-type="image/jpeg"/>
+    <item id="image46.jpeg" href="media/image46.jpeg" media-type="image/jpeg"/>
+    <item id="image47.jpeg" href="media/image47.jpeg" media-type="image/jpeg"/>
+    <item id="image48.jpeg" href="media/image48.jpeg" media-type="image/jpeg"/>
+  </manifest>
+  <spine toc="ncx"/>
+  <guide>
+    <reference type="toc" title="ud1_practicas_iniciacion_prof_curso2" href="nav.x.html"/>
+  </guide>
+</package>

@@ -1,0 +1,26 @@
+#section {
+	display:none;
+}
+table > thead > tr.header img {
+  width:100px !important;
+  margin:0;
+}
+
+
+a {
+		word-break:break-all;
+}
+
+caption, .contenidoActividades {display:none;}
+img:only-of-type {margin:0 auto;}
+
+table td, table th {
+  border:1px solid black;
+  padding:5px;
+}
+
+table {
+  border-collapse: collapse;
+  width:100%;
+  max-width:100%;
+}

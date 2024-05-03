@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package version="2.0" xmlns="http://www.idpf.org/2007/opf" unique-identifier="epub-id-1">
+  <metadata xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:opf="http://www.idpf.org/2007/opf">
+    <dc:identifier id="epub-id-1">urn:uuid:671f498c-e0b7-41ee-957e-598e7b8a611a</dc:identifier>
+    <dc:title id="epub-title-1">ud1_practicas_iniciacion_prof_curso2</dc:title>
+    <dc:title id="epub-title-2">ud1_practicas_iniciacion_prof_curso2</dc:title>
+    <dc:date id="epub-date-1">2023-07-19T09:39:15Z</dc:date>
+    <dc:language>es</dc:language>
+    <dc:creator id="epub-creator-1">Universidad Isabel I</dc:creator>
+    <meta name="cover" content="portada_jpg" />
+  </metadata>
+  <manifest>
+    <item id="ncx" href="toc.ncx" media-type="application/x-dtbncx+xml" />
+    <item id="nav" href="nav.xhtml" media-type="application/xhtml+xml" />
+    <item id="style" href="styles/stylesheet1.css" media-type="text/css" />
+    <item id="cover_xhtml" href="text/cover.xhtml" media-type="application/xhtml+xml" />
+    <item id="title_page_xhtml" href="text/title_page.xhtml" media-type="application/xhtml+xml" />
+    <item id="ch001_xhtml" href="text/ch001.xhtml" media-type="application/xhtml+xml" />
+    <item id="ch002_xhtml" href="text/ch002.xhtml" media-type="application/xhtml+xml" />
+    <item id="ch003_xhtml" href="text/ch003.xhtml" media-type="application/xhtml+xml" />
+    <item id="ch004_xhtml" href="text/ch004.xhtml" media-type="application/xhtml+xml" />
+    <item id="ch005_xhtml" href="text/ch005.xhtml" media-type="application/xhtml+xml" />
+    <item id="portada_jpg" href="media/portada.jpg" media-type="image/jpeg" />
+    <item id="file24_png" href="media/file24.png" media-type="image/png" />
+    <item id="file23_jpg" href="media/file23.jpg" media-type="image/jpeg" />
+    <item id="file22_jpg" href="media/file22.jpg" media-type="image/jpeg" />
+    <item id="file21_jpg" href="media/file21.jpg" media-type="image/jpeg" />
+    <item id="file20_jpg" href="media/file20.jpg" media-type="image/jpeg" />
+    <item id="file19_jpg" href="media/file19.jpg" media-type="image/jpeg" />
+    <item id="file18_jpg" href="media/file18.jpg" media-type="image/jpeg" />
+    <item id="file17_jpg" href="media/file17.jpg" media-type="image/jpeg" />
+    <item id="file16_jpg" href="media/file16.jpg" media-type="image/jpeg" />
+    <item id="file15_jpg" href="media/file15.jpg" media-type="image/jpeg" />
+    <item id="file14_jpg" href="media/file14.jpg" media-type="image/jpeg" />
+    <item id="file13_jpg" href="media/file13.jpg" media-type="image/jpeg" />
+    <item id="file12_png" href="media/file12.png" media-type="image/png" />
+    <item id="file11_jpg" href="media/file11.jpg" media-type="image/jpeg" />
+    <item id="file10_png" href="media/file10.png" media-type="image/png" />
+    <item id="file9_jpg" href="media/file9.jpg" media-type="image/jpeg" />
+    <item id="file8_jpg" href="media/file8.jpg" media-type="image/jpeg" />
+    <item id="file7_png" href="media/file7.png" media-type="image/png" />
+    <item id="file6_png" href="media/file6.png" media-type="image/png" />
+    <item id="file5_png" href="media/file5.png" media-type="image/png" />
+    <item id="file4_jpg" href="media/file4.jpg" media-type="image/jpeg" />
+    <item id="file3_jpg" href="media/file3.jpg" media-type="image/jpeg" />
+    <item id="file2_jpg" href="media/file2.jpg" media-type="image/jpeg" />
+    <item id="file1_jpg" href="media/file1.jpg" media-type="image/jpeg" />
+    <item id="file0_jpg" href="media/file0.jpg" media-type="image/jpeg" />
+  </manifest>
+  <spine toc="ncx">
+    <itemref idref="cover_xhtml" />
+    <itemref idref="title_page_xhtml" linear="yes" />
+    <itemref idref="ch001_xhtml" />
+    <itemref idref="ch002_xhtml" />
+    <itemref idref="ch003_xhtml" />
+    <itemref idref="ch004_xhtml" />
+    <itemref idref="ch005_xhtml" />
+  </spine>
+  <guide>
+    <reference type="toc" title="ud1_practicas_iniciacion_prof_curso2" href="nav.xhtml" />
+    <reference type="cover" title="Cover" href="text/cover.xhtml" />
+  </guide>
+</package>
