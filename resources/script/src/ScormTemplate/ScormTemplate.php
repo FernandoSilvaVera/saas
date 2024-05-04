@@ -87,6 +87,7 @@ class ScormTemplate {
 			echo "Los ficheros han sido copiados exitosamente.\n";
 		} else {
 			echo "Ocurrió un error al copiar los ficheros. Código de error: $return_var\n";
+			echo "<br>";
 		}
 
 	}

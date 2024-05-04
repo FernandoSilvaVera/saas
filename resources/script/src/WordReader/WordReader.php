@@ -306,7 +306,7 @@ class WordReader {
 
 			$comando = "sudo unoconv -o $pathPDF $pathWORD";
 
-			echo "comando:\n ";
+			echo "comando:<br> ";
 			echo $comando;
 			echo "\n";
 

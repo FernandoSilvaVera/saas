@@ -1,6 +1,6 @@
 <?php
 
-require_once './vendor/autoload.php';
+require_once __DIR__ . '/vendor/autoload.php';
 
 use WordReader\WordReader;
 use HTMLTemplate\HTMLTemplate;
@@ -11,6 +11,8 @@ use HTMLExporter\HTMLExporter;
 $scriptPATH = dirname(__FILE__);
 
 $output = __DIR__ . '/entregable/';
+
+exec("cd .");
 
 $wordFilePath = $argv[1];
 $outputUser = $argv[2];
@@ -26,8 +28,8 @@ $htmlTemplate = new HTMLTemplate($htmlExporter);
 $epubTemplate = new EPUBTemplate($htmlExporter);
 $scormTemplate = new ScormTemplate($htmlExporter, $scriptPATH);
 
-$htmlTemplatePath = './utils/skel/skel.html'; // Reemplazar con la ruta real de la plantilla
-$skelEPUB = './utils/skelEPUB/';
+$htmlTemplatePath = __DIR__ . '/utils/skel/skel.html';
+$skelEPUB = __DIR__ . '/utils/skelEPUB/';
 
 // Cargar y leer el contenido del archivo Word
 $wordContent = $wordReader->loadWordFile($wordFilePath);

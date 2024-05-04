@@ -1,8 +1,22 @@
+var templateId = null
+
 function useTemplate(template) {
-	$('#rightBackgroundTemplate').css('background-color', template.css_right);
-	$('#leftBackgroundTemplate').css('background-color', template.css_left);
-	$('#topBackgroundTemplate').css('background-color', template.css_top);
-	$('.iconsTop').css('fill', template.css_icons);
-	$('#leftBackgroundTemplate p').css('font-family', template.typography);
-	$('#leftBackgroundTemplate p').css('font-size', template.font_size + 'px');
+	templateId = template.id
 }
+
+function previewDocument(){
+	document.getElementById("templateId").value = templateId;
+	var formulario = document.getElementById("formularioSubir");
+	formulario.submit();
+}
+
+function downloadButton(){
+	document.getElementById("templateIdDownload").value = templateId;
+	var formulario = document.getElementById("download");
+	formulario.submit();
+}
+
+document.getElementById("subirFichero").addEventListener("click", function(event) {
+	event.preventDefault(); // Prevenir la acción por defecto del enlace
+	document.getElementById("archivoInput").click();
+});

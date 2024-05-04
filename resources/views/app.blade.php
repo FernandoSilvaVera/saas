@@ -53,7 +53,14 @@
                             <div class="select app_top_select">
 
                                 <div class="selected_tab">
-                                    <p class="text_sm selected_text">Selecciona una plantilla</p>
+					@if(!isset($template))
+					    <p class="text_sm selected_text">Selecciona una plantilla</p>
+					@endif
+
+					@if(isset($template))
+					    <p class="text_sm selected_text">{{$template->template_name}}</p>
+					@endif
+
                                     <!-- arrow_down_app -->
                                     <div class="arrow_down_app">
                                         <img src="./img/arrow_down_app.svg" alt="">
@@ -62,24 +69,51 @@
 
 
                                 <div class="select_tab_dropdown" id="myTab" role="tablist">
-					@foreach($templates as $template)
-						<button onclick="useTemplate({{$template}})" id="{{$template->id}}" class="select_tab">{{ $template->template_name }}</button>
+					@foreach($templates as $templateList)
+						<button onclick="useTemplate({{$templateList}})" id="{{$templateList->id}}" class="select_tab">{{ $templateList->template_name }}</button>
 					@endforeach
                                 </div>
 
 
                             </div>
 
+			    @if(session('success'))
+			    <div class="alert alert-success">
+{{ session('success') }}
+</div>
+@endif
+
                             <div class="apptop_right d-flex">
-                                <a href="#" class="button button_trasparent mr_20">Upload Files</a>
-                                <a href="#" class="button button_trasparent">Upload Files</a>
+				<form id="formularioSubir" action="{{ route('preview-document') }}" method="POST" enctype="multipart/form-data">
+					@CSRF
+					<input type="hidden" id="templateId" name="templateId" value="">
+					<input type="file" id="archivoInput" name="fileName" style="display: none;">
+					@if(isset($filePath))
+						<input type="hidden" id="archivoInputPrev" name="filePath" value="{{$filePath}}">
+					@endif
+					<a href="#" id="subirFichero" class="button button_trasparent mr_20">Subir Fichero</a>
+				</form>
+				<a onclick="previewDocument()" class="button button_trasparent mr_20" style="cursor: pointer">Preview</a>
+				@if(isset($showDownload))
+				<form id="download" action="{{ route('download') }}" method="POST" enctype="multipart/form-data">
+
+					@CSRF
+					<input type="hidden" id="templateIdDownload" name="templateId" value="">
+					@if(isset($filePath))
+						<input type="hidden" name="filePath" value="{{$filePath}}">
+					@endif
+				</form>
+				<a onclick="downloadButton()" id="downloadFile" class="button button_trasparent mr_20">Descargar</a>
+
+				@endif
                             </div>
                         </div>
 
-                                <div class="preview_template section_padding_bg">
-					@include('includes/template')
+				<div id="preview">
+					@if(isset($preview))
+						<iframe id="miIframe" src="{{$preview}}" frameborder="0" style="width:100%; height:800px;"></iframe>
+					@endif
 				</div>
-
 			</div>
                     </div>
                 </section>
@@ -94,6 +128,14 @@
     <script src="js/plugins.js"></script>
     <script src="js/main.js"></script>
     <script src="{{ asset('js/app.js') }}"></script>
+
+
+	@if(isset($template))
+		<script>
+			templateId = {{$template->id}}
+		</script>
+	@endif
+	
 
 </body>
 </html>
