@@ -13,6 +13,44 @@
     <link rel="stylesheet" href="{{ asset('css/responsive.css') }}">
 
     </head>
+
+
+    @auth
+
+
+
+    @else
+
+
+ <form method="POST" action="{{ route('login') }}">
+         @csrf
+
+	         <div>
+		             <label for="email">Email</label>
+			                 <input type="email" id="email" name="email" value="{{ old('email') }}" required autofocus>
+					         </div>
+
+						         <div>
+							             <label for="password">Contraseña</label>
+								                 <input type="password" id="password" name="password" required autocomplete="current-password">
+										         </div>
+
+											         <div>
+												             <input type="checkbox" id="remember" name="remember">
+													                 <label for="remember">Recuérdame</label>
+															         </div>
+
+																         <button type="submit">Iniciar sesión</button>
+																	     </form>
+
+
+    @endauth
+
+
+
+
+
+
 <body class="antialiased">
 
 

@@ -19,12 +19,12 @@
 			<p class="text_xsm">OR</p>
 		    </div>
 
-		    <form action="#" class="account-info">
+		 <form method="POST" action="{{ route('login') }}">
+		 @csrf
 			<div class="form_group pb_24 w-100">
 			    <label for="Email" class="d-flex pb_10">Type here</label>
 			    <div class="show_hide_warp position-relative">
-				<input type="email" class="input_field w-100" value="example@gmail.com"
-				    required>
+				 <input type="email" class="input_field w-100" id="email" name="email" value="{{ old('email') }}" required autofocus>
 				<div class="show_hide">
 				    <div class="eye eye_uncut">
 					<img src="./img/eye.svg" alt="">
@@ -39,8 +39,8 @@
 			    <div class="form_inner_wrap">
 				<label for="Password" class="d-flex pb_10">Password</label>
 				<div class="show_hide_warp position-relative">
-				    <input type="password" class="input_field w-100"
-					value="*****************" required>
+
+					 <input type="password" class="input_field w-100" id="password" name="password" required autocomplete="current-password">
 				    <div class="show_hide">
 					<div class="eye eye_uncut">
 					    <img src="./img/eye.svg" alt="">
@@ -53,7 +53,6 @@
 				<p class="text_xsm pt_10">At least 8 characters and one number.</p>
 			    </div>
 			</div>
-		    </form>
 
 		    <div class="check_box active pt_24 pb_24 d-flex align-items-center ">
 			<div class="check">
@@ -62,11 +61,13 @@
 			<p class="text_sm pl_10">Remember me</p>
 		    </div>
 
-		    <button type="submit" class="button w-100">Log in</button>
+		    <button type="submit" class="button w-100">Iniciar Sesión</button>
 
 		    <p class="text_xsm pt_24 text-center">Don’t have an account? <a href="#">Sign up</a>
 		    </p>
 		</div>
+
+	    </form>
 
 	    </div>
 	</div>

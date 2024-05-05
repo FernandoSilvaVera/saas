@@ -109,10 +109,21 @@
                             </div>
                         </div>
 
+                    <div class="container-fluid">
+                        <div class="row">
+
+                            <div class="col-lg-3">
+                                <div class="section_padding_bg">
+					@include('includes/remaining', ['bloquearCampos' => true])
+                                </div>
+                            </div>
+
+                            <div class="col-lg-9">
 				<div id="preview">
 					@if(isset($preview))
 						<iframe id="miIframe" src="{{$preview}}" frameborder="0" style="width:100%; height:800px;"></iframe>
 					@endif
+				</div>
 				</div>
 			</div>
                     </div>

@@ -9,10 +9,13 @@ class History extends Model
 {
     use HasFactory;
 
+    protected $table = 'history';
+
+
     protected $fillable = [
-        'main_file_path',
-        'date',
-        'email',
-        'audio_path',
+        'name',
+	'userId',
+        'templateName',
+        'pathZip',
     ];
 }

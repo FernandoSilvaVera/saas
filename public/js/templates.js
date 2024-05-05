@@ -35,11 +35,14 @@ $(document).ready(function() {
 		}
 	});
 
-
 	$('#saveTemplate').click(function() {
+
+		var faviconImg = document.getElementById("faviconImg").getAttribute("src");
+		var logoImg = document.getElementById("logoImg").getAttribute("src");
+
 		var jsonData = {};
-		jsonData.logo_path = $('#file-input1').val();
-		jsonData.favicon_path = $('#file-input2').val();
+		jsonData.logo_path = logoImg;
+		jsonData.favicon_path = faviconImg;
 		jsonData.template_name = $('#templateName').val();
 		jsonData.css_left = $('#leftBackground').val();
 		jsonData.css_right = $('#rightBackground').val();
@@ -47,9 +50,13 @@ $(document).ready(function() {
 		jsonData.css_icons = $('#topIconsBackground').val();
 		jsonData.typography = $('#fontFamily').val();
 		jsonData.font_size = $('#fontSize').val();
+		jsonData._token = csrfToken;
+		jsonData.templateId = templateId;
+
+
 
 		$.ajax({
-			url: '/saas/public/api/templates',
+			url: templateNew,
 			type: 'POST',
 			contentType: 'application/json',
 			data: JSON.stringify(jsonData),
@@ -61,6 +68,5 @@ $(document).ready(function() {
 			}
 		});
 	});
-
 
 });

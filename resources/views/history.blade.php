@@ -60,92 +60,19 @@
                             <table>
                                 <thead>
                                     <tr>
-                                        <th>User Name</th>
-                                        <th>Card Number</th>
-                                        <th>Start Date</th>
-                                        <th>End Date</th>
-                                        <th>Status</th>
+                                        <th>Fecha generado</th>
+                                        <th>Plantilla usada</th>
+                                        <th>Acción</th>
                                     </tr>
                                 </thead>
                                 <tbody>
+					@foreach($histories as $history)
                                     <tr>
-                                        <td>Erik Malmberg</td>
-                                        <td>XXXX-XXXX-XXXX-2582</td>
-                                        <td>10/02/2020</td>
-                                        <td>10/02/2024</td>
-                                        <td> <a href="#" class="button">Download Again</a>
-                                        </td>
+                                        <td>{{$history->created_at}}</td>
+                                        <td>{{$history->templateName}}</td>
+                                        <td><a href="{{ route('history.download', ['id' => $history->id]) }}" class="button">Descargar</a></td>
                                     </tr>
-                                    <tr>
-                                        <td>Tom Plath</td>
-                                        <td>XXXX-XXXX-XXXX-2582</td>
-                                        <td>10/02/2020</td>
-                                        <td>10/02/2024</td>
-                                        <td> <a href="#" class="button">Download Again</a></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Joseph Kelley</td>
-                                        <td>XXXX-XXXX-XXXX-2582</td>
-                                        <td>10/02/2020</td>
-                                        <td>10/02/2024</td>
-                                        <td> <a href="#" class="button">Download Again</a></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Cindy Welsh</td>
-                                        <td>XXXX-XXXX-XXXX-2582</td>
-                                        <td>10/02/2020</td>
-                                        <td>10/02/2024</td>
-                                        <td> <a href="#" class="button">Download Again</a></td>
-                                    </tr>
-                                    <tr>
-                                        <td>James Myrick</td>
-                                        <td>XXXX-XXXX-XXXX-2582</td>
-                                        <td>10/02/2020</td>
-                                        <td>10/02/2024</td>
-                                        <td> <a href="#" class="button">Download Again</a></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Tom Plath</td>
-                                        <td>XXXX-XXXX-XXXX-2582</td>
-                                        <td>10/02/2020</td>
-                                        <td>10/02/2024</td>
-                                        <td> <a href="#" class="button">Download Again</a></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Joseph Kelley</td>
-                                        <td>XXXX-XXXX-XXXX-2582</td>
-                                        <td>10/02/2020</td>
-                                        <td>10/02/2024</td>
-                                        <td> <a href="#" class="button">Download Again</a></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Cindy Welsh</td>
-                                        <td>XXXX-XXXX-XXXX-2582</td>
-                                        <td>10/02/2020</td>
-                                        <td>10/02/2024</td>
-                                        <td> <a href="#" class="button">Download Again</a></td>
-                                    </tr>
-                                    <tr>
-                                        <td>James Myrick</td>
-                                        <td>XXXX-XXXX-XXXX-2582</td>
-                                        <td>10/02/2020</td>
-                                        <td>10/02/2024</td>
-                                        <td> <a href="#" class="button">Download Again</a></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Cindy Welsh</td>
-                                        <td>XXXX-XXXX-XXXX-2582</td>
-                                        <td>10/02/2020</td>
-                                        <td>10/02/2024</td>
-                                        <td> <a href="#" class="button">Download Again</a></td>
-                                    </tr>
-                                    <tr>
-                                        <td>James Myrick</td>
-                                        <td>XXXX-XXXX-XXXX-2582</td>
-                                        <td>10/02/2020</td>
-                                        <td>10/02/2024</td>
-                                        <td> <a href="#" class="button">Download Again</a></td>
-                                    </tr>
+					@endforeach
                                 </tbody>
                             </table>
                         </div>

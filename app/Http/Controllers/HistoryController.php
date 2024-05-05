@@ -6,14 +6,29 @@ use Illuminate\Http\Request;
 use App\Models\Template;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
+use App\Models\History;
+use Illuminate\Support\Facades\Auth;
 
 class HistoryController extends Controller
 {
 
 	public function listHistory()
 	{
+		$user = Auth::user();
+		$userId = $user->id;
+
+		$histories = History::where('userId', $userId)->get();
+
 		return view('history', [
+			"histories" => $histories,
 		]);
+	}
+
+	public function download(Request $request)
+	{
+		$id = $request->input('id');
+		$history = History::find($id);
+		return response()->download($history->pathZip);
 	}
 
 }

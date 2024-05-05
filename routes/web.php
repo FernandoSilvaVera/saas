@@ -5,6 +5,8 @@ use App\Http\Controllers\AppController;
 use App\Http\Controllers\PlansController;
 use App\Http\Controllers\UsersController;
 use App\Http\Controllers\DownloadController;
+use App\Http\Controllers\HistoryController;
+use App\Http\Controllers\TemplateController;
 
 
 /*
@@ -24,7 +26,10 @@ Route::get('/', function () {
 	return ['Laravel' => app()->version()];
 });
 
-Route::get('/', [AppController::class, 'index']);
+Route::get('/', function () {
+	return redirect('/app');
+});
+
 Route::get('/app', [AppController::class, 'index']);
 
 Route::get('/plans', [PlansController::class, 'index']);
@@ -33,11 +38,15 @@ Route::get('/buy/{id}', [PlansController::class, 'buy']);
 Route::get('/createUsers', [UsersController::class, 'createUsers']);
 Route::get('/listUsers', [UsersController::class, 'listUsers']);
 
+Route::get('/historyDownload', [HistoryController::class, 'download'])->name('history.download');
+
 Route::post('/download', [DownloadController::class, 'download'])->name('download');
 
 Route::post('/preview', [DownloadController::class, 'preview'])->name('preview-document');
 
 Route::get('/history', [HistoryController::class, 'listHistory']);
+
+Route::get('/templates', [TemplateController::class, 'listTemplates']);
 
 Route::get('/newPlan', function () {
 	return view('newPlan');
@@ -46,12 +55,6 @@ Route::get('/newPlan', function () {
 Route::get('/contact', function () {
 	return view('contact');
 });
-
-Route::get('/template', function () {
-	return view('template');
-});
-
-
 
 Route::get('/account', function () {
 	return view('account');
@@ -62,3 +65,7 @@ Route::get('/customize', function () {
 });
 
 
+
+Route::post('/newTemplate', [TemplateController::class, 'store'])->name('template.new');
+
+Route::get('/template', [TemplateController::class, 'edit'])->name('template.edit');

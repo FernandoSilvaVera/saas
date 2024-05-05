@@ -20,6 +20,7 @@ class Template extends Model
         'css_top',
         'css_icons',
         'typography',
-        'font_size'
+        'font_size',
+	'userId'
     ];
 }

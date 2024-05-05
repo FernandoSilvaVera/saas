@@ -4,11 +4,22 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Template;
+use App\Models\History;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Auth;
+use Hashids\Hashids;
 
 class DownloadController extends Controller
 {
+
+	public function generateHashId()
+	{
+		$timestamp = time();
+		$hashids = new Hashids('tu_salt_personalizado', 10);
+		$hash = $hashids->encode($timestamp);
+		return $hash;
+	}
 
 	public function useTemplate($templateId, $path)
 	{
@@ -44,64 +55,105 @@ class DownloadController extends Controller
 		} else {
 			echo "El archivo no existe.";
 		}
+
+		$logo = $path . "/imagenes/logo.png";
+		$command = "cp $template->logo_path $logo";
+
+		exec($command);
+
+		$favicon = $path . "/imagenes/favicon.ico";
+		exec("cp $template->favicon_path $favicon");
+
 		return $template;
 	}
 
-	public function getPath($path)
+	public function getPath($path, $hashId)
 	{
-		$user = "fernando";
+
+		$return = null;
+
+		$user = auth()->user();
+
+		$user = $user->name;
 		switch($path){
 			case "PREVIEW_PATH":
 				$path = env("PREVIEW_PATH") . "$user";
-				$id = 1;
-				return "$path/$id";
+				$return = "$path/$hashId";
+				break;
 			case "PREVIEW_URL":
 				$path = env("PREVIEW_URL") . "$user";
-				$id = 1;
-				return "$path/$id/0.html";
+				$return = "$path/$hashId/0.html";
+				break;
 			case "DOWNLOAD_PATH":
 				$path = env("DOWNLOAD_PATH") . "$user";
-				$id = 2;
-				return "$path/$id";
+				$return = "$path/$hashId";
+				break;
+			case "USER_FOLDER_PATH":
+				$path = env("DOWNLOAD_PATH") . "$user";
+				$return = "$path/";
+				break;
 			case "FILE_PATH":
 				$path = env("PREVIEW_PATH") . "$user";
-				return "$path/";
+				$return = "$path/";
+				break;
 			default:
 				break;
 		}
-		return null;
+
+		if (!file_exists($return)) {
+			if (!mkdir($return, 0755, true)) {
+			}
+		}
+
+		return $return;
 	}
 
 	public function download(Request $request)
 	{
-		$templateId = $request->query('templateId');
+
+		$hashId = $this->generateHashId();
+
+		$fileName = $request->input('filePath');
+		$filename = $this->getPath("FILE_PATH", $hashId) . $fileName;
+
+		$templateId = $request->input('templateId');
 
 		$scriptPath = resource_path('script/index.php');
-		$filename = resource_path('script/test_1.docx');
 
-		$path = $this->getPath("DOWNLOAD_PATH");
+		$path = $this->getPath("DOWNLOAD_PATH", $hashId);
 
 		$command = "php {$scriptPath} {$filename} {$path}";
 
 		$output = shell_exec($command);
 
-		$this->useTemplate($templateId, $path);
-
+		$template = $this->useTemplate($templateId, $path);
 
 		$zipFilePath = $path;
 		$command = "zip -r {$zipFilePath} {$path}";
 		exec($command);
 
+		$userId = Auth::id();
+
+		$history = new History();
+		$history->name = ' ';
+		$history->userId = $userId;
+		$history->templateName =" ";
+
+		if($template){
+			$history->templateName = $template->template_name;
+		}
+		$history->pathZip = $zipFilePath . ".zip";
+		$history->save();
+
 		return response()->download($zipFilePath . ".zip");
 
-		$templates = Template::all();
-		return view('app', [
-			"templates" => $templates,
-		]);
 	}
 
 	public function preview(Request $request)
 	{
+
+		$hashId = $this->generateHashId();
+
 		$templateId = $request->input('templateId');
 		$archivo = $request->file('fileName');
 
@@ -110,7 +162,7 @@ class DownloadController extends Controller
 				$fileName = $archivo->getFilename();
 				$origin = $archivo->getPathname();
 
-				$filePath = $this->getPath("FILE_PATH") . $fileName;
+				$filePath = $this->getPath("FILE_PATH", $hashId) . $fileName;
 
 				$comando = "mv $origin $filePath";
 				exec($comando, $output, $return);
@@ -120,14 +172,14 @@ class DownloadController extends Controller
 			}
 		}else{
 			$fileName = $request->input('filePath');
-			$filePath = $this->getPath("FILE_PATH") . $fileName;
+			$filePath = $this->getPath("FILE_PATH", $hashId) . $fileName;
 		}
 
 		$scriptPath = resource_path('script/index.php');
 
-		$path = $this->getPath("PREVIEW_PATH");
+		$path = $this->getPath("PREVIEW_PATH", $hashId);
 
-		$previewURL = $this->getPath("PREVIEW_URL");
+		$previewURL = $this->getPath("PREVIEW_URL", $hashId);
 
 		$command = "php {$scriptPath} {$filePath} {$path}";
 

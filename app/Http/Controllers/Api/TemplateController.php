@@ -17,14 +17,6 @@ class TemplateController extends Controller
         return response()->json($templates);
     }
 
-    public function store(TemplatePostRequest $request)
-    {
-        $data = $request->all();
-
-        $template = Template::create($data);
-
-        return response()->json($template, 201);
-    }
 
     public function update(TemplatePutRequest $request, $id)
     {

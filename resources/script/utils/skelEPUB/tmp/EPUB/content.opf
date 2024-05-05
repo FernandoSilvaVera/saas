@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <package xmlns="http://www.idpf.org/2007/opf" version="2.0" unique-identifier="epub-id-1">
   <metadata xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:opf="http://www.idpf.org/2007/opf">
-    <dc:title id="epub-title-1">Introducción </dc:title>
-    <dc:title id="epub-title-2">Introducción </dc:title>
-    <dc:date id="epub-date-1">2024-05-04T19:33:15Z</dc:date>
+    <dc:title id="epub-title-1">1. Introducción</dc:title>
+    <dc:title id="epub-title-2">1. Introducción</dc:title>
+    <dc:date id="epub-date-1">2024-05-05T17:44:27Z</dc:date>
     <dc:language>es</dc:language>
     <dc:creator id="epub-creator-1"/>
     <meta/>
@@ -14,26 +14,16 @@
     <item id="style" href="styles/stylesheet1.css" media-type="text/css"/>
     <item id="ch001_x.html" href="text/ch001.x.html" media-type="application/xhtml+xml"/>
     <item id="ch002_x.html" href="text/ch002.x.html" media-type="application/xhtml+xml"/>
-    <item id="ch003_x.html" href="text/ch003.x.html" media-type="application/xhtml+xml"/>
-    <item id="ch004_x.html" href="text/ch004.x.html" media-type="application/xhtml+xml"/>
-    <item id="ch005_x.html" href="text/ch005.x.html" media-type="application/xhtml+xml"/>
-    <item id="ch006_x.html" href="text/ch006.x.html" media-type="application/xhtml+xml"/>
-    <item id="ch007_x.html" href="text/ch007.x.html" media-type="application/xhtml+xml"/>
-    <item id="ch008_x.html" href="text/ch008.x.html" media-type="application/xhtml+xml"/>
-    <item id="ch009_x.html" href="text/ch009.x.html" media-type="application/xhtml+xml"/>
-    <item id="image1.jpeg" href="media/image1.jpeg" media-type="image/jpeg"/>
-    <item id="image2.jpeg" href="media/image2.jpeg" media-type="image/jpeg"/>
+    <item id="image1.png" href="media/image1.png" media-type="image/png"/>
+    <item id="image2.png" href="media/image2.png" media-type="image/png"/>
+    <item id="image3.png" href="media/image3.png" media-type="image/png"/>
+    <item id="image4.png" href="media/image4.png" media-type="image/png"/>
+    <item id="image3.png" href="media/image3.png" media-type="image/png"/>
+    <item id="image5.png" href="media/image5.png" media-type="image/png"/>
   </manifest>
   <spine toc="ncx">
     <itemref idref="ch001_x.html"/>
     <itemref idref="ch002_x.html"/>
-    <itemref idref="ch003_x.html"/>
-    <itemref idref="ch004_x.html"/>
-    <itemref idref="ch005_x.html"/>
-    <itemref idref="ch006_x.html"/>
-    <itemref idref="ch007_x.html"/>
-    <itemref idref="ch008_x.html"/>
-    <itemref idref="ch009_x.html"/>
   </spine>
   <guide>
     <reference type="toc" title="ud1_practicas_iniciacion_prof_curso2" href="nav.x.html"/>

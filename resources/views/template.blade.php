@@ -63,17 +63,17 @@
                             <div class="col-lg-3">
                                 <div class="create_template section_padding_bg">
                                     <div class="form_group">
-                                        <label for="FName" class="d-flex pb_10">Template Name</label>
+                                        <label for="FName" class="d-flex pb_10">Nombre de plantilla</label>
                                         <input id="templateName" type="text" class="input_field w-100"
-                                            placeholder="Enter your template name" required="">
+                                            placeholder="Enter your template name" required="" value="{{$template->template_name}}">
                                     </div>
                                     <div class="upload_boxes d-flex align-items-center pt_20">
                                         <div class="upload w-50">
-                                            <h4 class="pb_10">Add a logo</h4>
+                                            <h4 class="pb_10">Logo</h4>
                                             <div id="drop-container" class="drop-container">
                                                 <label for="file-input1">
                                                     <div class="upload_img">
-                                                        <img class="icon preview-image" src="./img/gallery.png"
+                                                        <img id="logoImg" class="icon preview-image" src="{{$template->logo_path}}"
                                                             alt="Icon" onclick="handleImageClick(event)" />
                                                         <button class="cross" onclick="removeImage()">
                                                             <img src="./img/cross.svg" alt="" />
@@ -88,11 +88,11 @@
                                             </div>
                                         </div>
                                         <div class="upload w-50">
-                                            <h4 class="pb_10">Add a favicon</h4>
+                                            <h4 class="pb_10">Favicon</h4>
                                             <div id="drop-container" class="drop-container">
                                                 <label for="file-input2">
                                                     <div class="upload_img">
-                                                        <img class="icon preview-image" src="./img/gallery.png"
+                                                        <img id="faviconImg" class="icon preview-image" src="{{$template->favicon_path}}"
                                                             alt="Icon" onclick="handleImageClick(event)" />
                                                         <button class="cross" onclick="removeImage()">
                                                             <img src="./img/cross.svg" alt="" />
@@ -109,34 +109,34 @@
                                     </div>
                                     <div class="color_boxes pb_20 pt_20">
                                         <div class="color_box pb_20 d-flex align-items-center justify-content-between">
-                                            <p class="text_sm">Right background Color</p>
+                                            <p class="text_sm">Derecha</p>
                                             <div class="color_wrap">
                                                 <div class="color_inner">
-                                                    <input id="rightBackground" type="color" class="color_palate" value="#C7DAE7">
+                                                    <input id="rightBackground" type="color" class="color_palate" value="{{$template->css_right}}">
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="color_box pb_20 d-flex align-items-center justify-content-between">
-                                            <p class="text_sm">Left background Color</p>
+                                            <p class="text_sm">Izquierda</p>
                                             <div class="color_wrap">
                                                 <div class="color_inner">
-                                                    <input id="leftBackground" type="color" class="color_palate" value="#8AB5D4">
+                                                    <input id="leftBackground" type="color" class="color_palate" value="{{$template->css_left}}">
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="color_box pb_20 d-flex align-items-center justify-content-between">
-                                            <p class="text_sm">Top background Color</p>
+                                            <p class="text_sm">Arriba</p>
                                             <div class="color_wrap">
                                                 <div class="color_inner">
-                                                    <input id="topBackground" type="color" class="color_palate" value="#D5D7D9">
+                                                    <input id="topBackground" type="color" class="color_palate" value="{{$template->css_top}}">
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="color_box pb_20 d-flex align-items-center justify-content-between">
-                                            <p class="text_sm">Buttons on the top right Color</p>
+                                            <p class="text_sm">Iconos superiores</p>
                                             <div class="color_wrap">
                                                 <div class="color_inner">
-                                                    <input id="topIconsBackground" type="color" class="color_palate" value="#428BCA">
+                                                    <input id="topIconsBackground" type="color" class="color_palate" value="{{$template->css_icons}}">
                                                 </div>
                                             </div>
                                         </div>
@@ -144,7 +144,7 @@
 
                                     <div class="form_groups template_font_styles pb_24 d-flex align-items-center">
                                         <div class="form_group">
-                                            <label for="FName" class="d-flex pb_10">Fonts</label>
+                                            <label for="FName" class="d-flex pb_10">Fuentes</label>
 					    <select id="fontFamily" class="input_field select_field w-100" name="fontFamily">
 						    <option value="Poppins" selected>Poppins</option>
 						    <option value="Lato">Lato</option>
@@ -167,7 +167,7 @@
 					    </select>
                                         </div>
                                     </div>
-                                    <button id="saveTemplate" class="button w-100">Apply</button>
+                                    <button id="saveTemplate" class="button w-100">Guardar</button>
                                 </div>
                             </div>
                         </div>
@@ -178,6 +178,11 @@
         </div>
     </div>
 
+	<script>
+		var templateNew = "{{ route('template.new') }}";
+		var csrfToken = "{{ csrf_token() }}";
+		var templateId = "{{$template->id}}"
+	</script>
 
     <!-- all js here -->
     <script src="{{ asset('js/jquery-3.4.1.min.js') }}"></script>
