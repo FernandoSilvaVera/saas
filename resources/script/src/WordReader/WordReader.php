@@ -71,7 +71,6 @@ class WordReader {
 					$saved = false;
 					$isTest = false;
 
-
 					foreach ($lineas as $linea) {
 
 
@@ -338,6 +337,10 @@ class WordReader {
 			$htmlTemplate->saveHTMLFile($pos);
 			$pos++;
 		}
+
+		$json = json_encode($pages);
+		$htmlTemplate->htmlExporter->saveJSON($json);
+
 	}
 
 	public function getTitles($filePath) {

@@ -10,7 +10,7 @@ class HTMLTemplate {
 
 	private $pages = 1;
 
-	private $htmlExporter = "";
+	public $htmlExporter = "";
 
 	private $buttons = [
 		'<a href="{previous}.html" class="waves-effect" id="botonAnterior">
@@ -34,7 +34,32 @@ class HTMLTemplate {
 	public function getPages($index) {
 		$pages = [];
 		$prevKey = null;
+
+		$count = count($index);
+
+		$index[$count+1 . '. Mapa Conceptual'] = '
+			<script src="https://cdn.jsdelivr.net/npm/markmap-autoloader@latest"></script>
+			<style>
+				.markmap {
+					position: relative;
+				}
+				.markmap > svg {
+					width: 100%;
+					height: 300px;
+				}
+			</style>
+
+			<div class="markmap">
+				<script type="text/template">
+					{markmapReplace}
+				</script>
+			</div>
+		';
+		$index[$count+2 . '. Resumen'] = "{summary}";
+		$index[$count+3 . '. Preguntas'] = "{questions}";
+
 		$this->index = $this->createIndex($index, 0, $pages, $prevKey);
+
 		return $pages;
 	}
 
@@ -58,6 +83,7 @@ class HTMLTemplate {
 
 		$buttons = str_replace(["{previous}", "{next}"], [$pos-1, $pos+1], $buttons);
 		$this->html = str_replace("{previousNext}", $buttons, $this->html);
+		$this->html = str_replace("{numFile}", $pos, $this->html);
 	}
 
 	private function createIndex($index, $depth, &$position, &$prevKey) {

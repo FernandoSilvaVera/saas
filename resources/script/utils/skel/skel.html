@@ -78,6 +78,9 @@
                 target="_blank">PDF</a><a class="noJavaScriptEPUB" href="download.epub"
                 target="_blank">EPUB</a></p>
     </nav>
+
+    <audio id="miAudio" src="./audio/{numFile}/final.mp3"></audio>
+
     <div id="menuConJavaScript">
         <nav class="teal">
             <div class="nav-wrapper">
@@ -136,6 +139,21 @@
                         id="importarAnotaciones" class="elementoDropdown tooltipped" data-position="left"
                         data-delay="50" data-tooltip="Importar anotaciones"><i class="material-icons"
                             aria-label="Importar anotaciones y subrayado">file_upload</i></a>
+
+
+			    <a id="descargarActual" class="elementoDropdown tooltipped premiumButtons"
+				    data-position="left" data-delay="50" data-tooltip="Descargar mp3 temario actual"
+				    href="./audio/{numFile}/final.mp3" download="temaActual_{numFile}.mp3">
+				    <i class="material-icons" aria-label="Descargar mp3 temario actual">cloud_download</i>
+			    </a>
+
+			    <a id="descargarTodos" class="elementoDropdown tooltipped premiumButtons"
+				    data-position="left" data-delay="50" data-tooltip="Descargar mp3 completo"
+				    href="./audio/final.mp3" download="temario.mp3">
+				    <i class="material-icons" aria-label="Descargar mp3 completo">folder_special</i>
+			    </a>
+
+
                     <form style="display:none;"> <input type="file" id="files" style="display:none"> </form>
                 </div>
             </div>

@@ -57,6 +57,12 @@ class HTMLExporter {
 		file_put_contents($outputPath, $html);
 	}
 
+	public function saveJSON($json)
+	{
+		$outputPath = $this->outputPath . "json";
+		file_put_contents($outputPath, $json);
+	}
+
 }
 
 ?>

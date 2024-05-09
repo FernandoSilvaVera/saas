@@ -301,7 +301,7 @@ caption {
 }
 .elementoDropdown {
 	width: 30%;
-	display: inline-block !important;
+	display: inline-block;
 	cursor: pointer;
 	padding: 0px;
 	margin: 0px;

@@ -2790,25 +2790,34 @@ $(document).ready(function () {
 
 
 function read(){
-	if ('speechSynthesis' in window) {
+        var miAudio = document.getElementById("miAudio");
 
-		var textoCompleto = '';
+	if(miAudio && miAudio.readyState >=2){
+		if (miAudio.paused) {
+			miAudio.play();
+		} else {
+			miAudio.pause();
+		}
+	}else{
+		if ('speechSynthesis' in window) {
+			var textoCompleto = '';
 
-		const elementosEspacioContenido = document.querySelectorAll('.annotator-wrapper');
-		elementosEspacioContenido.forEach(elemento => {
-			textoCompleto += elemento.textContent;
-		});
+			const elementosEspacioContenido = document.querySelectorAll('.annotator-wrapper');
+			elementosEspacioContenido.forEach(elemento => {
+					textoCompleto += elemento.textContent;
+					});
 
 
-		const synthesis = window.speechSynthesis;
-		const utterance = new SpeechSynthesisUtterance();
-		utterance.text = textoCompleto;
-		utterance.lang = 'es-ES';
-		utterance.rate = 1.0;
-		utterance.volume = 1.0;
-		synthesis.speak(utterance);
-	} else {
-		console.error('La API de síntesis de voz no está disponible en este navegador.');
+			const synthesis = window.speechSynthesis;
+			const utterance = new SpeechSynthesisUtterance();
+			utterance.text = textoCompleto;
+			utterance.lang = 'es-ES';
+			utterance.rate = 1.0;
+			utterance.volume = 1.0;
+			synthesis.speak(utterance);
+		} else {
+			console.error('La API de síntesis de voz no está disponible en este navegador.');
+		}
 	}
 }
 

@@ -21,6 +21,8 @@ if (strpos($outputUser, '/') !== 0) {
 	$outputUser = $currentDir . '/' . $outputUser; // Combina la ruta actual con la proporcionada
 }
 
+exec("cp " . $wordFilePath . " " . $outputUser);
+
 // Crear instancias de las clases
 $wordReader = new WordReader();
 $htmlExporter = new HTMLExporter($output);
@@ -35,7 +37,7 @@ $skelEPUB = __DIR__ . '/utils/skelEPUB/';
 $wordContent = $wordReader->loadWordFile($wordFilePath);
 $wordTitles = $wordReader->getTitles($wordFilePath);
 
-$wordReader->convertToHTML($htmlTemplate, $wordContent, $htmlTemplatePath);
+$json = $wordReader->convertToHTML($htmlTemplate, $wordContent, $htmlTemplatePath);
 $wordReader->convertToEPUB($epubTemplate, $skelEPUB, $wordContent, $wordTitles);
 $wordReader->convertToPDF($wordFilePath, $output);
 $epubTemplate->moveEPUB($skelEPUB, $output);

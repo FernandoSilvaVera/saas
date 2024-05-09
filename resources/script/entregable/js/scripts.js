@@ -2790,24 +2790,24 @@ $(document).ready(function () {
 
 var speechSynthesisInstance;
 
-function read() {
-	if ('speechSynthesis' in window) {
-		if (speechSynthesisInstance && speechSynthesisInstance.speaking) {
-			speechSynthesisInstance.cancel();
+function read(){
+        var miAudio = document.getElementById("miAudio");
+
+	if(miAudio && miAudio.readyState >=2){
+		if (miAudio.paused) {
+			miAudio.play();
 		} else {
-			var elementosEspacioContenido = document.querySelectorAll('.espacioContenido');
+			miAudio.pause();
+		}
+	}else{
+		if ('speechSynthesis' in window) {
 			var textoCompleto = '';
-			var detenerObtencion = false;
 
+			const elementosEspacioContenido = document.querySelectorAll('.annotator-wrapper');
 			elementosEspacioContenido.forEach(elemento => {
-					textoCompleto = elemento.textContent;
-					var indiceExpand = textoCompleto.indexOf("expand");
-
-					if (indiceExpand !== -1) {
-					var textoModificado = textoCompleto.substring(0, indiceExpand);
-					textoCompleto = textoModificado;
-					}
+					textoCompleto += elemento.textContent;
 					});
+
 
 			const synthesis = window.speechSynthesis;
 			const utterance = new SpeechSynthesisUtterance();
@@ -2816,13 +2816,12 @@ function read() {
 			utterance.rate = 1.0;
 			utterance.volume = 1.0;
 			synthesis.speak(utterance);
-
-			speechSynthesisInstance = synthesis;
+		} else {
+			console.error('La API de síntesis de voz no está disponible en este navegador.');
 		}
-	} else {
-		console.error('La API de síntesis de voz no está disponible en este navegador.');
 	}
 }
+
 
 let escuchandoTeclas = false;
 
