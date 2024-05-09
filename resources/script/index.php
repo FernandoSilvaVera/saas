@@ -10,22 +10,26 @@ use HTMLExporter\HTMLExporter;
 
 $scriptPATH = dirname(__FILE__);
 
-$output = __DIR__ . '/entregable/';
+$name = "skel";
+
+$skel = __DIR__ . "/$name/";
 
 exec("cd .");
 
 $wordFilePath = $argv[1];
-$outputUser = $argv[2];
+
+$outputUser= $argv[2];
 if (strpos($outputUser, '/') !== 0) {
 	$currentDir = getcwd(); // Obtiene la ruta actual del directorio de trabajo
-	$outputUser = $currentDir . '/' . $outputUser; // Combina la ruta actual con la proporcionada
+	$outputUser = $currentDir . '/' . $outputUser . "/"; // Combina la ruta actual con la proporcionada
 }
 
 exec("cp " . $wordFilePath . " " . $outputUser);
 
 // Crear instancias de las clases
-$wordReader = new WordReader();
-$htmlExporter = new HTMLExporter($output);
+$wordReader = new WordReader($name);
+$wordReader->copy($skel, $outputUser);
+$htmlExporter = new HTMLExporter($outputUser);
 $htmlTemplate = new HTMLTemplate($htmlExporter);
 $epubTemplate = new EPUBTemplate($htmlExporter);
 $scormTemplate = new ScormTemplate($htmlExporter, $scriptPATH);
@@ -39,9 +43,9 @@ $wordTitles = $wordReader->getTitles($wordFilePath);
 
 $json = $wordReader->convertToHTML($htmlTemplate, $wordContent, $htmlTemplatePath);
 $wordReader->convertToEPUB($epubTemplate, $skelEPUB, $wordContent, $wordTitles);
-$wordReader->convertToPDF($wordFilePath, $output);
-$epubTemplate->moveEPUB($skelEPUB, $output);
-$wordReader->moveHTML($output, $outputUser);
+$wordReader->convertToPDF($wordFilePath, $outputUser);
+$epubTemplate->moveEPUB($skelEPUB, $outputUser);
+//$wordReader->moveHTML($output, $outputUser);
 
 $wordReader->convertToSCORM($scormTemplate, $wordContent, $htmlTemplate, $outputUser);
 

@@ -17,8 +17,8 @@ class WordReader {
 	public $idRespuetas = 0;
 	public $idPaginador = 1;
 
-	public function __construct() {
-		$this->defaultOutputPATH = __DIR__ . "/../../" . "entregable/";
+	public function __construct($entregable) {
+		$this->defaultOutputPATH = __DIR__ . "/../../" . "$entregable/";
 		// Constructor
 	}
 
@@ -297,7 +297,7 @@ class WordReader {
 		echo "\n---- ConvertTOPDF start ----\n";
 
 		$pathinfo = pathinfo($pathWORD);
-		$pdfName = $pathinfo['dirname'] . '/' . $pathinfo['filename'] . '.pdf'; // Genera la ruta completa al archivo PDF
+		$pdfName = $pathinfo['dirname'] . '/' . $pathinfo['filename'] . '.pdf'; // Genera la ruta completa al archivo pdf
 
 		if (copy($pathWORD, $pathPDF . '/download.docx')) {
 			$pathWORD = $pathPDF . "download.docx";
@@ -381,18 +381,11 @@ class WordReader {
 		return $titles;
 	}
 
-	public function moveHTML($output, $outputUser)
+	public function copy($output, $outputUser)
 	{
-		if (!file_exists($outputUser)) {
-			mkdir($outputUser, 0755, true);
-		}
-		// Construye el comando
 		$command = "cp -R " . escapeshellarg($output) . "/* " . escapeshellarg($outputUser);
 		// Ejecuta el comando
 		exec($command);
-
-		$deleteCommand = "find " . escapeshellarg($output) . " -type f \\( -name '*.html' -or -name '*.epub' -or -name '*.pdf' \\) -exec rm {} +";
-		exec($deleteCommand);
 	}
 
 	public function checkIfTest(&$fullText)
