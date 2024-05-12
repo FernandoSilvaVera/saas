@@ -153,7 +153,7 @@ class DownloadController extends Controller
 
 		$word = $path . "/" . $fileName;
 
-		$contenido = (new WordHelper)->convertToArray($word);
+		$contenido = @(new WordHelper)->convertToArray($word);
 
 		if(true){
 			Subscription::generateNewPages($contenido, $path, $userId);

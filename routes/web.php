@@ -41,7 +41,6 @@ Route::get('/listUsers', [UsersController::class, 'listUsers'])->middleware('aut
 Route::get('/historyDownload', [HistoryController::class, 'download'])->name('history.download')->middleware('auth.redirect');
 Route::get('/historyDownloadAiken', [HistoryController::class, 'downloadAiken'])->name('history.downloadAiken')->middleware('auth.redirect');
 
-Route::post('/download', [DownloadController::class, 'download'])->name('download')->middleware('auth.redirect');
 
 Route::post('/preview', [DownloadController::class, 'preview'])->name('preview-document')->middleware('auth.redirect');
 
@@ -71,3 +70,4 @@ Route::post('/newTemplate', [TemplateController::class, 'store'])->name('templat
 Route::get('/template', [TemplateController::class, 'edit'])->name('template.edit')->middleware('auth.redirect');
 
 
+Route::post('/download', [DownloadController::class, 'download'])->name('download')->middleware('auth.redirect');

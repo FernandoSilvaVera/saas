@@ -91,9 +91,26 @@ class Subscription
 
 		$unionFinal = "";
 
-		foreach ($contenido as $index => $message) {
+		$textToSpeechContent = [];
+
+		foreach ($contenido as $index => $messages) {
+			foreach($messages as $key => $message){
+				if($key == "html"){
+					$textToSpeechContent[$index] = $message;
+				}else{
+					$textToSpeechContent[] = "";
+					foreach($message as $key2 => $send){
+						$textToSpeechContent[$key2] = $send;
+					}
+				}
+
+			}
+		}
+
+		foreach ($textToSpeechContent as $index => $message) {
 			foreach ($providers as $provider) {
-				$send = $message['html'];
+
+				$send = $index . " " . $message;
 				$segmentos = self::splitTextWithSense($send);
 
 				$audioStoragePath = $audioStoragePathMain . $posX++ . "/";
@@ -109,8 +126,6 @@ class Subscription
 					$results['audios'][$provider][] = $result;
 					$union .= $audioStoragePath . $result['audio'] . "|";
 				}
-
-//				$result = TextToSpeech::dispatch($audioStoragePath, "Fernando Xavier Silva me gusta una chica rusa llamada ani rudak", $provider, $index);
 			}
 			$finalFileName = "final.mp3";
 			$cmd = "ffmpeg -i \"concat:$union\" -acodec copy " . $audioStoragePath . $finalFileName;
