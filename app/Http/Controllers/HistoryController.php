@@ -17,7 +17,9 @@ class HistoryController extends Controller
 		$user = Auth::user();
 		$userId = $user->id;
 
-		$histories = History::where('userId', $userId)->get();
+		$histories = History::where('userId', $userId)
+			->orderBy('created_at', 'desc')
+			->get();
 
 		return view('history', [
 			"histories" => $histories,
@@ -28,6 +30,14 @@ class HistoryController extends Controller
 	{
 		$id = $request->input('id');
 		$history = History::find($id);
+		return response()->download($history->pathZip);
+	}
+
+	public function downloadAiken(Request $request)
+	{
+		$id = $request->input('id');
+		$history = History::find($id);
+		echo $history->pathZip;die;
 		return response()->download($history->pathZip);
 	}
 

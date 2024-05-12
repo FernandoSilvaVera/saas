@@ -24,6 +24,11 @@ if (strpos($outputUser, '/') !== 0) {
 	$outputUser = $currentDir . '/' . $outputUser . "/"; // Combina la ruta actual con la proporcionada
 }
 
+if (!file_exists($outputUser)) {
+	mkdir($outputUser, 0777, true);
+}
+
+
 exec("cp " . $wordFilePath . " " . $outputUser);
 
 // Crear instancias de las clases

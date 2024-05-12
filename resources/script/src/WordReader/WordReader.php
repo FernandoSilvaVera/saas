@@ -22,6 +22,8 @@ class WordReader {
 		// Constructor
 	}
 
+	public $titleCount = 1;
+
 	private function isTitle($title, $style, $linea)
 	{
 		switch ($title) {
@@ -73,6 +75,8 @@ class WordReader {
 
 					foreach ($lineas as $linea) {
 
+
+						/* - Poner aqui los title - */
 
 						if ($this->isTitle(1, $style, $linea)) {
 							// Nivel principal (MP 1, 1., 2., etc.)
@@ -360,6 +364,8 @@ class WordReader {
 					foreach ($lineas as $linea) {
 						//$this->addTitle($linea, $style, $titles);
 						if ($this->isTitle(1, $style, $linea)) {
+
+
 							// Nivel principal (MP 1, 1., 2., etc.)
 							$nivelActual[0] = $fullText;
 							$titles[$nivelActual[0]] = [];

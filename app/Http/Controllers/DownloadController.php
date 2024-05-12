@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
 use Hashids\Hashids;
+use App\NewPages\Subscription;
+use App\WordHelper;
 
 class DownloadController extends Controller
 {
@@ -108,9 +110,29 @@ class DownloadController extends Controller
 		return $return;
 	}
 
+	public function hiddenPremiumButtons($path)
+	{
+		$pathCss = $path . "/css/materialize.css";
+
+		if (File::exists($pathCss)) {
+			$contenido = File::get($pathCss);
+			$contenido_a_anadir = "
+
+				.premiumButtons {
+					display: none !important;
+				}
+
+			";
+			File::append($pathCss, $contenido_a_anadir);
+		} else {
+			echo "El archivo no existe.";
+		}
+
+	}
+
 	public function download(Request $request)
 	{
-
+		$userId = Auth::id();
 		$hashId = $this->generateHashId();
 
 		$fileName = $request->input('filePath');
@@ -121,18 +143,29 @@ class DownloadController extends Controller
 		$scriptPath = resource_path('script/index.php');
 
 		$path = $this->getPath("DOWNLOAD_PATH", $hashId);
+		$userPath = $this->getPath("DOWNLOAD_PATH", null);
 
-		$command = "php {$scriptPath} {$filename} {$path}";
+		$command = "php {$scriptPath} {$filename} {$path}/";
 
 		$output = shell_exec($command);
 
 		$template = $this->useTemplate($templateId, $path);
 
-		$zipFilePath = $path;
-		$command = "zip -r {$zipFilePath} {$path}";
-		exec($command);
+		$word = $path . "/" . $fileName;
 
-		$userId = Auth::id();
+		$contenido = (new WordHelper)->convertToArray($word);
+
+		if(true){
+			Subscription::generateNewPages($contenido, $path, $userId);
+			Subscription::texToSpeech($contenido, $path, $userId);
+		}else{
+			$this->hiddenPremiumButtons($path);
+		}
+
+		$zipFilePath = $path;
+
+		$command = "cd $userPath && zip -r {$hashId}.zip {$hashId}";
+		exec($command);
 
 		$history = new History();
 		$history->name = ' ';
@@ -146,7 +179,6 @@ class DownloadController extends Controller
 		$history->save();
 
 		return response()->download($zipFilePath . ".zip");
-
 	}
 
 	public function preview(Request $request)
@@ -181,7 +213,7 @@ class DownloadController extends Controller
 
 		$previewURL = $this->getPath("PREVIEW_URL", $hashId);
 
-		$command = "php {$scriptPath} {$filePath} {$path}";
+		$command = "php {$scriptPath} {$filePath} {$path}/";
 
 		$output = shell_exec($command);
 
@@ -196,11 +228,6 @@ class DownloadController extends Controller
 			'showDownload' => true,
 			'filePath' => $fileName,
 		]);
-	}
-
-	public function downloadById($id)
-	{
-
 	}
 
 }

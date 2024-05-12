@@ -174,7 +174,7 @@
 						        @endif
 						    </div>
 
-						    <a href="/saas/public/buy/{{$plan->stripe_monthly_price_id}}" class="button w-100">{{$plan->monthly_price}}€ / mes</a>
+						    <a href="/buy/{{$plan->stripe_monthly_price_id}}" class="button w-100">{{$plan->monthly_price}}€ / mes</a>
 						</div>
 					    </div>
 
@@ -200,7 +200,7 @@
 						        @endif
 						    </div>
 
-						    <a href="/saas/public/buy/{{$plan->stripe_annual_price_id}}" class="button w-100">{{$plan->annual_price}}€ / año</a>
+						    <a href="/buy/{{$plan->stripe_annual_price_id}}" class="button w-100">{{$plan->annual_price}}€ / año</a>
 						</div>
 					    </div>
 

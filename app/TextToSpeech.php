@@ -9,10 +9,11 @@ use Google\Cloud\TextToSpeech\V1\SynthesisInput;
 use Google\Cloud\TextToSpeech\V1\TextToSpeechClient;
 use Google\Cloud\TextToSpeech\V1\VoiceSelectionParams;
 use GuzzleHttp\Client;
+use Illuminate\Support\Facades\Http;
 
 class TextToSpeech
 {
-    public static function dispatch($session_id, $message, $provider, $index)
+    public static function dispatch($audioStoragePath, $message, $provider, $index)
     {
         $result = [
             'message' => $message,
@@ -31,12 +32,14 @@ class TextToSpeech
                 ]);
 
                 $response = $client->synthesizeSpeech([
+		    'Engine' => 'neural',
+		    'LanguageCode' => 'es-ES',
                     'Text' => $message,
                     'OutputFormat' => 'mp3',
                     'VoiceId' => 'Lucia',
                 ]);
                 $result['audio'] = $audio;
-                file_put_contents(env('AUDIO_STORAGE_PATH') . $session_id . '/' . $audio, $response['AudioStream']);
+                file_put_contents($audioStoragePath . '/' . $audio, $response['AudioStream']);
                 break;
             case 'google':
                 $textToSpeechClient = new TextToSpeechClient();
@@ -48,9 +51,10 @@ class TextToSpeech
                 $audioConfig->setAudioEncoding(AudioEncoding::MP3);
                 $response = $textToSpeechClient->synthesizeSpeech($input, $voice, $audioConfig);
                 $result['audio'] = $audio;
-                file_put_contents(env('AUDIO_STORAGE_PATH') . $session_id . '/' . $audio, $response->getAudioContent());
+                file_put_contents($audioStoragePath . '/' . $audio, $response->getAudioContent());
                 break;
             case 'openai':
+
                 $client = new Client();
                 $response = $client->post('https://api.openai.com/v1/audio/speech', [
                     'headers' => [
@@ -65,7 +69,7 @@ class TextToSpeech
                 ]);
                 $audioContent = $response->getBody()->getContents();
                 $result['audio'] = $audio;
-                file_put_contents(env('AUDIO_STORAGE_PATH') . $session_id . '/' . $audio, $audioContent);
+                file_put_contents($audioStoragePath . '/' . $audio, $audioContent);
                 break;
         }
         return $result;

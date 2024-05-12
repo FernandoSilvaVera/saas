@@ -10,9 +10,31 @@ class ScormTemplate {
 	private $pathScript = null;
 	private $images = null;
 
+	public function generateHashId($number, $salt = 'tu_semilla_secreta') {
+		$hora_actual = date('H:i:s');
+		$salt .= $hora_actual;
+		// Caracteres válidos para el hash
+		$chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890';
+		$chars_len = strlen($chars);
+
+		// Generar un hash único concatenando el número y la semilla
+		$hash = md5($number . $salt);
+
+		return $hash;
+	}
+
 	public function __construct($htmlExporter, $pathScript) {
+		$random_number = rand(0, 100);
+		$this->hash = $this->generateHashId($random_number);
 		$this->pathScript = $pathScript;
-		$this->pathScorm = $pathScript . "/tmp/";
+		$this->pathScorm = $pathScript . "/tmp/" . $this->hash . "/";
+		$pathScorm = $pathScript . "/tmp/" . $this->hash . "/";
+
+		if (!is_dir($pathScorm)) {
+			if (!mkdir($pathScorm, 0777, true)) {
+				die('Error al crear la carpeta.');
+			}
+		}
 	}
 
 	public function createSCORM($wordContent, $htmlTemplate, $images, $outputUser){
@@ -76,6 +98,15 @@ class ScormTemplate {
 		$copyImages = $outputUser . "/imagenes/media/";
 		$pathImages = $this->pathScorm . "imagenes/media/";
 
+		if (!is_dir($pathImages)) {
+			// Intenta crear la carpeta con permisos de escritura (0777 es un ejemplo, puedes ajustarlo según tus necesidades)
+			if (!mkdir($pathImages, 0777, true)) {
+				// Si la carpeta no se pudo crear, muestra un mensaje de error
+				die('Error al crear la carpeta.');
+			}
+		}
+
+
 		// Comando para copiar todos los ficheros de una carpeta a otra
 		$command = "cp -r " . escapeshellarg($copyImages) . "* " . escapeshellarg($pathImages);
 
@@ -95,7 +126,7 @@ class ScormTemplate {
 	public function zip(){
 		$currentDir = getcwd();
 		// Ruta al directorio que quieres comprimir
-		$path = $this->pathScript . "/tmp";
+		$path = $this->pathScript . "/tmp/" . $this->hash;
 
 		// Cambia al directorio de $path, comprime los archivos en scorm.zip, y luego vuelve al directorio original
 		// Se utiliza && para encadenar comandos: primero hace cd, luego zip, y finalmente vuelve con cd
@@ -255,7 +286,7 @@ class ScormTemplate {
 
 
 		// Guardar el XML en un archivo
-		$xml->asXML($this->pathScript . "/tmp/imsmanifest.xml");
+		$xml->asXML($this->pathScript . "/tmp/".$this->hash."/imsmanifest.xml");
 
 		// Guardar eal contenido en un archivo
 //		file_put_contaents(, $dom->saveXML());

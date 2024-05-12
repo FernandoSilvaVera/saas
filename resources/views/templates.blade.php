@@ -77,28 +77,6 @@
                             </table>
                         </div>
 
-                        <div class="pagination_wrap d-flex justify-content-end w-100">
-                            <div class="pagination d-flex align-items-center">
-                                <a href="#" class="pagination_arrow">
-                                    <img src="./img/arrow_left.svg" alt="">
-                                </a>
-                                <div class="numbers">
-                                    <a href="#">Prev</a>
-                                    <a href="#">1</a>
-                                    <a href="#">2</a>
-                                    <a href="#">3</a>
-                                    <a href="#" class="active">4</a>
-                                    <a href="#">5</a>
-                                    <a href="#">6</a>
-                                    <a href="#">7</a>
-                                    <a href="#">Next</a>
-                                </div>
-                                <a href="#" class="pagination_arrow">
-                                    <img src="./img/arrow_right.svg" alt="">
-                                </a>
-                            </div>
-                        </div>
-
                     </div>
                 </div>
             </div>

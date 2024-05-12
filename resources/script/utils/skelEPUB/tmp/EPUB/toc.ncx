@@ -11,56 +11,12 @@
   </docTitle>
   <navMap>
     <navPoint id="navpoint-1" >
-      <navLabel><text>Introducción </text></navLabel>
-        <content src="text/ch001.x.html#Introducci-n-"/>
+      <navLabel><text>1. Introducción</text></navLabel>
+        <content src="text/ch001.x.html#1-Introducci-n"/>
     </navPoint>
     <navPoint id="navpoint-2" >
-      <navLabel><text>Conceptos generales</text></navLabel>
-        <content src="text/ch002.x.html#Conceptos-generales"/>
-    </navPoint>
-    <navPoint id="navpoint-3" >
-      <navLabel><text>Teorías del juego: causales, finales y estructurales</text></navLabel>
-        <content src="text/ch003.x.html#Teor-as-del-juego-causales-finales-y-estructurales"/>
-      <navPoint id="navpoint-4">
-        <navLabel><text></text></navLabel>
-        <content src="text/ch003.x.html#"/>
-        <navPoint id="navpoint-5">
-          <navLabel><text>Teorías causales del juego</text></navLabel>
-          <content src="text/ch003.x.html#Teor-as-causales-del-juego"/>
-        </navPoint>
-        <navPoint id="navpoint-6">
-          <navLabel><text>Teorías finales del juego</text></navLabel>
-          <content src="text/ch003.x.html#Teor-as-finales-del-juego"/>
-        </navPoint>
-        <navPoint id="navpoint-7">
-          <navLabel><text>Teorías estructurales del juego</text></navLabel>
-          <content src="text/ch003.x.html#Teor-as-estructurales-del-juego"/>
-        </navPoint>
-      </navPoint>
-    </navPoint>
-    <navPoint id="navpoint-8" >
-      <navLabel><text>Evolución del juego en el ciclo vital humano</text></navLabel>
-        <content src="text/ch004.x.html#Evoluci-n-del-juego-en-el-ciclo-vital-humano"/>
-    </navPoint>
-    <navPoint id="navpoint-9" >
-      <navLabel><text>Antropología del juego</text></navLabel>
-        <content src="text/ch005.x.html#Antropolog-a-del-juego"/>
-    </navPoint>
-    <navPoint id="navpoint-10" >
-      <navLabel><text>El juego como medio educativo</text></navLabel>
-        <content src="text/ch006.x.html#El-juego-como-medio-educativo"/>
-    </navPoint>
-    <navPoint id="navpoint-11" >
-      <navLabel><text>Clasificación epistemológica del juego motor</text></navLabel>
-        <content src="text/ch007.x.html#Clasificaci-n-epistemol-gica-del-juego-motor"/>
-    </navPoint>
-    <navPoint id="navpoint-12" >
-      <navLabel><text>El juego motor en los programas de Educación Física y recreación</text></navLabel>
-        <content src="text/ch008.x.html#El-juego-motor-en-los-programas-de-Educaci-n-F-sica-y-recreaci-n"/>
-    </navPoint>
-    <navPoint id="navpoint-13" >
-      <navLabel><text>Bibliografía</text></navLabel>
-        <content src="text/ch009.x.html#Bibliograf-a"/>
+      <navLabel><text>2. Qué es el tiempo</text></navLabel>
+        <content src="text/ch002.x.html#2-Qu-es-el-tiempo"/>
     </navPoint>
   </navMap>
 </ncx>
