@@ -28,9 +28,9 @@ function createPlan() {
 	var nameInput = document.getElementById("planName");
 	plan.name = nameInput.value;
 
-	plan.description = "TODO";
+	plan.description = " ";
 
-	var apiUrl = '/saas/public/api/subscription/plans';
+	var apiUrl = '/api/subscription/plans';
 
 	$.ajax({
 		url: apiUrl,

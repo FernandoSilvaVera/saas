@@ -70,7 +70,8 @@
                                     <div class="upload_boxes d-flex align-items-center pt_20">
                                         <div class="upload w-50">
                                             <h4 class="pb_10">Logo</h4>
-                                            <div id="drop-container" class="drop-container">
+
+                                            <div id="drop-container" class="drop-container @if($template->logo_path) active @endif">
                                                 <label for="file-input1">
                                                     <div class="upload_img">
                                                         <img id="logoImg" class="icon preview-image" src="{{$template->logo_path}}"
@@ -89,7 +90,8 @@
                                         </div>
                                         <div class="upload w-50">
                                             <h4 class="pb_10">Favicon</h4>
-                                            <div id="drop-container" class="drop-container">
+
+                                            <div id="drop-container" class="drop-container @if($template->logo_path || $template->favicon_path) active @endif">
                                                 <label for="file-input2">
                                                     <div class="upload_img">
                                                         <img id="faviconImg" class="icon preview-image" src="{{$template->favicon_path}}"
@@ -145,16 +147,20 @@
                                     <div class="form_groups template_font_styles pb_24 d-flex align-items-center">
                                         <div class="form_group">
                                             <label for="FName" class="d-flex pb_10">Fuentes</label>
+
 					    <select id="fontFamily" class="input_field select_field w-100" name="fontFamily">
-						    <option value="Poppins" selected>Poppins</option>
-						    <option value="Lato">Lato</option>
-						    <option value="Montserrat">Montserrat</option>
-						    <option value="Open Sans">Open Sans</option>
-						    <option value="Roboto">Roboto</option>
-						    <option value="Arial">Arial</option>
-						    <option value="Helvetica">Helvetica</option>
-						    <option value="Georgia">Georgia</option>
+						    <option value="Arial, sans-serif">Arial</option>
+						    <option value="Times New Roman, serif">Times New Roman</option>
+						    <option value="Verdana, sans-serif">Verdana</option>
+						    <option value="Helvetica, sans-serif">Helvetica</option>
+						    <option value="Georgia, serif">Georgia</option>
+						    <option value="Courier New, monospace">Courier New</option>
+						    <option value="Roboto, sans-serif">Roboto</option>
+						    <option value="Tahoma, sans-serif">Tahoma</option>
+						    <option value="Arial Black, sans-serif">Arial Black</option>
+						    <option value="Palatino, serif">Palatino</option>
 					    </select>
+
                                         </div>
                                         <div class="form_group">
                                             <label for="FName" class="d-flex pb_10">Letras</label>
@@ -165,6 +171,8 @@
 						    <option value="28">28</option>
 						    <option value="32">32</option>
 					    </select>
+
+
                                         </div>
                                     </div>
                                     <button id="saveTemplate" class="button w-100">Guardar</button>
@@ -179,9 +187,35 @@
     </div>
 
 	<script>
+
 		var templateNew = "{{ route('template.new') }}";
 		var csrfToken = "{{ csrf_token() }}";
 		var templateId = "{{$template->id}}"
+
+
+		var fontSize = {{$template->font_size}};
+
+		var selectElement = document.getElementById("fontSize");
+
+		for (var i = 0; i < selectElement.options.length; i++) {
+			if (parseInt(selectElement.options[i].value) === fontSize) {
+				selectElement.selectedIndex = i;
+				break;
+			}
+		}
+
+
+		var typography = "{{$template->typography}}"; 
+
+		var selectElement = document.getElementById("fontFamily");
+
+		for (var i = 0; i < selectElement.options.length; i++) {
+			if (selectElement.options[i].value === typography) {
+				selectElement.selectedIndex = i;
+				break;
+			}
+		}
+
 	</script>
 
     <!-- all js here -->

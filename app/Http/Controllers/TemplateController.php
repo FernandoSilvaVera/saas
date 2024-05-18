@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Template;
 use Illuminate\Support\Facades\Auth;
 use Hashids\Hashids;
+use Illuminate\Support\Facades\File;
 
 class TemplateController extends Controller
 {
@@ -87,11 +88,19 @@ class TemplateController extends Controller
 		return response()->json($template, 201);
 	}
 
-	public function edit(Request $request){
-
+	public function edit(Request $request)
+	{
 		$id = $request->input('id');
 		$template = Template::find($id);
-	
+
+		if($template){
+			$logoBase64 = base64_encode(File::get($template->logo_path));
+			$faviconBase64 = base64_encode(File::get($template->favicon_path));
+
+			$template->logo_path = 'data:image/png;base64,' . $logoBase64;
+			$template->favicon_path = 'data:image/png;base64,' . $faviconBase64;
+		}
+
 		if(!$template){
 			$template = new Template();
 		}

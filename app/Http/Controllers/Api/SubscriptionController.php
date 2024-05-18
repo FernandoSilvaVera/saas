@@ -12,6 +12,7 @@ use Stripe\Exception\SignatureVerificationException;
 use Stripe\Stripe;
 use Stripe\Webhook;
 use UnexpectedValueException;
+use App\Subscription\ManageClientSubscription;
 
 class SubscriptionController extends Controller
 {
@@ -57,8 +58,13 @@ class SubscriptionController extends Controller
         }
     }
 
-    public function webhookSuccess(Reuest $request)
+    public function webhookSuccess(Request $request)
     {
+	    $stripe = new \Stripe\StripeClient(config('services.stripe.secret'));
+	    $customer = $stripe->customers->retrieve("cus_Q89SgmmcpRuYMQ", [ 'expand' => ['subscriptions']]);
+
+	    ManageClientSubscription::update($customer);
+
         file_put_contents('/tmp/stripe.log', "6", FILE_APPEND);
         Stripe::setApiKey(config('services.stripe.secret'));
         $payload = $request->getContent();
@@ -78,9 +84,18 @@ class SubscriptionController extends Controller
         switch ($event->type) {
             case 'payment_intent.succeeded':
                 $paymentIntent = $event->data->object;
+	
                 Subscription::create([
                     'payload' => json_encode($paymentIntent)
                 ]);
+
+		$stripe = new \Stripe\StripeClient(config('services.stripe.secret'));
+		$customer = $stripe->customers->retrieve($paymentIntent->customer, [ 'expand' => ['subscriptions']]);
+
+		$subs = $customer->subscriptions->data;
+		$customer->email;
+		$customer->invoice;
+
                 break;
             case 'charge.failed':
                 $charge = $event->data->object;

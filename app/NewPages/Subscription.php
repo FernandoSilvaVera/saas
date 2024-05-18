@@ -5,13 +5,13 @@ namespace App\NewPages;
 use App\Ia\OpenAI;
 use App\TextToSpeech;
 use Illuminate\Support\Facades\File;
+use App\Subscription\ManageClientSubscription;
 
 class Subscription
 {
 
 	public static function generateNewPages($word, $downloadPath, $userId)
 	{
-
 		$word = json_encode($word);
 
 		$conceptualMapHTML = null;
@@ -35,15 +35,26 @@ class Subscription
 
 		}
 
-
 		$openai = new OpenAI($word, $downloadPath, $userId);
 
 		$openai->conceptualMap($conceptualMapHTML);
-		$openai->summary($summaryHTML);
-		$openai->questions($questionsHTML, $downloadPath);
+
+		if(ManageClientSubscription::haveSummaries()){
+			$ok = $openai->summary($summaryHTML);
+			if($ok){
+				ManageClientSubscription::consumeSummaries(1);
+			}
+		}
+
+		if(ManageClientSubscription::haveQuestions()){
+			$numQuestions = 10;
+			$ok = $openai->questions($questionsHTML, $downloadPath, $numQuestions);
+			if($ok){
+				ManageClientSubscription::consumeQuestions($numQuestions);
+			}
+		}
 
 	}
-
 
 	public static function splitTextWithSense($text) {
 		// Definir los caracteres que indican un final de oración o párrafo

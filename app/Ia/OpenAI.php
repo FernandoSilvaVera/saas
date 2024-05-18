@@ -49,10 +49,12 @@ class OpenAI
 
 				$file = str_replace($placeholder, $textoNuevo, $file);
 				file_put_contents($summaryHTML, $file);
-
+				return true;
 			}
 
 		}
+
+		return false;
 
 	}
 
@@ -75,15 +77,16 @@ class OpenAI
 			$file = str_replace("espacioContenido col l9 m12 s12", "col l9 m12 s12", $file);
 
 			file_put_contents($conceptualMapHTML, $file);
+			return true;
 		}
 
-		return null;
+		return false;
 
 	}
 
-	public function questions($questionsHTML)
+	public function questions($questionsHTML, $numQuestions)
 	{
-		$message = "Crea 10 preguntas en formato json sobre esto " . $this->wordJson;
+		$message = "Crea $numQuestions preguntas en formato json sobre esto " . $this->wordJson;
 		$assistantId = "asst_wCSbBD0KHXIIaKMKvubNj1CB";
 		$response = $this->assistant->execute($message, $assistantId);
 
@@ -201,12 +204,15 @@ class OpenAI
 				file_put_contents($questionsHTML, $file);
 				file_put_contents($this->downloadPath. "/preguntas.aiken", $aiken);
 
+				return true;
+
 			}
 
 
 
 		}
 
+		return false;
 
 	}
 

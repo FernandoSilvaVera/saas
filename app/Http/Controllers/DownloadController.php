@@ -11,6 +11,10 @@ use Illuminate\Support\Facades\Auth;
 use Hashids\Hashids;
 use App\NewPages\Subscription;
 use App\WordHelper;
+use App\Subscription\ManageClientSubscription;
+use App\Models\User;
+use App\Models\ClientsSubscription;
+use App\Models\SubscriptionPlan;
 
 class DownloadController extends Controller
 {
@@ -132,6 +136,10 @@ class DownloadController extends Controller
 
 	public function download(Request $request)
 	{
+		if(!ManageClientSubscription::haveMaximumWords()){
+			return false;
+		}
+
 		$userId = Auth::id();
 		$hashId = $this->generateHashId();
 
@@ -155,8 +163,9 @@ class DownloadController extends Controller
 
 		$contenido = @(new WordHelper)->convertToArray($word);
 
-		if(true){
-			Subscription::generateNewPages($contenido, $path, $userId);
+		Subscription::generateNewPages($contenido, $path, $userId);
+
+		if(!ManageClientSubscription::haveVoiceOver()){
 			Subscription::texToSpeech($contenido, $path, $userId);
 		}else{
 			$this->hiddenPremiumButtons($path);
@@ -221,12 +230,20 @@ class DownloadController extends Controller
 
 		$template = $this->useTemplate($templateId, $path);
 
+		$userId = Auth::id();
+		$user = User::find($userId);
+		$email = $user->email;
+		$clientSubscription = ClientsSubscription::where('email', $email)->first();
+		$plan = SubscriptionPlan::Find($clientSubscription->plan_contratado);
+
 		return view('app', [
 			'preview' => $previewURL,
 			'templates' => $templates,
 			'template' => $template,
 			'showDownload' => true,
 			'filePath' => $fileName,
+			'currentSubscription' => $clientSubscription,
+			'plan' => $plan,
 		]);
 	}
 

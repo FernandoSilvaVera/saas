@@ -38,7 +38,7 @@ function createUser(){
 	};
 
     $.ajax({
-            url: '/saas/public/api/users',
+            url: '/api/users',
 	    type: 'POST',
 	    contentType: 'application/json',
 	    data: JSON.stringify(user),
