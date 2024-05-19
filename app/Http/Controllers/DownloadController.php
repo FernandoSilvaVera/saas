@@ -136,15 +136,13 @@ class DownloadController extends Controller
 
 	public function download(Request $request)
 	{
-		if(!ManageClientSubscription::haveMaximumWords()){
-			return false;
-		}
+
 
 		$userId = Auth::id();
 		$hashId = $this->generateHashId();
 
 		$fileName = $request->input('filePath');
-		$filename = $this->getPath("FILE_PATH", $hashId) . $fileName;
+		$word = $this->getPath("FILE_PATH", $hashId) . $fileName;
 
 		$templateId = $request->input('templateId');
 
@@ -153,22 +151,29 @@ class DownloadController extends Controller
 		$path = $this->getPath("DOWNLOAD_PATH", $hashId);
 		$userPath = $this->getPath("DOWNLOAD_PATH", null);
 
-		$command = "php {$scriptPath} {$filename} {$path}/";
-
-		$output = shell_exec($command);
 
 		$template = $this->useTemplate($templateId, $path);
 
-		$word = $path . "/" . $fileName;
+		$palabras = @(new WordHelper)->getAllWords($word);
+
+		if(!ManageClientSubscription::haveMaximumWords($palabras)){
+			return false;
+		}else{
+			$command = "php {$scriptPath} {$word} {$path}/";
+			$output = shell_exec($command);
+			ManageClientSubscription::consumeMaximumWords($palabras);
+		}
 
 		$contenido = @(new WordHelper)->convertToArray($word);
 
-		Subscription::generateNewPages($contenido, $path, $userId);
+		list($conceptualMap, $summary, $questionsUsed) = Subscription::generateNewPages($contenido, $path, $userId);
 
 		if(!ManageClientSubscription::haveVoiceOver()){
 			Subscription::texToSpeech($contenido, $path, $userId);
+			$voiceOver = true;
 		}else{
 			$this->hiddenPremiumButtons($path);
+			$voiceOver = false;
 		}
 
 		$zipFilePath = $path;
@@ -184,6 +189,13 @@ class DownloadController extends Controller
 		if($template){
 			$history->templateName = $template->template_name;
 		}
+		$history->wordsUsed = $palabras;
+		$history->voiceOver = $voiceOver;
+
+		$history->summary = $summary;
+		$history->conceptualMap = $conceptualMap;
+		$history->questionsUsed = $questionsUsed;
+
 		$history->pathZip = $zipFilePath . ".zip";
 		$history->save();
 

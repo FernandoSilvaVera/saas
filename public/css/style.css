@@ -744,8 +744,8 @@ tbody tr td:first-child .subs_content {
 /* ============== history_section =========== */
 .history_section table tr td:not(:first-child),
 .history_section tr th:not(:first-child) {
-  padding-right: 5rem;
-  padding-left: 5rem;
+  padding-right: 2rem;
+  padding-left: 2rem;
 }
 .history_section tr th:first-child,
 .history_section tr td:first-child {

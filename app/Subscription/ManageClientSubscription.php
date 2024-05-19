@@ -76,10 +76,10 @@ die("fer");
 		return $email;
 	}
 
-	public static function haveMaximumWords(){
+	public static function haveMaximumWords($current){
 		$email = self::getEmail();
 		$clientSubscription = ClientsSubscription::where('email', $email)->first();
-		return $clientSubscription->palabras_maximas > 0;
+		return $clientSubscription->palabras_maximas > $current;
 	}
 
 	public static function haveQuestions(){

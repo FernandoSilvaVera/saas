@@ -17,5 +17,10 @@ class History extends Model
 	'userId',
         'templateName',
         'pathZip',
+	'wordsUsed',
+	'conceptualMap',
+	'summary',
+	'questionsUsed',
+	'voiceOver',
     ];
 }

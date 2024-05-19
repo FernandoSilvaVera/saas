@@ -61,16 +61,26 @@
                                 <thead>
                                     <tr>
                                         <th>Fecha generado</th>
-                                        <th>Plantilla usada</th>
-                                        <th>Volver a descargar</th>
+                                        <th>Plantilla</th>
+                                        <th>Palabras</th>
+                                        <th>Resumen</th>
+                                        <th>Mapa conceptual</th>
+                                        <th>Locución en línea</th>
+                                        <th>Descargar</th>
                                     </tr>
                                 </thead>
                                 <tbody>
 					@foreach($histories as $history)
                                     <tr>
                                         <td>{{$history->created_at}}</td>
-                                        <td>{{$history->templateName}}</td>
-                                        <td><a href="{{ route('history.download', ['id' => $history->id]) }}" class="button">Descargar de nuevo</a></td>
+                                        <td class="text-center">{{$history->templateName}}</td>
+
+                                        <td class="text-center">{{$history->wordsUsed}}</td>
+                                        <td class="text-center">{{$history->summary}}</td>
+                                        <td class="text-center">{{$history->conceptualMap}}</td>
+                                        <td class="text-center">{{$history->voiceover}}</td>
+
+                                        <td><a href="{{ route('history.download', ['id' => $history->id]) }}" class="button">Descargar</a></td>
                                     </tr>
 					@endforeach
                                 </tbody>

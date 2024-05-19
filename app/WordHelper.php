@@ -134,59 +134,15 @@ class WordHelper
 
 						foreach($row->getCells() as $cellKey => $cells){
 
-							$html .= '<td';
-
-							// Si es la primera celda de la primera fila y solo hay un elemento
-							if ($rowKey === 0 && $cellKey === 0 && count($cells->getElements()) === 1) {
-								$html .= ' {colspan}';
-							}
-
-							$html .= '>';
-
 							$onlyOneColumn++;
 
 							foreach($cells->getElements() as $cellElement){
-
-
 								if ($cellElement instanceof \PhpOffice\PhpWord\Element\TextRun) {
 									$textCell = $cellElement->getText();
-									$paragraphStyle = $cellElement->getParagraphStyle();
-									$style = $paragraphStyle->getStyleName();
-
-									$this->addStyle($textCell, $cellElement, $style, $paragraphStyle);
-									$html .= $textCell;
 								}
 
 							}
-							$html .= '</td>';
 
-						}
-				
-						if($onlyOneColumn == 1){
-							$html = str_replace("{colspan}", "colspan='4'", $html);
-						}
-
-						$html .= '</tr>';
-
-					}
-
-					$html = str_replace("{colspan}", "{colspanOne}'", $html);
-					$html .= '</table>';
-
-
-					if(isset($nivelActual)){
-						if (isset($nivelActual[2]) && isset($estructura[$nivelActual[0]]) && 
-								isset($estructura[$nivelActual[0]][$nivelActual[1]]) && 
-								isset($estructura[$nivelActual[0]][$nivelActual[1]][$nivelActual[2]])) {
-							//lvl3
-							$estructura[$nivelActual[0]][$nivelActual[1]][$nivelActual[2]] .= $html;
-
-						}else if (isset($nivelActual[1]) && isset($estructura[$nivelActual[0]][$nivelActual[1]])){
-							//lvl2
-							$estructura[$nivelActual[0]][$nivelActual[1]]["html"] .= $html;
-						}else if (isset($nivelActual[0]) && isset($estructura[$nivelActual[0]])) {
-							//lvl1
-							$estructura[$nivelActual[0]]["html"] .= $html;
 						}
 					}
 
@@ -328,6 +284,50 @@ return;
 			}
 		}
 
+	}
+
+	public function getAllWords($filePath)
+	{
+		$phpWord = IOFactory::load($filePath);
+
+		$return = 0;
+
+		foreach ($phpWord->getSections() as $section) {
+			foreach ($section->getElements() as $element) {
+				if ($element instanceof \PhpOffice\PhpWord\Element\TextRun) {
+					$fullText = $element->getText();
+
+					$return += strlen($fullText);
+
+
+				} elseif ($element instanceof \PhpOffice\PhpWord\Element\Image) {
+
+				} elseif ($element instanceof \PhpOffice\PhpWord\Element\TextBreak) {
+
+				} elseif ($element instanceof \PhpOffice\PhpWord\Element\PageBreak) {
+
+				} elseif ($element instanceof \PhpOffice\PhpWord\Element\Table) {
+
+					foreach($element->getRows() as $rowKey => $row){
+
+						foreach($row->getCells() as $cellKey => $cells){
+
+							foreach($cells->getElements() as $cellElement){
+								if ($cellElement instanceof \PhpOffice\PhpWord\Element\TextRun) {
+									$textCell = $cellElement->getText();
+									$return += strlen($textCell);
+								}
+							}
+						}
+					}
+
+				}else{
+
+				}
+			}
+
+		}
+		return $return;
 	}
 
 }

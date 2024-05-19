@@ -37,12 +37,15 @@ class Subscription
 
 		$openai = new OpenAI($word, $downloadPath, $userId);
 
-		$openai->conceptualMap($conceptualMapHTML);
+		$conceptualMap = $openai->conceptualMap($conceptualMapHTML);
+		$summary = false;
+		$questions = false;
 
 		if(ManageClientSubscription::haveSummaries()){
 			$ok = $openai->summary($summaryHTML);
 			if($ok){
 				ManageClientSubscription::consumeSummaries(1);
+				$summary = 1;
 			}
 		}
 
@@ -51,8 +54,11 @@ class Subscription
 			$ok = $openai->questions($questionsHTML, $downloadPath, $numQuestions);
 			if($ok){
 				ManageClientSubscription::consumeQuestions($numQuestions);
+				$questions = $numQuestions;
 			}
 		}
+
+		return [$conceptualMap, $summary, $questions];
 
 	}
 
