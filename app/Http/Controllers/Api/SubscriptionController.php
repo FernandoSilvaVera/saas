@@ -60,10 +60,6 @@ class SubscriptionController extends Controller
 
     public function webhookSuccess(Request $request)
     {
-	    $stripe = new \Stripe\StripeClient(config('services.stripe.secret'));
-	    $customer = $stripe->customers->retrieve("cus_Q89SgmmcpRuYMQ", [ 'expand' => ['subscriptions']]);
-
-	    ManageClientSubscription::update($customer);
 
         file_put_contents('/tmp/stripe.log', "6", FILE_APPEND);
         Stripe::setApiKey(config('services.stripe.secret'));
@@ -91,6 +87,7 @@ class SubscriptionController extends Controller
 
 		$stripe = new \Stripe\StripeClient(config('services.stripe.secret'));
 		$customer = $stripe->customers->retrieve($paymentIntent->customer, [ 'expand' => ['subscriptions']]);
+		ManageClientSubscription::update($customer);
 
 		$subs = $customer->subscriptions->data;
 		$customer->email;

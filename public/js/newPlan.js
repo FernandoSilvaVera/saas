@@ -28,7 +28,7 @@ function createPlan() {
 	var nameInput = document.getElementById("planName");
 	plan.name = nameInput.value;
 
-	plan.description = " ";
+	plan.description = "Suscripción a contenidos virtuales";
 
 	var apiUrl = '/api/subscription/plans';
 

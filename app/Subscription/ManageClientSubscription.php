@@ -15,12 +15,6 @@ class ManageClientSubscription
 		$subs = $customer->subscriptions->data;
 		$currentSub = end($subs);
 
-
-		self::consumeMaximumWords(1000, $email);
-		self::consumeQuestions(3, $email);
-		self::consumeSummaries(15, $email);
-die("fer");
-
 		$plan = SubscriptionPlan::where('stripe_product_id', $currentSub->plan->product)->first();
 
 		$clientSubscription = ClientsSubscription::where('email', $email)->first();

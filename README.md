@@ -12,3 +12,5 @@ sudo chown -R www-data:www-data /home/contenidosvirtuales
 sudo chown -R www-data:www-data /home/contenidosvirtualesAudio
 
 apt  install ffmpeg
+
+sudo systemctl restart redis
