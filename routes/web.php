@@ -7,6 +7,9 @@ use App\Http\Controllers\UsersController;
 use App\Http\Controllers\DownloadController;
 use App\Http\Controllers\HistoryController;
 use App\Http\Controllers\TemplateController;
+use App\Jobs\FileDownloadJob;
+use App\Jobs\ProcessTestJob;
+use Illuminate\Http\Request;
 
 
 /*
@@ -30,7 +33,7 @@ Route::get('/', function () {
 	return redirect('/app');
 })->middleware('auth.redirect');
 
-Route::get('/app', [AppController::class, 'index'])->middleware('auth.redirect');
+Route::get('/app', [AppController::class, 'index'])->middleware('auth.redirect')->name('app');
 
 Route::get('/plans', [PlansController::class, 'index']);
 Route::get('/buy/{id}', [PlansController::class, 'buy'])->middleware('auth.redirect');
@@ -70,4 +73,22 @@ Route::post('/newTemplate', [TemplateController::class, 'store'])->name('templat
 Route::get('/template', [TemplateController::class, 'edit'])->name('template.edit')->middleware('auth.redirect');
 
 
-Route::post('/download', [DownloadController::class, 'download'])->name('download')->middleware('auth.redirect');
+Route::post('/downloadDebug', [DownloadController::class, 'download'])->name('downloadDebug')->middleware('auth.redirect');
+
+Route::post('/download', function (Request $request) {
+
+	$userId = auth()->id();
+	$fileName = $request->input('filePath');
+	$templateId = $request->input('templateId');
+
+	FileDownloadJob::dispatch($fileName, $templateId, $userId);
+
+})->name('download')->middleware('auth.redirect');
+
+
+
+Route::get('/test-queue', function () {
+	ProcessTestJob::dispatch();
+	return 'Job dispatched to the queue.';
+});
+

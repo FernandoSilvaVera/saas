@@ -41,19 +41,19 @@ class Subscription
 		$summary = false;
 		$questions = false;
 
-		if(ManageClientSubscription::haveSummaries()){
+		if(ManageClientSubscription::haveSummaries($userId)){
 			$ok = $openai->summary($summaryHTML);
 			if($ok){
-				ManageClientSubscription::consumeSummaries(1);
+				ManageClientSubscription::consumeSummaries(1, $userId);
 				$summary = 1;
 			}
 		}
 
-		if(ManageClientSubscription::haveQuestions()){
+		if(ManageClientSubscription::haveQuestions($userId)){
 			$numQuestions = 10;
 			$ok = $openai->questions($questionsHTML, $downloadPath, $numQuestions);
 			if($ok){
-				ManageClientSubscription::consumeQuestions($numQuestions);
+				ManageClientSubscription::consumeQuestions($numQuestions, $userId);
 				$questions = $numQuestions;
 			}
 		}

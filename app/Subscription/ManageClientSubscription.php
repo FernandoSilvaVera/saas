@@ -42,54 +42,53 @@ class ManageClientSubscription
 		}
 	}
 
-	public static function consumeMaximumWords($wordsUsed) {
-		$email = self::getEmail();
+	public static function consumeMaximumWords($wordsUsed, $userId) {
+		$email = self::getEmail($userId);
 		$clientSubscription = ClientsSubscription::where('email', $email)->first();
 		$clientSubscription->palabras_maximas -= $wordsUsed;
 		$clientSubscription->save();
 	}
 
-	public static function consumeQuestions($questionsUsed) {
-		$email = self::getEmail();
+	public static function consumeQuestions($questionsUsed, $userId) {
+		$email = self::getEmail($userId);
 		$clientSubscription = ClientsSubscription::where('email', $email)->first();
 		$clientSubscription->numero_preguntas -= $questionsUsed;
 		$clientSubscription->save();
 	}
 
-	public static function consumeSummaries($summariesUsed) {
-		$email = self::getEmail();
+	public static function consumeSummaries($summariesUsed, $userId) {
+		$email = self::getEmail($userId);
 		$clientSubscription = ClientsSubscription::where('email', $email)->first();
 		$clientSubscription->numero_resumenes -= $summariesUsed;
 		$clientSubscription->save();
 	}
 
-	public static function getEmail(){
-		$userId = Auth::id();
+	public static function getEmail($userId){
 		$user = User::find($userId);
 		$email = $user->email;
 		return $email;
 	}
 
-	public static function haveMaximumWords($current){
-		$email = self::getEmail();
+	public static function haveMaximumWords($current, $userId){
+		$email = self::getEmail($userId);
 		$clientSubscription = ClientsSubscription::where('email', $email)->first();
 		return $clientSubscription->palabras_maximas > $current;
 	}
 
-	public static function haveQuestions(){
-		$email = self::getEmail();
+	public static function haveQuestions($userId){
+		$email = self::getEmail($userId);
 		$clientSubscription = ClientsSubscription::where('email', $email)->first();
 		return $clientSubscription->numero_preguntas > 0;
 	}
 
-	public static function haveSummaries(){
-		$email = self::getEmail();
+	public static function haveSummaries($userId){
+		$email = self::getEmail($userId);
 		$clientSubscription = ClientsSubscription::where('email', $email)->first();
 		return $clientSubscription->numero_resumenes > 0;
 	}
 
-	public static function haveVoiceOver(){
-		$email = self::getEmail();
+	public static function haveVoiceOver($userId){
+		$email = self::getEmail($userId);
 		$clientSubscription = ClientsSubscription::where('email', $email)->first();
 		return $clientSubscription->locucion_en_linea > 0;
 	}

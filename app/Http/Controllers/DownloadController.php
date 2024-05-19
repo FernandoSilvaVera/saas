@@ -15,6 +15,7 @@ use App\Subscription\ManageClientSubscription;
 use App\Models\User;
 use App\Models\ClientsSubscription;
 use App\Models\SubscriptionPlan;
+use App\Jobs\FileDownloadJob;
 
 class DownloadController extends Controller
 {
@@ -73,12 +74,14 @@ class DownloadController extends Controller
 		return $template;
 	}
 
-	public function getPath($path, $hashId)
+	public function getPath($path, $hashId, $user=null)
 	{
 
 		$return = null;
 
-		$user = auth()->user();
+		if(!$user){
+			$user = auth()->user();
+		}
 
 		$user = $user->name;
 		switch($path){
@@ -134,43 +137,56 @@ class DownloadController extends Controller
 
 	}
 
-	public function download(Request $request)
+	public function download($fileName, $templateId, $userId)
 	{
 
+		try {
 
-		$userId = Auth::id();
+		\Log::info('DownloadController Start');
+
+		$user = User::find($userId);
+		\Log::info('DownloadController user');
 		$hashId = $this->generateHashId();
+		\Log::info('DownloadController hashId');
 
-		$fileName = $request->input('filePath');
-		$word = $this->getPath("FILE_PATH", $hashId) . $fileName;
-
-		$templateId = $request->input('templateId');
+		$word = $this->getPath("FILE_PATH", $hashId, $user) . $fileName;
+		\Log::info('DownloadController word');
 
 		$scriptPath = resource_path('script/index.php');
 
-		$path = $this->getPath("DOWNLOAD_PATH", $hashId);
-		$userPath = $this->getPath("DOWNLOAD_PATH", null);
+		\Log::info('DownloadController getPath before');
+		$path = $this->getPath("DOWNLOAD_PATH", $hashId, $user);
+		$userPath = $this->getPath("DOWNLOAD_PATH", null, $user);
+		\Log::info('DownloadController getPath after');
 
-
+		\Log::info('DownloadController use template');
 		$template = $this->useTemplate($templateId, $path);
 
 		$palabras = @(new WordHelper)->getAllWords($word);
+		\Log::info('DownloadController fin palabras');
 
-		if(!ManageClientSubscription::haveMaximumWords($palabras)){
+		if(!ManageClientSubscription::haveMaximumWords($palabras, $userId)){
+			\Log::info('DownloadController el fichero es demasiado grande para su plan');
 			return false;
 		}else{
+			\Log::info('Se va a ejecutar el SCRIPT');
 			$command = "php {$scriptPath} {$word} {$path}/";
 			$output = shell_exec($command);
-			ManageClientSubscription::consumeMaximumWords($palabras);
+			ManageClientSubscription::consumeMaximumWords($palabras, $userId);
+			\Log::info('SCRIPT TERMINADO ' . $command);
 		}
 
 		$contenido = @(new WordHelper)->convertToArray($word);
 
+		\Log::info('VA A EMPEZAR EL PROCESO IA');
 		list($conceptualMap, $summary, $questionsUsed) = Subscription::generateNewPages($contenido, $path, $userId);
+		\Log::info('IA TERMINADO');
 
-		if(!ManageClientSubscription::haveVoiceOver()){
+		if(!ManageClientSubscription::haveVoiceOver($userId)){
+			\Log::info('VA A EMPEZAR EL PROCESO DE VOZ');
 			Subscription::texToSpeech($contenido, $path, $userId);
 			$voiceOver = true;
+			\Log::info('VOZ TERMINADA');
 		}else{
 			$this->hiddenPremiumButtons($path);
 			$voiceOver = false;
@@ -181,6 +197,7 @@ class DownloadController extends Controller
 		$command = "cd $userPath && zip -r {$hashId}.zip {$hashId}";
 		exec($command);
 
+		\Log::info('VAMOS A GUARDAR EL HISTORIAL');
 		$history = new History();
 		$history->name = ' ';
 		$history->userId = $userId;
@@ -198,8 +215,15 @@ class DownloadController extends Controller
 
 		$history->pathZip = $zipFilePath . ".zip";
 		$history->save();
+		\Log::info('FIN DEL HISTORIAL');
 
-		return response()->download($zipFilePath . ".zip");
+		\Log::info('DownloadController End');
+//		return response()->download($zipFilePath . ".zip");
+
+		} catch (\Exception $e) {
+			\Log::info('DownloadController End CON ERROR ' . $e->getMessage());
+		}
+
 	}
 
 	public function preview(Request $request)
@@ -258,5 +282,19 @@ class DownloadController extends Controller
 			'plan' => $plan,
 		]);
 	}
+
+
+
+	public function handleDownload(Request $request)
+	{
+		// Despachar el trabajo de descarga de archivo
+		FileDownloadJob::dispatch(new DownloadController, $request);
+
+		// Redirigir a la ruta '/app'
+		return redirect()->route('/app');
+	}
+
+
+
 
 }
