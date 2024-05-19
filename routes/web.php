@@ -97,8 +97,8 @@ Route::get('/test-queue', function () {
 
 
 Route::get('/send-email', function () {
-	$demo_email = new DemoEmail();
-	Mail::to('fernandosilv4c@gmail.com')->send($demo_email);
+	$email = "fernandosilv4c@gmail.com";
+	Mail::to($email)->send(new DownloadFile());
 	return "Correo enviado correctamente";
 });
 

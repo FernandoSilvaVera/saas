@@ -42,7 +42,7 @@ color: #fff; /* Color del texto del botón */
 <div class="container">
 <h1>Tu Virtualización Está Lista para ser Descargada</h1>
 <p>
-¡Estamos encantados de informarte que el archivo va adjunto en este correo! También puedes consultarlo en cualquier momento visitando el siguiente enlace:
+¡El archivo ya está listo para su descarga en el historial!
 </p>
 <p style="text-align: center;">
 <a href="https://contenidosvirtuales.com/history" class="cta-button">Consultar en el Historial</a>

@@ -16,6 +16,9 @@ use App\Models\User;
 use App\Models\ClientsSubscription;
 use App\Models\SubscriptionPlan;
 use App\Jobs\FileDownloadJob;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\DownloadFile;
+
 
 class DownloadController extends Controller
 {
@@ -139,7 +142,6 @@ class DownloadController extends Controller
 
 	public function download($fileName, $templateId, $userId)
 	{
-
 		try {
 
 		\Log::info('DownloadController Start');
@@ -182,7 +184,7 @@ class DownloadController extends Controller
 		list($conceptualMap, $summary, $questionsUsed) = Subscription::generateNewPages($contenido, $path, $userId);
 		\Log::info('IA TERMINADO');
 
-		if(!ManageClientSubscription::haveVoiceOver($userId)){
+		if(ManageClientSubscription::haveVoiceOver($userId)){
 			\Log::info('VA A EMPEZAR EL PROCESO DE VOZ');
 			Subscription::texToSpeech($contenido, $path, $userId);
 			$voiceOver = true;
@@ -218,6 +220,14 @@ class DownloadController extends Controller
 		\Log::info('FIN DEL HISTORIAL');
 
 		\Log::info('DownloadController End');
+
+
+		$user = User::find($userId);
+		$email = $user->email;
+
+		Mail::to($email)->send(new DownloadFile());
+		\Log::info('Email enviado ' . $email);
+
 //		return response()->download($zipFilePath . ".zip");
 
 		} catch (\Exception $e) {
@@ -228,7 +238,6 @@ class DownloadController extends Controller
 
 	public function preview(Request $request)
 	{
-
 		$hashId = $this->generateHashId();
 
 		$templateId = $request->input('templateId');
