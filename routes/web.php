@@ -10,6 +10,8 @@ use App\Http\Controllers\TemplateController;
 use App\Jobs\FileDownloadJob;
 use App\Jobs\ProcessTestJob;
 use Illuminate\Http\Request;
+use App\Mail\DemoEmail;
+use Illuminate\Support\Facades\Mail;
 
 
 /*
@@ -90,5 +92,13 @@ Route::post('/download', function (Request $request) {
 Route::get('/test-queue', function () {
 	ProcessTestJob::dispatch();
 	return 'Job dispatched to the queue.';
+});
+
+
+
+Route::get('/send-email', function () {
+	$demo_email = new DemoEmail();
+	Mail::to('fernandosilv4c@gmail.com')->send($demo_email);
+	return "Correo enviado correctamente";
 });
 
