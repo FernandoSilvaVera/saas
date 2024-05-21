@@ -15,6 +15,7 @@
 		<a href="{{ url('/newPlan') }}" class="{{ request()->is('newPlan') ? 'active' : '' }}"><img src="./img/sidebar_icon2.svg" alt="">Nuevo Plan</a>
 		<a href="{{ url('/customize') }}" class="{{ request()->is('customize') ? 'active' : '' }}"><img src="./img/sidebar_icon7.svg" alt="">Personalizar suscripciones</a>
 		<a href="{{ url('/createUsers') }}" class="{{ request()->is('createUsers') ? 'active' : '' }}"><img src="./img/sidebar_icon8.svg" alt="">Crear usuarios</a>
+		<a href="{{ url('/shareAccount') }}" class="{{ request()->is('shareAccount') ? 'active' : '' }}"><img src="./img/sidebar_icon9.svg" alt="">Compartir Cuenta</a>
 		<a href="{{ url('/listUsers') }}" class="{{ request()->is('listUsers') ? 'active' : '' }}"><img src="./img/sidebar_icon9.svg" alt="">Usuarios</a>
 		<a href="{{ url('/logout') }}"><img src="./img/sidebar_icon9.svg">Cerrar Sesión</a>
 	@else

@@ -18,6 +18,7 @@ class ClientsSubscription extends Model
 	    'locucion_en_linea',
 	    'otros_usuarios',
 	    'plan_contratado',
+	    'customerStripe',
     ];
 
 }

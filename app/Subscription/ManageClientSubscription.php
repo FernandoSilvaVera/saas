@@ -5,10 +5,10 @@ namespace App\Subscription;
 use App\Models\ClientsSubscription;
 use App\Models\SubscriptionPlan;
 use App\Models\User;
-use Illuminate\Support\Facades\Auth;
 
 class ManageClientSubscription
 {
+	//Cuando alguien se suscribe o se renueva
 	public static function update($customer)
 	{
 		$email = $customer->email;
@@ -27,6 +27,7 @@ class ManageClientSubscription
 					'numero_resumenes' => $plan->summaries,
 					'locucion_en_linea' => $plan->voiceover,
 					'plan_contratado' => $plan->id,
+					'customerStripe' => $currentSub->customer,
 			]);
 		} else {
 			$clientSubscription = ClientsSubscription::create([
@@ -38,6 +39,7 @@ class ManageClientSubscription
 					'locucion_en_linea' => $plan->voiceover,
 					'otros_usuarios' => "",
 					'plan_contratado' => $plan->id,
+					'customerStripe' => $currentSub->customer,
 			]);
 		}
 	}
@@ -66,7 +68,18 @@ class ManageClientSubscription
 	public static function getEmail($userId){
 		$user = User::find($userId);
 		$email = $user->email;
-		return $email;
+
+		$clientSubscription = ClientsSubscription::where('email', $email)->first();
+		if($clientSubscription){
+			return $email;
+		}
+
+		$clientSubscription = ClientsSubscription::where('otros_usuarios', 'like', '%' . $email . '%')->first();
+		if($clientSubscription){
+			return $clientSubscription->email;
+		}
+
+		return null;
 	}
 
 	public static function haveMaximumWords($current, $userId){
@@ -92,5 +105,15 @@ class ManageClientSubscription
 		$clientSubscription = ClientsSubscription::where('email', $email)->first();
 		return $clientSubscription->locucion_en_linea > 0;
 	}
+
+
+	public static function getClientSubscription($userId)
+	{
+		$email = self::getEmail($userId);
+		$clientSubscription = ClientsSubscription::where('email', $email)->first();
+		return $clientSubscription;
+	}
+
+
 
 }

@@ -145,12 +145,12 @@
                             <button class="nav-link price_tab active" id="monthly-tab" data-bs-toggle="tab"
                                 data-bs-target="#monthly" type="button" role="tab" aria-controls="monthly"
                                 aria-selected="true">
-                                Monthly
+                                Mensual
                             </button>
                             <button class="nav-link price_tab" id="yearly-tab" data-bs-toggle="tab"
                                 data-bs-target="#yearly" type="button" role="tab" aria-controls="yearly"
                                 aria-selected="false">
-                                Yearly
+                                Anual
                             </button>
                         </div>
                         <div class="tab-content" id="myTabContent">

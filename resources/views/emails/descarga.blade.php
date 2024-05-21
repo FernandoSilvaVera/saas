@@ -29,7 +29,7 @@ p {
 display: inline-block;
 padding: 10px 20px;
 	 background-color: #428bca; /* Color de fondo del botón */
-color: #fff; /* Color del texto del botón */
+	color: #fff !important;
        text-decoration: none;
        border-radius: 5px;
 }

@@ -7,6 +7,7 @@ use App\Http\Controllers\UsersController;
 use App\Http\Controllers\DownloadController;
 use App\Http\Controllers\HistoryController;
 use App\Http\Controllers\TemplateController;
+use App\Http\Controllers\ShareAccountController;
 use App\Jobs\FileDownloadJob;
 use App\Jobs\ProcessTestJob;
 use Illuminate\Http\Request;
@@ -51,6 +52,10 @@ Route::post('/preview', [DownloadController::class, 'preview'])->name('preview-d
 
 Route::get('/history', [HistoryController::class, 'listHistory'])->middleware('auth.redirect');
 
+Route::get('/shareAccount', [ShareAccountController::class, 'view'])->middleware('auth.redirect');
+
+Route::get('/templatesOk', [TemplateController::class, 'listTemplatesOkMessage'])->middleware('auth.redirect');
+
 Route::get('/templates', [TemplateController::class, 'listTemplates'])->middleware('auth.redirect');
 
 Route::get('/newPlan', function () {
@@ -74,16 +79,21 @@ Route::post('/newTemplate', [TemplateController::class, 'store'])->name('templat
 
 Route::get('/template', [TemplateController::class, 'edit'])->name('template.edit')->middleware('auth.redirect');
 
+Route::post('/updateShareAccount', [ShareAccountController::class, 'updateShareAccount'])->name('updateShareAccount')->middleware('auth.redirect');
 
-Route::post('/downloadDebug', [DownloadController::class, 'download'])->name('downloadDebug')->middleware('auth.redirect');
+Route::get('/queuedDownload', [AppController::class, 'queuedDownload'])->name('queuedDownload')->middleware('auth.redirect');
+
+Route::post('/downloadDebug', [AppController::class, 'download'])->name('downloadDebug')->middleware('auth.redirect');
 
 Route::post('/download', function (Request $request) {
-
+	\Log::info('Download Start Route');
 	$userId = auth()->id();
 	$fileName = $request->input('filePath');
 	$templateId = $request->input('templateId');
 
 	FileDownloadJob::dispatch($fileName, $templateId, $userId);
+
+	return redirect('/queuedDownload');
 
 })->name('download')->middleware('auth.redirect');
 

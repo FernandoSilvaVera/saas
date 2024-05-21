@@ -61,7 +61,18 @@ $(document).ready(function() {
 			contentType: 'application/json',
 			data: JSON.stringify(jsonData),
 			success: function(response) {
-				alert("template guardado")
+				if (response) {
+					window.location.href = "/templatesOk";
+				} else {
+					var mensajeError = '<div class="alert alert-danger" role="alert">';
+					mensajeError += '<strong>Error:</strong> Hubo un problema al guardar la plantilla.';
+					mensajeError += '</div>';
+					$('#mensaje-container').html(mensajeError);
+
+					setTimeout(function() {
+						$('#mensaje-container').empty();
+					}, 3000);
+				}
 			},
 			error: function(xhr, status, error) {
 

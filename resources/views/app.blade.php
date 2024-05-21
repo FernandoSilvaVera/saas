@@ -46,6 +46,8 @@
             <!-- main_content -->
             <div class="main_content pl_24 pr_24 pb_60 w-100">
 
+		@include('includes/message')
+
                 <!-- App_section -->
                 <section class="app_section section_padding_bg">
                     <div class="container-fluid">
@@ -132,6 +134,9 @@
             </div>
         </div>
     </div>
+
+
+
 
 
     <!-- all js here -->

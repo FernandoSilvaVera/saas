@@ -11,13 +11,14 @@ use Illuminate\Support\Facades\File;
 class TemplateController extends Controller
 {
 
-	public function listTemplates()
+	public function listTemplates($message = null)
 	{
 		$userId = Auth::id();
 		$templates = Template::where('userId', $userId)->get();
 
 		return view('templates', [
 			'templates' => $templates,
+			'message' => $message,
 		]);
 	}
 
@@ -108,6 +109,11 @@ class TemplateController extends Controller
 		return view('template', [
 			'template' => $template,
 		]);
+	}
+
+	public function listTemplatesOkMessage(Request $request)
+	{
+		return $this->listTemplates("Plantilla guardada");
 	}
 
 }

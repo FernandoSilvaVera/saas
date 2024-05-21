@@ -56,6 +56,8 @@
 				<a href="{{ route('template.edit') }}" class="button">Nueva Plantilla</a>
                         </div>
 
+			@include('includes/message')
+
                         <div class="table_wrap">
                             <table>
                                 <thead>

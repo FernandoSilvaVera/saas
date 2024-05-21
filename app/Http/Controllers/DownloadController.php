@@ -278,7 +278,9 @@ class DownloadController extends Controller
 		$userId = Auth::id();
 		$user = User::find($userId);
 		$email = $user->email;
-		$clientSubscription = ClientsSubscription::where('email', $email)->first();
+
+		$clientSubscription = ManageClientSubscription::getClientSubscription($userId);
+
 		$plan = SubscriptionPlan::Find($clientSubscription->plan_contratado);
 
 		return view('app', [

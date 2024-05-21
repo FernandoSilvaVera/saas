@@ -176,6 +176,7 @@
                                         </div>
                                     </div>
                                     <button id="saveTemplate" class="button w-100">Guardar</button>
+				    <div id="mensaje-container" class="mt-5 text-center"></div>
                                 </div>
                             </div>
                         </div>
@@ -187,36 +188,35 @@
     </div>
 
 	<script>
-
 		var templateNew = "{{ route('template.new') }}";
 		var csrfToken = "{{ csrf_token() }}";
-		var templateId = "{{$template->id}}"
-
-
-		var fontSize = {{$template->font_size}};
-
-		var selectElement = document.getElementById("fontSize");
-
-		for (var i = 0; i < selectElement.options.length; i++) {
-			if (parseInt(selectElement.options[i].value) === fontSize) {
-				selectElement.selectedIndex = i;
-				break;
-			}
-		}
-
-
-		var typography = "{{$template->typography}}"; 
-
-		var selectElement = document.getElementById("fontFamily");
-
-		for (var i = 0; i < selectElement.options.length; i++) {
-			if (selectElement.options[i].value === typography) {
-				selectElement.selectedIndex = i;
-				break;
-			}
-		}
-
+		var templateId = "{{$template->id}}";
 	</script>
+
+	@if(isset($template))
+		<script>
+			var fontSize = {{$template->font_size}};
+			var typography = "{{$template->typography}}";
+
+			var selectElement = document.getElementById("fontSize");
+
+			for (var i = 0; i < selectElement.options.length; i++) {
+				if (parseInt(selectElement.options[i].value) === fontSize) {
+					selectElement.selectedIndex = i;
+					break;
+				}
+			}
+
+			var selectElement = document.getElementById("fontFamily");
+
+			for (var i = 0; i < selectElement.options.length; i++) {
+				if (selectElement.options[i].value === typography) {
+					selectElement.selectedIndex = i;
+					break;
+				}
+			}
+		</script>
+	@endif
 
     <!-- all js here -->
     <script src="{{ asset('js/jquery-3.4.1.min.js') }}"></script>
