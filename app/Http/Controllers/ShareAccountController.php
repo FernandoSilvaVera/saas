@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Auth;
 use Hashids\Hashids;
 use Illuminate\Support\Facades\File;
 use App\Models\User;
+use App\Subscription\ManageClientSubscription;
 
 class ShareAccountController extends Controller
 {
@@ -17,7 +18,12 @@ class ShareAccountController extends Controller
 	{
 		$userId = Auth::id();
 		$user = User::find($userId);
-		$clientSubscription = ClientsSubscription::where('email', $user->email)->first();
+
+		$clientSubscription = ManageClientSubscription::getClientSubscription($userId);
+
+		if(!$clientSubscription){
+			return view('shareAccount', ['errorMessageSubscription' => true]);
+		}
 
 		if($clientSubscription->otros_usuarios){
 			$emails = json_decode($clientSubscription->otros_usuarios);
@@ -27,10 +33,13 @@ class ShareAccountController extends Controller
 			}
 		}
 
+		$owner = $clientSubscription->email == $user->email;
+
 		return view('shareAccount', [
 			'message' => $message,
 			'editores' => $emails,
-			'email' => $user->email
+			'email' => $user->email,
+			'owner' => $owner,
 		]);
 	}
 

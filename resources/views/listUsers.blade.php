@@ -52,52 +52,27 @@
                 <div class="userlist_section section_padding_bg">
                     <div class="container-fluid">
 
-                        <div class="contact_top pb_20">
-                        </div>
-
                         <div class="table_wrap">
                             <table>
                                 <thead>
                                     <tr>
-                                        <th>Nombre</th>
                                         <th>Email</th>
-                                        <th>Card Number</th>
-                                        <th>Status</th>
+                                        <th>Plan</th>
+                                        <th>Estado</th>
+                                        <th>Acción</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-				@foreach($users as $user)
+				@foreach($clients as $client)
                                     <tr>
-                                        <td>{{$user->name}}</td>
-                                        <td>{{$user->email}}</td>
-                                        <td>XXXX-XXXX-XXXX-2582</td>
+                                        <td>{{$client->email}}</td>
+                                        <td>{{$client->subscriptionPlan->name}}</td>
                                         <td>Suscrito</td>
+                                        <td><a href="{{ route('client', ['id' => $client->id]) }}" class="button">Editar</a></td>
                                     </tr>
 				@endforeach
                                 </tbody>
                             </table>
-                        </div>
-
-                        <div class="pagination_wrap d-flex justify-content-end w-100">
-                            <div class="pagination d-flex align-items-center">
-                                <a href="#" class="pagination_arrow">
-                                    <img src="./img/arrow_left.svg" alt="">
-                                </a>
-                                <div class="numbers">
-                                    <a href="#">Prev</a>
-                                    <a href="#">1</a>
-                                    <a href="#">2</a>
-                                    <a href="#">3</a>
-                                    <a href="#" class="active">4</a>
-                                    <a href="#">5</a>
-                                    <a href="#">6</a>
-                                    <a href="#">7</a>
-                                    <a href="#">Next</a>
-                                </div>
-                                <a href="#" class="pagination_arrow">
-                                    <img src="./img/arrow_right.svg" alt="">
-                                </a>
-                            </div>
                         </div>
 
                     </div>

@@ -13,10 +13,11 @@ use GuzzleHttp\Client;
 class OpenAI
 {
 
-	public function __construct($wordJson, $downloadPath, $userId){
-
-		$json = json_decode($wordJson, true);
-		$wordJson = json_encode($json);
+	public function __construct($wordJson, $downloadPath, $userId)
+	{
+		$this->jsonArray = json_decode($wordJson, true);
+		
+		$wordJson = json_encode($this->jsonArray);
 
 		$this->apiKey = env('OPENAI_API_KEY');
 		$this->assistant = new Assistants();
@@ -27,190 +28,410 @@ class OpenAI
 
 	public function summary($summaryHTML)
 	{
-		$message = "Dame un resumen extenso de esto en formato json de esto tambien quiero que me lo formatees en html" . $this->wordJson;
-		$assistantId = "asst_vg9yWuWBqqWYQhO7OMlRQuxP";
-		$response = $this->assistant->execute($message, $assistantId);
+		$generated = false;
+		$send = "";
+		$textoNuevo = "";
+		$countTxtTotal = 0;
 
-		if (isset($response->data[0]->content[0]->text->value)) {
-			$data = $response->data[0]->content[0]->text->value;
+		foreach($this->jsonArray as $title => $content){
+			$send .= $title . " -> " . $content;
+			$countTxt = strlen($send);
+			$countTxtTotal += $countTxt;
+			if($countTxt > 4000){
+				$message = "Dame un resumen extenso de esto en formato json de esto tambien quiero que me lo formatees en html" . $send;
+				$assistantId = "asst_vg9yWuWBqqWYQhO7OMlRQuxP";
+				$response = $this->assistant->execute($message, $assistantId);
 
-			$data = json_decode($data, true);
+				if (isset($response->data[0]->content[0]->text->value)) {
+					$data = $response->data[0]->content[0]->text->value;
 
-			if(isset($data['resumen'])){
+					$data = json_decode($data, true);
 
-				$titulo = $data['resumen']['titulo'];
-				$contenido = $data['resumen']['contenido'];
+					if(isset($data['resumen'])){
+						$titulo = $data['resumen']['titulo'];
+						$contenido = $data['resumen']['contenido'];
 
-				$file = file_get_contents($summaryHTML);
 
-				$placeholder = '{summary}';
-				$textoNuevo = "<h1>$titulo</h1>";
-				$textoNuevo .= "<p>$contenido</p>";
+						$textoNuevo .= "<h1>$titulo</h1>";
+						$textoNuevo .= "<p>$contenido</p>";
 
-				$file = str_replace($placeholder, $textoNuevo, $file);
-				file_put_contents($summaryHTML, $file);
-				return true;
+
+					}
+
+				}
+
+				$send = "";
 			}
+		}
+
+		if($countTxtTotal <= 4000){
+				$message = "Dame un resumen extenso de esto en formato json de esto tambien quiero que me lo formatees en html" . $send;
+				$assistantId = "asst_vg9yWuWBqqWYQhO7OMlRQuxP";
+				$response = $this->assistant->execute($message, $assistantId);
+
+				if (isset($response->data[0]->content[0]->text->value)) {
+					$data = $response->data[0]->content[0]->text->value;
+
+					$data = json_decode($data, true);
+
+					if(isset($data['resumen'])){
+						$titulo = $data['resumen']['titulo'];
+						$contenido = $data['resumen']['contenido'];
+
+
+						$textoNuevo .= "<h1>$titulo</h1>";
+						$textoNuevo .= "<p>$contenido</p>";
+
+
+					}
+
+				}
 
 		}
 
+		if($textoNuevo){
+			$placeholder = '{summary}';
+			$file = file_get_contents($summaryHTML);
+			$file = str_replace($placeholder, $textoNuevo, $file);
+			file_put_contents($summaryHTML, $file);
+			return true;
+		}
+			
 		return false;
 
 	}
 
 	public function conceptualMap($conceptualMapHTML)
 	{
-		$message = "Crea un mapa conceptual de esto " . $this->wordJson;
-		$assistantId = "asst_4ESaXO8NoqzMXeIlnfC1NrPS";
-		$response = $this->assistant->execute($message, $assistantId);
+		$generated = false;
+		$send = "";
+		$textoNuevo = "";
+		$countTxtTotal = 0;
 
-		$data = null;
+		foreach($this->jsonArray as $title => $content){
+			$send .= $title . " -> " . $content;
+			$countTxt = strlen($send);
+			$countTxtTotal += $countTxt;
+			if($countTxt > 4000){
+				$message = "Crea un mapa conceptual de esto " . $this->wordJson;
+				$assistantId = "asst_4ESaXO8NoqzMXeIlnfC1NrPS";
+				$response = $this->assistant->execute($message, $assistantId);
 
-		if (isset($response->data[0]->content[0]->text->value)) {
-			$data = $response->data[0]->content[0]->text->value;
-			$file = file_get_contents($conceptualMapHTML);
+				$data = null;
 
-			$placeholder = '{markmapReplace}';
-			$textoNuevo = $data;
+				if (isset($response->data[0]->content[0]->text->value)) {
+					$data = $response->data[0]->content[0]->text->value;
+					$file = file_get_contents($conceptualMapHTML);
 
-			$file = str_replace($placeholder, $textoNuevo, $file);
-			$file = str_replace("espacioContenido col l9 m12 s12", "col l9 m12 s12", $file);
+					$placeholder = '{markmapReplace}';
+					$textoNuevo = $data;
 
-			file_put_contents($conceptualMapHTML, $file);
-			return true;
+					$file = str_replace($placeholder, $textoNuevo, $file);
+					$file = str_replace("espacioContenido col l9 m12 s12", "col l9 m12 s12", $file);
+
+					file_put_contents($conceptualMapHTML, $file);
+					return true;
+				}
+			}
+		}
+
+		if($countTxtTotal <= 4000){
+			$message = "Crea un mapa conceptual de esto " . $this->wordJson;
+			$assistantId = "asst_4ESaXO8NoqzMXeIlnfC1NrPS";
+			$response = $this->assistant->execute($message, $assistantId);
+
+			$data = null;
+
+			if (isset($response->data[0]->content[0]->text->value)) {
+				$data = $response->data[0]->content[0]->text->value;
+				$file = file_get_contents($conceptualMapHTML);
+
+				$placeholder = '{markmapReplace}';
+				$textoNuevo = $data;
+
+				$file = str_replace($placeholder, $textoNuevo, $file);
+				$file = str_replace("espacioContenido col l9 m12 s12", "col l9 m12 s12", $file);
+
+				file_put_contents($conceptualMapHTML, $file);
+				return true;
+			}
+
 		}
 
 		return false;
-
 	}
 
 	public function questions($questionsHTML, $numQuestions)
 	{
-		$message = "Crea $numQuestions preguntas en formato json sobre esto " . $this->wordJson;
-		$assistantId = "asst_wCSbBD0KHXIIaKMKvubNj1CB";
-		$response = $this->assistant->execute($message, $assistantId);
+		$generated = false;
+		$send = "";
+		$textoNuevo = "";
+		$countTxtTotal = 0;
 
-		if (isset($response->data[0]->content[0]->text->value)) {
-			$data = $response->data[0]->content[0]->text->value;
-			$data = json_decode($data, true);
+		foreach($this->jsonArray as $title => $content){
+			$send .= $title . " -> " . $content;
+			$countTxt = strlen($send);
+			$countTxtTotal += $countTxt;
+			if($countTxt > 4000){
 
-			$file = file_get_contents($questionsHTML);
+				$message = "Crea $numQuestions preguntas en formato json sobre esto " . $send;
+				$assistantId = "asst_wCSbBD0KHXIIaKMKvubNj1CB";
+				$response = $this->assistant->execute($message, $assistantId);
 
-			$placeholder = "{questions}";
+				if (isset($response->data[0]->content[0]->text->value)) {
+					$data = $response->data[0]->content[0]->text->value;
+					$data = json_decode($data, true);
 
-			$textoNuevo = "";
+					$file = file_get_contents($questionsHTML);
 
-			$aiken = "";
+					$placeholder = "{questions}";
 
-			if(isset($data['preguntas']) && isset($data['preguntas'][0]['pregunta'])){
+					$textoNuevo = "";
 
-				foreach($data['preguntas'] as $question){
+					$aiken = "";
 
-					if(!isset($question['pregunta'])){
-						continue;
-					}
+					if(isset($data['preguntas']) && isset($data['preguntas'][0]['pregunta'])){
 
-					$textoNuevo .= '
-						<script>
+						foreach($data['preguntas'] as $question){
 
-							function mantenerElementosAleatorios(del) {
-								var questions = document.querySelectorAll(\'.questions\');
+							if(!isset($question['pregunta'])){
+								continue;
+							}
 
-								var numToKeep = 4;
+							$textoNuevo .= '
+								<script>
 
-								if (questions.length > numToKeep) {
+								function mantenerElementosAleatorios(del) {
+									var questions = document.querySelectorAll(\'.questions\');
 
-									var indices = [];
-									for (var i = 0; i < questions.length; i++) {
-										indices.push(i);
-									}
+									var numToKeep = 4;
 
-									for (var i = indices.length - 1; i > 0; i--) {
-										var j = Math.floor(Math.random() * (i + 1));
-										var temp = indices[i];
-										indices[i] = indices[j];
-										indices[j] = temp;
-									}
+									if (questions.length > numToKeep) {
 
-									for (var i = 0; i < questions.length; i++) {
-										if (indices.indexOf(i) > numToKeep - 1) {
-											if(del){
-												var parentElement = questions[i].parentNode;
-												parentElement.removeChild(questions[i]);
-											}else{
-												questions[i].style.display = \'none\';
+										var indices = [];
+										for (var i = 0; i < questions.length; i++) {
+											indices.push(i);
+										}
+
+										for (var i = indices.length - 1; i > 0; i--) {
+											var j = Math.floor(Math.random() * (i + 1));
+											var temp = indices[i];
+											indices[i] = indices[j];
+											indices[j] = temp;
+										}
+
+										for (var i = 0; i < questions.length; i++) {
+											if (indices.indexOf(i) > numToKeep - 1) {
+												if(del){
+													var parentElement = questions[i].parentNode;
+													parentElement.removeChild(questions[i]);
+												}else{
+													questions[i].style.display = \'none\';
+												}
 											}
 										}
+
 									}
 
+
+
 								}
-
-
-
-							}
 
 							function mostrar(){
 								var questions = document.querySelectorAll(\'.questions\');
 
 								questions.forEach(function(element) {
-									element.style.display = \'block\';
-								});
+										element.style.display = \'block\';
+										});
 							}
 
 
-						window.addEventListener(\'load\', function() {
-							cargarBotonPaginaTest();
-						});
+							window.addEventListener(\'load\', function() {
+									cargarBotonPaginaTest();
+									});
 
-						document.addEventListener("DOMContentLoaded", function() {
-							mantenerElementosAleatorios();
-							mostrar();
-							mantenerElementosAleatorios(true);
-						});
+							document.addEventListener("DOMContentLoaded", function() {
+									mantenerElementosAleatorios();
+									mostrar();
+									mantenerElementosAleatorios(true);
+									});
 
-						</script>
-					';
+							</script>
+								';
 
-					$textoNuevo .= "<div class='questions'>";
-					$textoNuevo.= "<h4>" . $question['pregunta'] . "</h4>";
+							$textoNuevo .= "<div class='questions'>";
+							$textoNuevo.= "<h4>" . $question['pregunta'] . "</h4>";
 
-					$letraInicial = 'A';
+							$letraInicial = 'A';
 
-					$aiken .= $question['pregunta'] . "\n";
-					$ANSWER = "";
+							$aiken .= $question['pregunta'] . "\n";
+							$ANSWER = "";
 
-					foreach($question['respuestas'] as $key => $respuesta){
+							foreach($question['respuestas'] as $key => $respuesta){
 
-						$aiken .= $letraInicial++ . ") " . $respuesta . "\n";
+								$aiken .= $letraInicial++ . ") " . $respuesta . "\n";
 
-						if($respuesta == $question['correcta']){
-							$ANSWER = $letraInicial;
-							$textoNuevo .= "<input type='checkbox' class='opcion_correcta' id='opcion_correcta$respuesta$key' name='opcion' value='" . $respuesta . "'/>".
-								"<label for='opcion_correcta$respuesta$key'>" . $respuesta . "</label><br>";
-						}else{
-							$textoNuevo .= "<input type='checkbox' class='opcion_incorrecta' id='opcion$respuesta$key' name='opcion' value='" . $respuesta . "'/>" . 
-								"<label for='opcion$respuesta$key'>" . $respuesta . "</label><br>";
+								if($respuesta == $question['correcta']){
+									$ANSWER = $letraInicial;
+									$textoNuevo .= "<input type='checkbox' class='opcion_correcta' id='opcion_correcta$respuesta$key' name='opcion' value='" . $respuesta . "'/>".
+										"<label for='opcion_correcta$respuesta$key'>" . $respuesta . "</label><br>";
+								}else{
+									$textoNuevo .= "<input type='checkbox' class='opcion_incorrecta' id='opcion$respuesta$key' name='opcion' value='" . $respuesta . "'/>" . 
+										"<label for='opcion$respuesta$key'>" . $respuesta . "</label><br>";
+								}
+
+							}
+
+							$aiken .= "ANSWER: " . $ANSWER . "\n\n";
+
+							$textoNuevo .= "</div>";
+
 						}
+
+						$file = str_replace($placeholder, $textoNuevo, $file);
+						file_put_contents($questionsHTML, $file);
+						file_put_contents($this->downloadPath. "/preguntas.aiken", $aiken);
+
+						return true;
 
 					}
 
-					$aiken .= "ANSWER: " . $ANSWER . "\n\n";
+				}
 
-					$textoNuevo .= "</div>";
+				$send = "";
+			}
+
+			if($countTxtTotal <= 4000){
+				$message = "Crea $numQuestions preguntas en formato json sobre esto " . $send;
+				$assistantId = "asst_wCSbBD0KHXIIaKMKvubNj1CB";
+				$response = $this->assistant->execute($message, $assistantId);
+
+				if (isset($response->data[0]->content[0]->text->value)) {
+					$data = $response->data[0]->content[0]->text->value;
+					$data = json_decode($data, true);
+
+					$file = file_get_contents($questionsHTML);
+
+					$placeholder = "{questions}";
+
+					$textoNuevo = "";
+
+					$aiken = "";
+
+					if(isset($data['preguntas']) && isset($data['preguntas'][0]['pregunta'])){
+
+						foreach($data['preguntas'] as $question){
+
+							if(!isset($question['pregunta'])){
+								continue;
+							}
+
+							$textoNuevo .= '
+								<script>
+
+								function mantenerElementosAleatorios(del) {
+									var questions = document.querySelectorAll(\'.questions\');
+
+									var numToKeep = 4;
+
+									if (questions.length > numToKeep) {
+
+										var indices = [];
+										for (var i = 0; i < questions.length; i++) {
+											indices.push(i);
+										}
+
+										for (var i = indices.length - 1; i > 0; i--) {
+											var j = Math.floor(Math.random() * (i + 1));
+											var temp = indices[i];
+											indices[i] = indices[j];
+											indices[j] = temp;
+										}
+
+										for (var i = 0; i < questions.length; i++) {
+											if (indices.indexOf(i) > numToKeep - 1) {
+												if(del){
+													var parentElement = questions[i].parentNode;
+													parentElement.removeChild(questions[i]);
+												}else{
+													questions[i].style.display = \'none\';
+												}
+											}
+										}
+
+									}
+
+
+
+								}
+
+							function mostrar(){
+								var questions = document.querySelectorAll(\'.questions\');
+
+								questions.forEach(function(element) {
+										element.style.display = \'block\';
+										});
+							}
+
+
+							window.addEventListener(\'load\', function() {
+									cargarBotonPaginaTest();
+									});
+
+							document.addEventListener("DOMContentLoaded", function() {
+									mantenerElementosAleatorios();
+									mostrar();
+									mantenerElementosAleatorios(true);
+									});
+
+							</script>
+								';
+
+							$textoNuevo .= "<div class='questions'>";
+							$textoNuevo.= "<h4>" . $question['pregunta'] . "</h4>";
+
+							$letraInicial = 'A';
+
+							$aiken .= $question['pregunta'] . "\n";
+							$ANSWER = "";
+
+							foreach($question['respuestas'] as $key => $respuesta){
+
+								$aiken .= $letraInicial++ . ") " . $respuesta . "\n";
+
+								if($respuesta == $question['correcta']){
+									$ANSWER = $letraInicial;
+									$textoNuevo .= "<input type='checkbox' class='opcion_correcta' id='opcion_correcta$respuesta$key' name='opcion' value='" . $respuesta . "'/>".
+										"<label for='opcion_correcta$respuesta$key'>" . $respuesta . "</label><br>";
+								}else{
+									$textoNuevo .= "<input type='checkbox' class='opcion_incorrecta' id='opcion$respuesta$key' name='opcion' value='" . $respuesta . "'/>" . 
+										"<label for='opcion$respuesta$key'>" . $respuesta . "</label><br>";
+								}
+
+							}
+
+							$aiken .= "ANSWER: " . $ANSWER . "\n\n";
+
+							$textoNuevo .= "</div>";
+
+						}
+
+						$file = str_replace($placeholder, $textoNuevo, $file);
+						file_put_contents($questionsHTML, $file);
+						file_put_contents($this->downloadPath. "/preguntas.aiken", $aiken);
+
+						return true;
+
+					}
 
 				}
 
-				$file = str_replace($placeholder, $textoNuevo, $file);
-				file_put_contents($questionsHTML, $file);
-				file_put_contents($this->downloadPath. "/preguntas.aiken", $aiken);
-
-				return true;
+				$send = "";
 
 			}
 
-
-
 		}
+
 
 		return false;
 

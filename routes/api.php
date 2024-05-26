@@ -43,6 +43,13 @@ Route::post('/subscription/plans', [SubscriptionPlanController::class, 'store'])
 Route::put('/subscription/plans/{id}', [SubscriptionPlanController::class, 'update']);
 Route::delete('/subscription/plans/{id}', [SubscriptionPlanController::class, 'destroy']);
 
+
+
+Route::post('/plan/desactive', [SubscriptionPlanController::class, 'desactive'])->name('plan.desactivar');
+Route::post('/plan/active', [SubscriptionPlanController::class, 'active'])->name('plan.activar');
+
+
+
 Route::post('/text-to-speech', [TextToSpeechController::class, 'index']);
 
 Route::post('/subscriptions', [SubscriptionController::class, 'createSession']);

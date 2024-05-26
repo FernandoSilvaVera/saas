@@ -17,12 +17,24 @@ class AppController extends Controller
 	public function index($message=null)
 	{
 		$userId = Auth::id();
-		$clientSubscription = ManageClientSubscription::getClientSubscription($userId);
-
 		$user = User::find($userId);
-		$email = $user->email;
+		$clientSubscription = ManageClientSubscription::getClientSubscription($userId);
 		$templates = Template::where('userId', $userId)->get();
+		$languages = env('LANGUAGES');
+		$languages = explode(",", $languages);
+
+		if($user->idProfile == 1){
+			return $this->viewAdmin($templates, $message, $languages);
+		}
+
+		if(!$clientSubscription){
+			return view('app', ['errorMessageSubscription' => true]);
+		}
+
+		$email = $user->email;
 		$nextDate = "";
+
+
 
 		if($clientSubscription->customerStripe){
 			$stripe = new \Stripe\StripeClient(config('services.stripe.secret'));
@@ -36,7 +48,21 @@ class AppController extends Controller
 
 		$plan = SubscriptionPlan::Find($clientSubscription->plan_contratado);
 
-		return view('app', ['templates' => $templates, 'currentSubscription' => $clientSubscription, 'plan' => $plan, 'message' => $message, "nextDate" => $nextDate]);
+		return view('app', ['templates' => $templates, 'currentSubscription' => $clientSubscription, 'plan' => $plan, 'message' => $message, "nextDate" => $nextDate, 'languages' => $languages, 'isAdmin' => false]);
+	}
+
+	public function viewAdmin($templates, $message, $languages)
+	{
+		$currentSubscription = new ClientsSubscription();
+		$plan = new SubscriptionPlan();
+		return view('app', [
+			'templates' => $templates, 
+			'message' => $message, 
+			'languages' => $languages,
+			'currentSubscription' => $currentSubscription,
+			'plan' => $plan,
+			'isAdmin' => true,
+		]);
 	}
 
 	public function queuedDownload()

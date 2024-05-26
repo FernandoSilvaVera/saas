@@ -29,4 +29,12 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+
+	public static function isAdmin($userId)
+	{
+		$user = self::find($userId);
+		return $user->idProfile == 1;
+	}
+
 }

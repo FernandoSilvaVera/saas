@@ -12,9 +12,8 @@ class SubscriptionPlanPostRequest extends FormRequest
     {
         return [
             'name' => 'required|string',
-            'word_limit' => 'required|integer',
-            'test_questions_count' => 'required|integer',
-            'summaries' => 'required|integer',
+            'test_questions_count' => 'required|boolean',
+            'summaries' => 'required|boolean',
             'voiceover' => 'required|boolean',
             'editors_count' => 'required|integer',
             'monthly_price' => 'required|numeric',

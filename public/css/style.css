@@ -316,6 +316,40 @@ h4 {
   transition: 0.2s;
 }
 
+.buttonRed {
+  display: flex;
+  height: 4rem;
+  color: #fff;
+  background: #dc3545;
+  border-radius: 0.8rem;
+  align-items: center;
+  justify-content: center;
+  padding: 0 2.4rem;
+  transition: 0.2s;
+}
+
+.buttonGreen {
+  display: flex;
+  height: 4rem;
+  color: #fff;
+  background: #198754;
+  border-radius: 0.8rem;
+  align-items: center;
+  justify-content: center;
+  padding: 0 2.4rem;
+  transition: 0.2s;
+}
+
+.buttonRed:hover {
+  background: #ff0018 !important;
+  color: #fff;
+}
+
+.buttonGreen:hover {
+  background: #0be37f !important;
+  color: #fff;
+}
+
 .button:hover {
   background: rgb(0, 86, 140);
   color: #fff;
@@ -665,7 +699,6 @@ table tr th:nth-child(5) {
 
 thead {
   position: sticky;
-  top: 10rem;
 }
 
 table td {

@@ -61,12 +61,10 @@
                                 <div class="Create_user section_padding_bg">
                                     <div class="container-fluid">
 
-                                        <form action="#" class="contact_form">
-
                                             <div class="form_groups d-flex gap_24 pb_20 align-items-center">
                                                 <div class="form_group w-100">
                                                     <label for="planName" class="d-flex pb_10">Nombre del plan</label>
-                                                    <input id="planName" type="text" class="input_field w-100" placeholder=""
+                                                    <input id="planName" type="text" class="input_field w-100" placeholder="" value="{{$plan->name}}"
                                                         required>
                                                 </div>
                                             </div>
@@ -74,32 +72,22 @@
                                             <div class="form_groups d-flex gap_24 pb_20 align-items-center">
                                                 <div class="form_group w-50">
                                                     <label for="priceMontly" class="d-flex pb_10">Precio Mensual</label>
-                                                    <input id="priceMontly" type="number" class="input_field w-100" placeholder=""
+                                                    <input id="priceMontly" type="number" class="input_field w-100" placeholder="" value="{{$plan->monthly_price}}"
+							    @if(!empty($plan->monthly_price)) readonly @endif
                                                         required>
                                                 </div>
                                                 <div class="form_group w-50">
                                                     <label for="priceYear" class="d-flex pb_10">Precio Anual</label>
-                                                    <input id="priceYear" type="number" class="input_field w-100" placeholder=""
+                                                    <input id="priceYear" type="number" class="input_field w-100" placeholder="" value="{{$plan->annual_price}}"
+							    @if(!empty($plan->annual_price)) readonly @endif
                                                         required>
                                                 </div>
                                             </div>
 
-					    <div class="form_groups d-flex gap_24 pb_20 align-items-center">
-						    <div class="pb_15">
-							<h4 class="pb_5">Plan personalizado (si se marca no aparecerá para los clientes)</h4>
-							<div class="check_box">
-							    <div id="customPlan" class="check">
-								<img src="./img/check_mark.svg" alt="">
-							    </div>
-							</div>
-						    </div>
-                                            </div>
-
                                             <div class="form_group d-flex justify-content-end">
-                                                <button onclick="createPlan()" class="button">Crear nuevo plan</button>
+                                                <button onclick="createPlan()" class="button">Guardar</button>
                                             </div>
 
-                                        </form>
                                     </div>
                                 </div>
                             </div>
@@ -116,7 +104,13 @@
     <script src="js/plugins.js"></script>
     <script src="js/main.js"></script>
     <script src="{{ asset('js/newPlan.js') }}"></script>
+    <script src="{{ asset('js/core.js') }}"></script>
 
+	<script>
+
+		planId = '{{$plan->id}}'
+
+	</script>
 
 
 </body>

@@ -132,8 +132,7 @@
                             <h2>¿Necesitas un plan más personalizado?</h2>
                         </div>
                         <div class="col-lg-4  d-flex align-items-center justify-content-end">
-                            <button data-bs-toggle="modal" data-bs-target="#login_modal" class="button">Contáctanos
-                            </button>
+                            <button class="button" onclick="window.location.href='/contact'">Contáctanos</button>
                         </div>
                     </div>
                 </div>

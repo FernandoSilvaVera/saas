@@ -20,19 +20,39 @@ class FileDownloadJob implements ShouldQueue{
 	protected $fileName;
 	protected $templateId;
 	protected $userId;
+	protected $language;
 
-	public function __construct($fileName, $templateId, $userId)
+	protected $summaryOptionDownload;
+	protected $generateQuestionsDownload;
+	protected $generateConceptMapDownload;
+	protected $useNaturalVoiceDownload;
+
+	public function __construct($fileName, $templateId, $userId, $language, $summaryOptionDownload, $generateQuestionsDownload, $generateConceptMapDownload, $useNaturalVoiceDownload)
 	{
 		$this->downloadController = new DownloadController();
 		$this->fileName = $fileName;
 		$this->templateId = $templateId;
 		$this->userId = $userId;
+		$this->language = $language;
+		$this->summaryOptionDownload = $summaryOptionDownload;
+		$this->generateQuestionsDownload = $generateQuestionsDownload;
+		$this->generateConceptMapDownload = $generateConceptMapDownload;
+		$this->useNaturalVoiceDownload = $useNaturalVoiceDownload;
 	}
 
 	public function handle()
 	{
-		\Log::info('Download Start ' . $this->fileName . " " . $this->templateId . " " . $this->userId);
-		$this->downloadController->download($this->fileName, $this->templateId, $this->userId);
+		\Log::info('Download Start ' . $this->fileName . " " . $this->templateId . " " . $this->userId . " " . $this->language);
+		$this->downloadController->download(
+			$this->fileName, 
+			$this->templateId, 
+			$this->userId,
+			$this->language, 
+			$this->summaryOptionDownload, 
+			$this->generateQuestionsDownload, 
+			$this->generateConceptMapDownload, 
+			$this->useNaturalVoiceDownload
+		);
 	}
 
 }

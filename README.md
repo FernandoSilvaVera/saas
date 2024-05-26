@@ -21,5 +21,4 @@ sudo apt-get install php8.1-redis
 
 
 ps aux | grep "queue:work"
-php artisan queue:work --daemon --tries=3
-
+nohup php artisan queue:work --daemon --tries=3 --timeout=900 --memory=2048 > /dev/null 2>&1 &

@@ -1,5 +1,8 @@
+var planId = null
+
 function createPlan() {
 	var plan = {};
+	plan.id = planId
 
 	var maxChartsInput = document.getElementById("maxCharts");
 	plan.word_limit = maxChartsInput.value;
@@ -7,14 +10,23 @@ function createPlan() {
 	var editorsInput = document.getElementById("editors");
 	plan.editors_count = editorsInput.value;
 
+/*
 	var voiceOnlineCheckbox = document.getElementById("voiceOnline");
-	plan.voiceover = voiceOnlineCheckbox.classList.contains("active");
+*/
 
-	var testQuestionsInput = document.getElementById("nTest");
-	plan.test_questions_count = testQuestionsInput.value;
+	var nTestChecked = $('#nTest').prop('checked');
+	var nSummaryChecked = $('#nSummary').prop('checked');
+	var voiceoverChecked = $('#voiceover').prop('checked');
+	var customPlanChecked = $('#customPlan').prop('checked');
+	var conceptualMap = $('#conceptualMap').prop('checked');
+	var wordNoLimit = $('#wordNoLimit').prop('checked');
 
-	var customPlanCheckbox = document.getElementById("customPlan");
-	plan.customPlan = customPlanCheckbox.classList.contains("active");
+	plan.test_questions_count = nTestChecked
+	plan.customPlan = customPlanChecked
+	plan.voiceover = voiceoverChecked
+	plan.summaries = nSummaryChecked
+	plan.conceptualMap = conceptualMap
+	plan.wordNoLimit = wordNoLimit
 
 	var annualPriceInput = document.getElementById("priceYear");
 	plan.annual_price = annualPriceInput.value;
@@ -22,8 +34,6 @@ function createPlan() {
 	var monthlyPriceInput = document.getElementById("priceMontly");
 	plan.monthly_price = monthlyPriceInput.value;
 
-	var summariesInput = document.getElementById("nSummary");
-	plan.summaries = summariesInput.value;
 
 	var nameInput = document.getElementById("planName");
 	plan.name = nameInput.value;
@@ -47,4 +57,3 @@ function createPlan() {
 
 	return plan;
 }
-	

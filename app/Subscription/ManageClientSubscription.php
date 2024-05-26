@@ -19,6 +19,10 @@ class ManageClientSubscription
 
 		$clientSubscription = ClientsSubscription::where('email', $email)->first();
 
+		if(!$plan){
+			return;
+		}
+
 		if ($clientSubscription) {
 			$clientSubscription->update([
 					'palabras_maximas' => $plan->word_limit,
@@ -45,6 +49,12 @@ class ManageClientSubscription
 	}
 
 	public static function consumeMaximumWords($wordsUsed, $userId) {
+
+		$isAdmin = User::isAdmin($userId);
+		if($isAdmin){
+			return true;
+		}
+
 		$email = self::getEmail($userId);
 		$clientSubscription = ClientsSubscription::where('email', $email)->first();
 		$clientSubscription->palabras_maximas -= $wordsUsed;
@@ -52,6 +62,10 @@ class ManageClientSubscription
 	}
 
 	public static function consumeQuestions($questionsUsed, $userId) {
+		$isAdmin = User::isAdmin($userId);
+		if($isAdmin){
+			return true;
+		}
 		$email = self::getEmail($userId);
 		$clientSubscription = ClientsSubscription::where('email', $email)->first();
 		$clientSubscription->numero_preguntas -= $questionsUsed;
@@ -59,6 +73,10 @@ class ManageClientSubscription
 	}
 
 	public static function consumeSummaries($summariesUsed, $userId) {
+		$isAdmin = User::isAdmin($userId);
+		if($isAdmin){
+			return true;
+		}
 		$email = self::getEmail($userId);
 		$clientSubscription = ClientsSubscription::where('email', $email)->first();
 		$clientSubscription->numero_resumenes -= $summariesUsed;
@@ -83,27 +101,60 @@ class ManageClientSubscription
 	}
 
 	public static function haveMaximumWords($current, $userId){
+		$isAdmin = User::isAdmin($userId);
+		if($isAdmin){
+			return true;
+		}
 		$email = self::getEmail($userId);
 		$clientSubscription = ClientsSubscription::where('email', $email)->first();
+
+		if($clientSubscription->subscriptionPlan->unlimited_words){
+			return true;
+		}
+
 		return $clientSubscription->palabras_maximas > $current;
 	}
 
-	public static function haveQuestions($userId){
+	public static function haveSummaries($userId){
+		$isAdmin = User::isAdmin($userId);
+		if($isAdmin){
+			return true;
+		}
 		$email = self::getEmail($userId);
 		$clientSubscription = ClientsSubscription::where('email', $email)->first();
-		return $clientSubscription->numero_preguntas > 0;
+
+		return $clientSubscription->subscriptionPlan->summaries;
 	}
 
-	public static function haveSummaries($userId){
+	public static function haveQuestions($userId){
+		$isAdmin = User::isAdmin($userId);
+		if($isAdmin){
+			return true;
+		}
 		$email = self::getEmail($userId);
 		$clientSubscription = ClientsSubscription::where('email', $email)->first();
-		return $clientSubscription->numero_resumenes > 0;
+
+		return $clientSubscription->subscriptionPlan->test_questions_count;
 	}
 
 	public static function haveVoiceOver($userId){
+		$isAdmin = User::isAdmin($userId);
+		if($isAdmin){
+			return true;
+		}
 		$email = self::getEmail($userId);
 		$clientSubscription = ClientsSubscription::where('email', $email)->first();
-		return $clientSubscription->locucion_en_linea > 0;
+		return $clientSubscription->subscriptionPlan->voiceover;
+	}
+
+	public static function haveConceptualMap($userId){
+		$isAdmin = User::isAdmin($userId);
+		if($isAdmin){
+			return true;
+		}
+		$email = self::getEmail($userId);
+		$clientSubscription = ClientsSubscription::where('email', $email)->first();
+		return $clientSubscription->subscriptionPlan->concept_map;
 	}
 
 
@@ -114,6 +165,56 @@ class ManageClientSubscription
 		return $clientSubscription;
 	}
 
+	public static function getAllWordsUsed(&$wordsUsed, $generateSummary, $generateQuestions, $generateConceptualMap, $generateVoiceOver)
+	{
+		$message = "";
+		$wordsUsed = round($wordsUsed);
+		$message .= "$wordsUsed en la virtualización<br>";
 
+		if($generateVoiceOver){
+			$config = get_config('online_narration_percentage');
+
+			$voiceoverWords = round($wordsUsed * $config/100);
+			$wordsUsed += $voiceoverWords;
+			$message .= "$voiceoverWords en la locución en línea<br>";
+		}
+
+		if($generateSummary){
+			$txt = "";
+
+			switch($generateSummary){
+				case 1:
+					$config = get_config('long_summary_percentage');
+					$txt = "en el resumen largo";
+					break;
+				case 2:
+					$config = get_config('short_summary_percentage');
+					$txt = "en el resumen corto";
+					break;
+
+			}
+
+			$summaryWords = round($wordsUsed * $config/100);
+			$wordsUsed += $summaryWords;
+			$message .= "$summaryWords $txt<br>";
+		}
+		if($generateQuestions){
+			$config = get_config('questions_percentage');
+			$questionsWords = round($wordsUsed * $config/100);
+			$wordsUsed += $questionsWords;
+			$message .= "$questionsWords en generar preguntas<br>";
+		}
+
+		if($generateConceptualMap){
+			$config = get_config('concept_map_percentage');
+			$conceptualMapWords = round($wordsUsed * $config/100);
+			$wordsUsed += $conceptualMapWords;
+			$message .= "$conceptualMapWords en el mapa conceptual<br>";
+		}
+
+		$return = "Se va a consumir un total de <b>$wordsUsed</b> palabras<br><br>";
+		$return .= $message;
+		return $return;
+	}
 
 }

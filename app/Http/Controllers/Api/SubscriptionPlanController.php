@@ -25,6 +25,27 @@ class SubscriptionPlanController extends Controller
         try {
             $data = $request->all();
 
+		$id = $data['id'];
+
+		if(!$data['word_limit']){
+			$data['word_limit'] = 1;
+		}
+
+		if($id){
+			$plan = SubscriptionPlan::find($id);
+			$plan->name = $data['name'];
+			$plan->word_limit = $data['word_limit'];
+			$plan->summaries = $data['summaries'];
+			$plan->voiceover = $data['voiceover'];
+			$plan->test_questions_count = $data['test_questions_count'];
+			$plan->is_active = true;
+			$plan->unlimited_words = $data['wordNoLimit'];
+			$plan->concept_map = $data['conceptualMap'];
+			$plan->custom_plan = $data['customPlan'];
+			$plan->save();
+			return response()->json($plan, 201);
+		}
+
             Stripe::setApiKey(config('services.stripe.secret'));
             $stripe_product = Product::create([
                 'name' => $data['name'],
@@ -42,14 +63,17 @@ class SubscriptionPlanController extends Controller
                 'currency' => config('services.stripe.currency'),
                 'recurring' => ['interval' => 'year'],
             ]);
-
 /*
 
 */
-
             $data['stripe_product_id'] = $stripe_product->id;
             $data['stripe_monthly_price_id'] = $stripe_monthly_price->id;
             $data['stripe_annual_price_id'] = $stripe_annual_price->id;
+	    $data['is_active'] = true;
+	    $data['unlimited_words'] = $data['wordNoLimit'];
+	    $data['concept_map'] = $data['conceptualMap'];
+	    $data['custom_plan'] = $data['customPlan'];
+
             $plan = SubscriptionPlan::create($data);
             return response()->json($plan, 201);
         } catch (Exception $e) {
@@ -78,4 +102,31 @@ class SubscriptionPlanController extends Controller
 
         return response()->noContent();
     }
+
+	public function desactive(Request $request)
+	{
+            $data = $request->all();
+	    $plan = SubscriptionPlan::find($data['id']);
+	    $plan->is_active = false;
+	    $plan->save();
+	    return $plan;
+	}
+
+	public function active(Request $request)
+	{
+            $data = $request->all();
+	    $plan = SubscriptionPlan::find($data['id']);
+	    $plan->is_active = true;
+	    $plan->save();
+	    return $plan;
+	}
+
+
+
+
+
+
+
+
+
 }

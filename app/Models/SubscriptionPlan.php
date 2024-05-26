@@ -23,6 +23,16 @@ class SubscriptionPlan extends Model
         'description',
         'stripe_product_id',
         'stripe_monthly_price_id',
-        'stripe_annual_price_id'
+        'stripe_annual_price_id',
+	'is_active',
+	'unlimited_words',
+	'concept_map',
+	'custom_plan',
     ];
+
+    public function clientsSubscriptions()
+    {
+	    return $this->hasMany(ClientsSubscription::class, 'plan_contratado', 'id');
+    }
+
 }

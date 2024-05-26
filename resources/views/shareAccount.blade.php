@@ -47,6 +47,7 @@
             <div class="main_content pl_24 pr_24 pb_60 w-100">
 
 		@include('includes/message')
+		@include('includes/errorMessageSubscription')
 
                 <!-- Create user Section -->
 
@@ -79,9 +80,17 @@
 							</div>
 						@endforeach
 
-						<div class="form_group d-flex justify-content-end">
-						<button type="button" onclick="update()" class="button">Actualizar</button>
-						</div>
+						@if($owner)
+							<div class="form_group d-flex justify-content-end">
+								<button type="button" onclick="update()" class="button">Actualizar</button>
+							</div>
+						@else
+							<div class="alert alert-danger" role="alert">
+								Solo el propietario de la cuenta puede modificar los correos.
+							</div>
+						@endif
+
+
 
 						<input type="hidden" id="editoresArray" name="editoresArray">
 					</form>

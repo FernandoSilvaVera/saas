@@ -42,8 +42,12 @@ class DownloadController extends Controller
 		$pathCss = $path . "/css/materialize.css";
 
 		if (File::exists($pathCss)) {
+
+			$fontSize = $template->font_size . "px";
+
 			$contenido = File::get($pathCss);
 			$contenido_a_anadir = "
+
 				.nav-wrapper{
 					background-color: $template->css_top;
 				}
@@ -58,6 +62,14 @@ class DownloadController extends Controller
 
 				.material-icons{
 					color: $template->css_icons !important;
+				}
+
+				p{
+					font-size: $fontSize !important;
+				}
+
+				body{
+					font-family: $template->typography !important;
 				}
 
 			";
@@ -140,11 +152,11 @@ class DownloadController extends Controller
 
 	}
 
-	public function download($fileName, $templateId, $userId)
+	public function download($fileName, $templateId, $userId, $language, $generateSummary, $generateQuestions, $generateConceptualMap, $generateVoiceOver)
 	{
 		try {
 
-		\Log::info('DownloadController Start');
+		\Log::info('DownloadController Start ' . $language);
 
 		$user = User::find($userId);
 		\Log::info('DownloadController user');
@@ -161,10 +173,10 @@ class DownloadController extends Controller
 		$userPath = $this->getPath("DOWNLOAD_PATH", null, $user);
 		\Log::info('DownloadController getPath after');
 
-		\Log::info('DownloadController use template');
-		$template = $this->useTemplate($templateId, $path);
-
 		$palabras = @(new WordHelper)->getAllWords($word);
+
+		ManageClientSubscription::getAllWordsUsed($palabras, $generateSummary, $generateQuestions, $generateConceptualMap, $generateVoiceOver);
+
 		\Log::info('DownloadController fin palabras');
 
 		if(!ManageClientSubscription::haveMaximumWords($palabras, $userId)){
@@ -176,15 +188,18 @@ class DownloadController extends Controller
 			$output = shell_exec($command);
 			ManageClientSubscription::consumeMaximumWords($palabras, $userId);
 			\Log::info('SCRIPT TERMINADO ' . $command);
+
+			\Log::info('DownloadController use template');
+			$template = $this->useTemplate($templateId, $path);
 		}
 
 		$contenido = @(new WordHelper)->convertToArray($word);
 
 		\Log::info('VA A EMPEZAR EL PROCESO IA');
-		list($conceptualMap, $summary, $questionsUsed) = Subscription::generateNewPages($contenido, $path, $userId);
+		list($conceptualMap, $summary, $questionsUsed) = Subscription::generateNewPages($contenido, $path, $userId, $generateSummary, $generateQuestions, $generateConceptualMap, $generateVoiceOver);
 		\Log::info('IA TERMINADO');
 
-		if(ManageClientSubscription::haveVoiceOver($userId)){
+		if($generateVoiceOver && ManageClientSubscription::haveVoiceOver($userId)){
 			\Log::info('VA A EMPEZAR EL PROCESO DE VOZ');
 			Subscription::texToSpeech($contenido, $path, $userId);
 			$voiceOver = true;
@@ -238,11 +253,21 @@ class DownloadController extends Controller
 
 	public function preview(Request $request)
 	{
+		$languages = env('LANGUAGES');
+		$languages = explode(",", $languages);
+
 		$hashId = $this->generateHashId();
 
-		$templateId = $request->input('templateId');
 		$archivo = $request->file('fileName');
 
+		$templateId = $request->input('templateId');
+		$languageInput = $request->input('languageInput');
+		$summaryOptionPreview = $request->input('summaryOptionPreview');
+		$generateQuestionsPreview = $request->input('generateQuestionsPreview');
+		$generateConceptMapPreview = $request->input('generateConceptMapPreview');
+		$useNaturalVoicePreview = $request->input('useNaturalVoicePreview');
+
+		$palabras = 0;
 		if($archivo){
 			try {
 				$fileName = $archivo->getFilename();
@@ -252,6 +277,9 @@ class DownloadController extends Controller
 
 				$comando = "mv $origin $filePath";
 				exec($comando, $output, $return);
+
+				$palabras = @(new WordHelper)->getAllWords($filePath);
+				$messageWordsUsed = ManageClientSubscription::getAllWordsUsed($palabras, $summaryOptionPreview, $generateQuestionsPreview, $generateConceptMapPreview, $useNaturalVoicePreview);
 			} catch (\Exception $e) {
 				// Manejar la excepción
 				echo "Error al copiar el archivo: " . $e->getMessage();
@@ -281,7 +309,11 @@ class DownloadController extends Controller
 
 		$clientSubscription = ManageClientSubscription::getClientSubscription($userId);
 
-		$plan = SubscriptionPlan::Find($clientSubscription->plan_contratado);
+		if($clientSubscription){
+			$plan = SubscriptionPlan::Find($clientSubscription->plan_contratado);
+		}else{
+			$plan = new SubscriptionPlan();
+		}
 
 		return view('app', [
 			'preview' => $previewURL,
@@ -291,7 +323,19 @@ class DownloadController extends Controller
 			'filePath' => $fileName,
 			'currentSubscription' => $clientSubscription,
 			'plan' => $plan,
+			'languages' => $languages,
+			'isAdmin' => $user->idProfile == 1,
+
+			'messageWordsUsed' => $messageWordsUsed,
+
+			'templateId' => $templateId,
+			'languageInput' => $languageInput,
+			'summaryOptionPreview' => $summaryOptionPreview,
+			'generateQuestionsPreview' => $generateQuestionsPreview,
+			'generateConceptMapPreview' => $generateConceptMapPreview,
+			'useNaturalVoicePreview' => $useNaturalVoicePreview,
 		]);
+
 	}
 
 

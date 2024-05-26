@@ -83,62 +83,65 @@
 
             </div>
 
+
+
             <!-- main_content -->
             <div class="main_content pl_24 pr_24 pb_60 w-100">
+
+		@if(session('success'))
+			<div class="alert alert-success">
+				{{ session('success') }}
+			</div>
+		@endif
+
+		@if($errors->any())
+			<div class="alert alert-danger">
+				<ul>
+				@foreach($errors->all() as $error)
+					<li>{{ $error }}</li>
+				@endforeach
+				</ul>
+			</div>
+		@endif
 
                 <!-- contact_section -->
                 <div class="contact_section section_padding_bg">
                     <div class="container-fluid">
-                        <div class="contact_top pb_24">
-                            <h2 class="pb_10">Choose Your Plans</h2>
-                            <p>You will bw charged for the plan after the admin approves your vendor
-                                account</p>
-                        </div>
 
-                        <form action="#" class="contact_form">
-                            <div class="form_groups d-flex gap_24 pb_20 align-items-center">
-                                <div class="form_group w-50">
-                                    <label for="FName" class="d-flex pb_10">First Name</label>
-                                    <input type="text" class="input_field w-100" placeholder="Type here" required>
-                                </div>
-                                <div class="form_group w-50">
-                                    <label for="LName" class="d-flex pb_10">Last Name</label>
-                                    <input type="text" class="input_field w-100" placeholder="Last Name" required>
-                                </div>
-                            </div>
-                            <div class="form_groups d-flex gap_24 pb_20 align-items-center">
-                                <div class="form_group w-50">
-                                    <label for="Email" class="d-flex pb_10">Email Address</label>
-                                    <input type="text" class="input_field w-100" placeholder="Type here" required>
-                                </div>
-                                <div class="form_group w-50">
-                                    <label for="Mobile" class="d-flex pb_10">Mobile</label>
-                                    <input type="text" class="input_field w-100" placeholder="Type here" required>
-                                </div>
-                            </div>
-                            <div class="form_groups d-flex gap_24 pb_20 align-items-center">
-                                <div class="form_group w-50">
-                                    <label for="FName" class="d-flex pb_10">Country</label>
-                                    <select class="input_field select_field w-100" name="Country">
-                                        <option value="Select" selected>Select</option>
-                                        <option value="option 1">option 1</option>
-                                        <option value="option 2">option 2</option>
-                                        <option value="option 3">option 3</option>
-                                    </select>
-                                </div>
-                                <div class="form_group w-50">
-                                    <label for="FName" class="d-flex pb_10">Job Title</label>
-                                    <input type="text" class="input_field w-100" placeholder="Type here" required>
-                                </div>
-                            </div>
-                            <div class="form_group w-100 pb_20">
-                                <label for="FName" class="d-flex pb_10">Message</label>
-                                <textarea name="message" class="w-100" placeholder="Type here"></textarea>
-                            </div>
-                            <div class="form_group d-flex justify-content-end">
-                                <button type="submit" class="button">Submit</button>
-                            </div>
-                        </form>
+		    <form action="{{ route('password.update') }}" method="POST" class="contact_form">
+			    @csrf
+			    @method('PUT')
+			    <div class="form_groups d-flex gap_24 pb_20 align-items-center">
+				    <div class="form_group w-100">
+					    <label for="email" class="d-flex pb_10">Email</label>
+					    <input type="text" class="input_field w-100" placeholder="Email" readonly value="{{ $user->email }}">
+				    </div>
+			    </div>
+
+			    <div class="form_groups d-flex gap_24 pb_20 align-items-center">
+
+				    <div class="form_group w-50">
+					    <label for="current_password" class="d-flex pb_10">Contraseña Actual</label>
+					    <input id="current_password" name="current_password" type="password" class="input_field w-100" placeholder="Actual" required>
+				    </div>
+
+				    <div class="form_group w-50">
+					    <label for="new_password" class="d-flex pb_10">Nueva Contraseña</label>
+					    <input id="new_password" name="new_password" type="password" class="input_field w-100" placeholder="Nueva" required>
+				    </div>
+
+				    <div class="form_group w-50">
+					    <label for="new_password_confirmation" class="d-flex pb_10">Repetir Contraseña</label>
+					    <input id="new_password_confirmation" name="new_password_confirmation" type="password" class="input_field w-100" placeholder="Repetir" required>
+				    </div>
+
+			    </div>
+
+			    <div class="form_group d-flex justify-content-end">
+				    <button type="submit" class="button">Actualizar</button>
+			    </div>
+
+		    </form>
 
                     </div>
                 </div>

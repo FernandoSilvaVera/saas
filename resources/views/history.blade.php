@@ -65,7 +65,7 @@
                                         <th>Palabras</th>
                                         <th>Resumen</th>
                                         <th>Mapa conceptual</th>
-                                        <th>Locución en línea</th>
+                                        <th>Preguntas</th>
                                         <th>Descargar</th>
                                     </tr>
                                 </thead>
@@ -78,7 +78,7 @@
                                         <td class="text-center">{{$history->wordsUsed}}</td>
                                         <td class="text-center">{{$history->summary}}</td>
                                         <td class="text-center">{{$history->conceptualMap}}</td>
-                                        <td class="text-center">{{$history->voiceover}}</td>
+                                        <td class="text-center">{{$history->questionsUsed}}</td>
 
                                         <td><a href="{{ route('history.download', ['id' => $history->id]) }}" class="button">Descargar</a></td>
                                     </tr>

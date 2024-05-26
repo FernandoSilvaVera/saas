@@ -21,4 +21,9 @@ class ClientsSubscription extends Model
 	    'customerStripe',
     ];
 
+    public function subscriptionPlan()
+    {
+	    return $this->belongsTo(SubscriptionPlan::class, 'plan_contratado', 'id');
+    }
+
 }

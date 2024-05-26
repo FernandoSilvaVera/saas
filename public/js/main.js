@@ -14,15 +14,15 @@
         window.addEventListener("scroll", () => {
             const scrollTop = window.scrollY || window.pageYOffset;
             if (scrollTop > lastScrollTop && lastScrollTop > 200) {
-                elementToModify.classList.add("sticky");
+//                elementToModify.classList.add("sticky");
             } else if (lastScrollTop < 210) {
-                elementToModify.classList.remove("menu_up");
-                elementToModify.classList.remove("sticky");
+//                elementToModify.classList.remove("menu_up");
+//                elementToModify.classList.remove("sticky");
             } else {
-                elementToModify.classList.remove("menu_up");
+//                elementToModify.classList.remove("menu_up");
             }
             if (scrollTop > lastScrollTop) {
-                elementToModify.classList.add("menu_up");
+//                elementToModify.classList.add("menu_up");
             }
             lastScrollTop = scrollTop;
         });

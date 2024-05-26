@@ -5,7 +5,7 @@ return [
     /*
     |--------------------------------------------------------------------------
     | Default Queue Connection Name
-    |--------------------------------------------------------------------------
+    --------------------------------------------------------------------------
     |
     | Laravel's queue API supports an assortment of back-ends via a single
     | API, giving you convenient access to each back-end using the same
@@ -68,6 +68,8 @@ return [
             'queue' => env('REDIS_QUEUE', 'default'),
             'retry_after' => 90,
             'block_for' => null,
+	    'max_tries' => 3,
+	    'max_running_jobs' => 30,
             'after_commit' => false,
         ],
 

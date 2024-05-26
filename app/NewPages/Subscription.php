@@ -10,9 +10,14 @@ use App\Subscription\ManageClientSubscription;
 class Subscription
 {
 
-	public static function generateNewPages($word, $downloadPath, $userId)
+	public static function generateNewPages($word, $downloadPath, $userId, $generateSummary, $generateQuestions, $generateConceptualMap, $generateVoiceOver)
 	{
-		$word = json_encode($word);
+		$array = [];
+		self::orderArray($word, $array);
+
+		$array = array_filter($array);
+		$word = json_encode($array);
+
 
 		$conceptualMapHTML = null;
 		$summaryHTML = null;
@@ -37,26 +42,45 @@ class Subscription
 
 		$openai = new OpenAI($word, $downloadPath, $userId);
 
-		$conceptualMap = $openai->conceptualMap($conceptualMapHTML);
+		\Log::info('IA CONCEPTUAL MAP');
+
 		$summary = false;
 		$questions = false;
+		$conceptualMap = false;
 
-		if(ManageClientSubscription::haveSummaries($userId)){
-			$ok = $openai->summary($summaryHTML);
-			if($ok){
-				ManageClientSubscription::consumeSummaries(1, $userId);
-				$summary = 1;
+		if($generateConceptualMap){
+			if(ManageClientSubscription::haveConceptualMap($userId)){
+				$ok = $openai->conceptualMap($conceptualMapHTML);
+				if($ok){
+					$conceptualMap = true;
+				}
 			}
 		}
 
-		if(ManageClientSubscription::haveQuestions($userId)){
-			$numQuestions = 10;
-			$ok = $openai->questions($questionsHTML, $downloadPath, $numQuestions);
-			if($ok){
-				ManageClientSubscription::consumeQuestions($numQuestions, $userId);
-				$questions = $numQuestions;
+
+
+		if($generateSummary){
+			if(ManageClientSubscription::haveSummaries($userId)){
+				\Log::info('IA RESUMEN');
+				$ok = $openai->summary($summaryHTML);
+				if($ok){
+					$summary = 1;
+				}
+			}
+
+		}
+
+		if($generateQuestions){
+			if(ManageClientSubscription::haveQuestions($userId)){
+				\Log::info('IA PREGUNTAS');
+				$numQuestions = 10;
+				$ok = $openai->questions($questionsHTML, $downloadPath, $numQuestions);
+				if($ok){
+					$questions = $numQuestions;
+				}
 			}
 		}
+
 
 		return [$conceptualMap, $summary, $questions];
 
@@ -90,6 +114,23 @@ class Subscription
 	}
 
 
+	public static function orderArray($contenido, &$textToSpeechContent)
+	{
+		foreach ($contenido as $index => $messages) {
+			foreach($messages as $key => $message){
+				if($key == "html"){
+					$textToSpeechContent[$index] = $message;
+				}else{
+					$textToSpeechContent[] = "";
+					foreach($message as $key2 => $send){
+						$textToSpeechContent[$key2] = $send;
+					}
+				}
+
+			}
+		}
+	}
+
 	public static function texToSpeech($contenido, $path, $userId)
 	{
 		$providers = ['amazon', 'google', 'openai'];
@@ -109,20 +150,7 @@ class Subscription
 		$unionFinal = "";
 
 		$textToSpeechContent = [];
-
-		foreach ($contenido as $index => $messages) {
-			foreach($messages as $key => $message){
-				if($key == "html"){
-					$textToSpeechContent[$index] = $message;
-				}else{
-					$textToSpeechContent[] = "";
-					foreach($message as $key2 => $send){
-						$textToSpeechContent[$key2] = $send;
-					}
-				}
-
-			}
-		}
+		self::orderArray($contenido, $textToSpeechContent);
 
 		foreach ($textToSpeechContent as $index => $message) {
 			foreach ($providers as $provider) {
