@@ -16,6 +16,8 @@ class WordHelper
 	public $idRespuetas = 0;
 	public $idPaginador = 1;
 
+	public $mainTitle = "";
+
 	private function isTitle($title, $style, $linea)
 	{
 		switch ($title) {
@@ -329,5 +331,7 @@ return;
 		}
 		return $return;
 	}
+
+
 
 }

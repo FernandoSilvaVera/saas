@@ -103,20 +103,21 @@ Route::post('/download', function (Request $request) {
 	$generateConceptMapDownload = $request->input('generateConceptMapDownload');
 	$useNaturalVoiceDownload = $request->input('useNaturalVoiceDownload');
 
-/*
-	$d = new DownloadController();
-	$d->download(
-		$fileName, 
-		$templateId, 
-		$userId,
-		$language,
-		$summaryOptionDownload,
-		$generateQuestionsDownload,
-		$generateConceptMapDownload,
-		$useNaturalVoiceDownload,
-	);
-	die;
-*/
+	$debug = env('DEBUG_DOWNLOAD');
+
+	if($debug){
+		$d = new DownloadController();
+		$d->download(
+			$fileName, 
+			$templateId, 
+			$userId,
+			$language,
+			$summaryOptionDownload,
+			$generateQuestionsDownload,
+			$generateConceptMapDownload,
+			$useNaturalVoiceDownload,
+		);
+	}
 
 	FileDownloadJob::dispatch($fileName, $templateId, $userId, $language, $summaryOptionDownload, $generateQuestionsDownload, $generateConceptMapDownload, $useNaturalVoiceDownload);
 

@@ -116,19 +116,24 @@ class Subscription
 
 	public static function orderArray($contenido, &$textToSpeechContent)
 	{
+
 		foreach ($contenido as $index => $messages) {
 			foreach($messages as $key => $message){
 				if($key == "html"){
 					$textToSpeechContent[$index] = $message;
 				}else{
-					$textToSpeechContent[] = "";
+//					$textToSpeechContent[$key] = $message;
 					foreach($message as $key2 => $send){
-						$textToSpeechContent[$key2] = $send;
+						if($key2 == "html"){
+							$textToSpeechContent[$key] = $send;
+						}else{
+							$textToSpeechContent[$key2] = $send;
+						}
 					}
 				}
-
 			}
 		}
+
 	}
 
 	public static function texToSpeech($contenido, $path, $userId)
@@ -144,21 +149,26 @@ class Subscription
 			File::makeDirectory($audioStoragePathMain, $mode = 0777, true, true);
 		}
 
-		$posX = 0;
+		$posX = 1;
 		$pos = 0;
 
 		$unionFinal = "";
 
 		$textToSpeechContent = [];
+
 		self::orderArray($contenido, $textToSpeechContent);
 
 		foreach ($textToSpeechContent as $index => $message) {
+
 			foreach ($providers as $provider) {
 
 				$send = $index . " " . $message;
 				$segmentos = self::splitTextWithSense($send);
 
+
 				$audioStoragePath = $audioStoragePathMain . $posX++ . "/";
+
+//				\Log::info($segmentos);
 
 				if (!File::exists($audioStoragePath)) {
 					File::makeDirectory($audioStoragePath, $mode = 0777, true, true);
@@ -171,21 +181,26 @@ class Subscription
 					$results['audios'][$provider][] = $result;
 					$union .= $audioStoragePath . $result['audio'] . "|";
 				}
-			}
-			$finalFileName = "final.mp3";
-			$cmd = "ffmpeg -i \"concat:$union\" -acodec copy " . $audioStoragePath . $finalFileName;
-			shell_exec($cmd);
 
-			$unionFinal .= $audioStoragePath.$finalFileName . "|";
+				$finalFileName = "final.mp3";
+				$cmd = "ffmpeg -i \"concat:$union\" -acodec copy " . $audioStoragePath . $finalFileName;
+				shell_exec($cmd);
 
-			$files = glob($audioStoragePath . "*");
+				$unionFinal .= $audioStoragePath.$finalFileName . "|";
 
-			foreach ($files as $file) {
-				if (basename($file) !== $finalFileName) {
-					unlink($file);
+				$files = glob($audioStoragePath . "*");
+
+				foreach ($files as $file) {
+					if (basename($file) !== $finalFileName) {
+						unlink($file);
+					}
 				}
 			}
+//continue;
+
 		}
+//		die("fernando");
+
 		$finalFileName = "final.mp3";
 		$cmd = "ffmpeg -i \"concat:$unionFinal\" -acodec copy " . $audioStoragePathMain . $finalFileName;
 		shell_exec($cmd);

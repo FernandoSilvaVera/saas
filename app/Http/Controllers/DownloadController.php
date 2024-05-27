@@ -174,6 +174,7 @@ class DownloadController extends Controller
 		\Log::info('DownloadController getPath after');
 
 		$palabras = @(new WordHelper)->getAllWords($word);
+
 		ManageClientSubscription::getAllWordsUsed($palabras, $generateSummary, $generateQuestions, $generateConceptualMap, $generateVoiceOver);
 
 		\Log::info('DownloadController fin palabras');
