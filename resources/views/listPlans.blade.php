@@ -63,6 +63,8 @@
                                 <thead>
                                     <tr>
                                         <th>Nombre</th>
+                                        <th>Mensual</th>
+                                        <th>Anual</th>
                                         <th>Activar/Desactivar</th>
                                         <th>Acción</th>
                                     </tr>
@@ -71,6 +73,12 @@
 					@foreach($plans as $plan)
                                     <tr>
                                         <td>{{$plan->name}}</td>
+                                        <td>
+						    <a href="/buy/{{$plan->stripe_monthly_price_id}}" class="button w-100" target="_blank">{{$plan->monthly_price}}€ / mes</a>
+					</td>
+                                        <td>
+						    <a href="/buy/{{$plan->stripe_annual_price_id}}" class="button w-100" target="_blank">{{$plan->annual_price}}€ / año</a>
+					</td>
 					@if($plan->is_active)
 						<td><a onclick="desactivarConfirm({{ $plan->id }})" class="button buttonRed">Desactivar</a></td>
 					@else

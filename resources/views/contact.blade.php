@@ -54,10 +54,12 @@
                             <h2 class="pb_10">Para dudas o incidencias</h2>
                         </div>
 
-                        <form action="#" class="contact_form">
+			<form action="{{ route('send.email') }}" method="POST">
+			@csrf
                             <div class="form_group w-100 pb_20">
                                 <label for="FName" class="d-flex pb_10">Mensaje</label>
-                                <textarea name="message" class="w-100" placeholder="Escribe aquí"></textarea>
+				<textarea name="message" id="message" class="w-100" placeholder="Escribe aquí" rows="5" required></textarea>
+
                             </div>
                             <div class="form_group d-flex justify-content-end">
                                 <button onclick="sendTicket()" type="submit" class="button">Enviar</button>

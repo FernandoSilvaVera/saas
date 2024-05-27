@@ -15,6 +15,7 @@ use Illuminate\Http\Request;
 use App\Mail\DemoEmail;
 use Illuminate\Support\Facades\Mail;
 use App\Http\Controllers\ConfigController;
+use App\Http\Controllers\ContactController;
 
 
 /*
@@ -41,7 +42,7 @@ Route::get('/', function () {
 Route::get('/app', [AppController::class, 'index'])->middleware('auth.redirect')->name('app');
 
 Route::get('/listPlans', [PlansController::class, 'showAll']);
-Route::get('/plans', [PlansController::class, 'index']);
+Route::get('/plans', [PlansController::class, 'index'])->name('plans');
 Route::get('/buy/{id}', [PlansController::class, 'buy'])->middleware('auth.redirect');
 
 Route::get('/changePlanStatus', [PlansController::class, 'index'])->name('plan.changeStatus');
@@ -155,4 +156,9 @@ Route::put('/update-password', [UsersController::class, 'updatePassword'])->name
 
 Route::get('/config', [ConfigController::class, 'index'])->name('config.index');
 Route::post('/config', [ConfigController::class, 'update'])->name('config.update');
+
+
+Route::post('/send-email-us', [ContactController::class, 'sendEmail'])->name('send.email');
+
+Route::get('/unsubscribe/{planId}', [ClientsSubscriptionController::class, 'unsubscribe'])->name('unsubscribe');
 

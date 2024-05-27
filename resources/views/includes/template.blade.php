@@ -33,7 +33,7 @@
 	</div>
 	<div class="row">
 	    <div class="col-md-3">
-		<div id="rightBackgroundTemplate" class="preview_template_left preview_template_main">
+		<div id="leftBackgroundTemplate" class="preview_template_left preview_template_main">
 		    <img id="previewImage" src="./img/preview_image.png" alt="">
 		    <div class="text_box pb_15">
 			<p class="text_sm">1. Teorías del juego: causales,
@@ -56,7 +56,7 @@
 		</div>
 	    </div>
 	    <div class="col-md-9">
-		<div id="leftBackgroundTemplate" class="preview_template_right preview_template_main">
+		<div id="rightBackgroundTemplate" class="preview_template_right preview_template_main">
 		    <h2>Conceptos generales</h2>
 
 		    <div class="text_box pb_15">

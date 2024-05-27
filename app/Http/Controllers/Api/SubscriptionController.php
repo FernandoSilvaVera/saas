@@ -34,24 +34,34 @@ class SubscriptionController extends Controller
             ], 422);
         }
 
+	$customerId = $request->customer_id;
+	$customerEmail = $request->customer_email;
+
         $plan = SubscriptionPlan::findOrFail($request->subscription_plan_id);
 
         Stripe::setApiKey(config('services.stripe.secret'));
 
         try {
-            $session = Session::create([
-                'payment_method_types' => ['card'],
-                'line_items' => [[
-                    'price' => $plan->{'stripe_' . $request->payment_period . '_id'},
-                    'quantity' => 1,
-                ]],
-                'mode' => 'subscription',
-                'success_url' => url('/api/subscriptions/webhook/success?' . http_build_query([
-                    'subscription_plan_id' => $plan->id,
-                    'payment_period' => $request->payment_period
-                ])) . '&session_id={CHECKOUT_SESSION_ID}',
-                'cancel_url' => url('/api/susubscriptionsb/webhook/cancel?session_id={CHECKOUT_SESSION_ID}'),
-            ]);
+
+		$config = [
+			'payment_method_types' => ['card'],
+			'line_items' => [[
+				'price' => $plan->{'stripe_' . $request->payment_period . '_id'},
+			'quantity' => 1,
+			]],
+			'mode' => 'subscription',
+			'success_url' => url('/history'),
+			'cancel_url' => url('/plans'),
+		];
+
+		if($customerId){
+			$config['customer'] = $customerId;
+		}else{
+			$config['customer_email'] = $customerEmail;
+		}
+
+		$session = Session::create($config);
+
             return response()->json($session);
         } catch (Exception $e) {
             return response()->json(['error' => $e->getMessage()], 400);

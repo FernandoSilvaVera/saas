@@ -2925,6 +2925,18 @@ function comprobarRespuestas() {
 	guardarRespuestas();
 }
 
+function mostrarRespuestasCorrectas(){
+	var respuestasCorrectas = document.querySelectorAll('input[type="checkbox"].opcion_correcta');
+	respuestasCorrectas.forEach(function(respuesta) {
+		respuesta.checked = true;
+	});
+
+	var respuestasIncorrectas = document.querySelectorAll('input[type="checkbox"].opcion_incorrecta');
+	respuestasIncorrectas.forEach(function(respuesta) {
+		respuesta.checked = false;
+	});
+}
+
 function changePage(pageNumber) {
 	var pages = document.querySelectorAll('.page');
 	pages.forEach(function(page) {

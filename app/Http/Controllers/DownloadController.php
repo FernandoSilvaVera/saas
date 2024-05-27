@@ -174,7 +174,6 @@ class DownloadController extends Controller
 		\Log::info('DownloadController getPath after');
 
 		$palabras = @(new WordHelper)->getAllWords($word);
-
 		ManageClientSubscription::getAllWordsUsed($palabras, $generateSummary, $generateQuestions, $generateConceptualMap, $generateVoiceOver);
 
 		\Log::info('DownloadController fin palabras');
@@ -289,6 +288,15 @@ class DownloadController extends Controller
 			$filePath = $this->getPath("FILE_PATH", $hashId) . $fileName;
 		}
 
+		$errorShowDownloadButton = "";
+
+		$userId = Auth::id();
+		$user = User::find($userId);
+
+		if(!ManageClientSubscription::haveMaximumWords($palabras, $userId) && $user->idProfile == 2){
+			$errorShowDownloadButton = "No disponene de palabras suficientes para generar la virtualización";
+		}
+
 		$scriptPath = resource_path('script/index.php');
 
 		$path = $this->getPath("PREVIEW_PATH", $hashId);
@@ -327,6 +335,7 @@ class DownloadController extends Controller
 			'isAdmin' => $user->idProfile == 1,
 
 			'messageWordsUsed' => $messageWordsUsed,
+			'errorShowDownloadButton' => $errorShowDownloadButton,
 
 			'templateId' => $templateId,
 			'languageInput' => $languageInput,

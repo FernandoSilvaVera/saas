@@ -125,8 +125,19 @@
                     </div>
                 </div>
 
+		@auth
+		@else
+			<div class="alert alert-success text-center" role="alert">
+				Ese necesario iniciar sesión para poder suscribirse
+			</div>
+		@endauth
+
                 <!-- price page top -->
                 <div class="price_page_top pt_30 pb_30 pl_35 pr_35 mb_25 bg-white rounded_lg">
+
+
+
+
                     <div class="row align-items-center">
                         <div class="col-lg-8">
                             <h2>¿Necesitas un plan más personalizado?</h2>
@@ -173,7 +184,12 @@
 						        @endif
 						    </div>
 
-						    <a href="/buy/{{$plan->stripe_monthly_price_id}}" class="button w-100">{{$plan->monthly_price}}€ / mes</a>
+							@if(isset($plan->is_client_plan) && $plan->is_client_plan)
+								<a href="/unsubscribe/{{$plan->id}}" class="buttonRed w-100">Darse de baja</a>
+							@else
+								<a href="/buy/{{$plan->stripe_monthly_price_id}}" class="button w-100">{{$plan->monthly_price}}€ / mes</a>
+							@endif
+
 						</div>
 					    </div>
 
@@ -199,7 +215,11 @@
 						        @endif
 						    </div>
 
-						    <a href="/buy/{{$plan->stripe_annual_price_id}}" class="button w-100">{{$plan->annual_price}}€ / año</a>
+							@if(isset($plan->is_client_plan) && $plan->is_client_plan)
+								<a href="/unsubscribe/{{$plan->id}}" class="buttonRed w-100">Darse de baja</a>
+							@else
+								<a href="/buy/{{$plan->stripe_annual_price_id}}" class="button w-100">{{$plan->annual_price}}€ / año</a>
+						    	@endif
 						</div>
 					    </div>
 

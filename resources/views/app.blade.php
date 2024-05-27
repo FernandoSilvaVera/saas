@@ -56,7 +56,11 @@
 
                             <div class="select app_top_select">
 
-
+				@if(isset($errorShowDownloadButton) && $errorShowDownloadButton != "")
+					<div class="alert alert-danger" role="alert">
+						{{$errorShowDownloadButton}}
+					</div>
+				@endif
 
                             </div>
 
@@ -97,7 +101,10 @@
 						<input type="hidden" name="filePath" value="{{$filePath}}">
 					@endif
 				</form>
-				<a onclick="downloadButton()" id="downloadFile" class="button button_trasparent mr_20">Descargar</a>
+
+				@if($errorShowDownloadButton == "")
+					<a onclick="downloadButton()" id="downloadFile" class="button button_trasparent mr_20">Descargar</a>
+				@endif
 
 				@endif
                             </div>

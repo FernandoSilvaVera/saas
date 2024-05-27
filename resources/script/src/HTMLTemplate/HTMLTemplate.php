@@ -38,7 +38,28 @@ class HTMLTemplate {
 		$count = count($index);
 
 		$index[$count+1 . '. Mapa Conceptual'] = '
+			<style>
+				.alert {
+					position: relative;
+					padding: 0.75rem 1.25rem;
+					 margin-bottom: 1rem;
+					border: 1px solid transparent;
+					border-radius: 0.25rem;
+				}
+
+				.alert-success {
+					color: #155724;
+				       background-color: #d4edda;
+				       border-color: #c3e6cb;
+				}
+			</style>
+
+			<div class="alert alert-success" role="alert" style="text-align: center">
+				¡Puedes desplazarte por el mapa usando la rueda del ratón o moviéndolo hacia los lados!
+			</div>
+
 			<script src="https://cdn.jsdelivr.net/npm/markmap-autoloader@latest"></script>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 			<style>
 				.markmap {
 					position: relative;
@@ -54,6 +75,20 @@ class HTMLTemplate {
 					{markmapReplace}
 				</script>
 			</div>
+
+			<button id="download-btn">Descargar como Imagen</button>
+
+			<script>
+				document.getElementById("download-btn").addEventListener("click", function() {
+					html2canvas(document.querySelector(".markmap")).then(canvas => {
+						let link = document.createElement("a");
+						link.download = "mapa_conceptual.png";
+						link.href = canvas.toDataURL();
+						link.click();
+					});
+				});
+			</script>
+
 		';
 		$index[$count+2 . '. Resumen'] = "{summary}";
 		$index[$count+3 . '. Preguntas'] = "{questions}";

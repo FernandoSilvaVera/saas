@@ -13,7 +13,18 @@ class ManageClientSubscription
 	{
 		$email = $customer->email;
 		$subs = $customer->subscriptions->data;
-		$currentSub = end($subs);
+		$currentSub = $subs[0];
+
+		$stripe = new \Stripe\StripeClient(config('services.stripe.secret'));
+
+		$subscriptions = $customer->subscriptions->data;
+		foreach($subscriptions as $index => $subscription){
+			// Omite el primer elemento (índice 0)
+			if ($index === 0) {
+				continue;
+			}
+			$stripe->subscriptions->cancel($subscription->id, []);
+		}
 
 		$plan = SubscriptionPlan::where('stripe_product_id', $currentSub->plan->product)->first();
 

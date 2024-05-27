@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\ClientsSubscription;
 use App\Models\SubscriptionPlan;
+use Illuminate\Support\Facades\Auth;
+use App\Subscription\ManageClientSubscription;
 
 class ClientsSubscriptionController extends Controller
 {
@@ -29,6 +31,22 @@ class ClientsSubscriptionController extends Controller
 		$client->palabras_maximas = $wordLimit;
 		$client->save();
 		return $this->view($request);
+	}
+
+	public function unsubscribe($planId, Request $request)
+	{
+		$userId = Auth::id();
+		$clientSubscription = ManageClientSubscription::getClientSubscription($userId);
+
+		$stripe = new \Stripe\StripeClient(config('services.stripe.secret'));
+		$customer = $stripe->customers->retrieve($clientSubscription->customerStripe, [ 'expand' => ['subscriptions']]);
+		ManageClientSubscription::update($customer);
+
+		foreach($customer->subscriptions->data as $subscription){
+			$stripe->subscriptions->cancel($subscription->id, []);
+		}
+
+		return redirect()->route('plans')->with('success', 'Su suscripción ha sido cancelada.');
 	}
 
 }

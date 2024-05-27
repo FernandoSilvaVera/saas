@@ -48,7 +48,7 @@ function createPlan() {
 		contentType: 'application/json',
 		data: JSON.stringify(plan),
 		success: function(data) {
-
+			window.location.href = "/listPlans";
 		},
 		error: function(xhr, status, error) {
 

@@ -46,6 +46,7 @@
 			<a href="{{ url('/contact') }}" class="{{ request()->is('contact') ? 'active' : '' }}"><img src="./img/sidebar_icon3.svg" alt="">Contactanos</a>
 			<a href="{{ url('/shareAccount') }}" class="{{ request()->is('shareAccount') ? 'active' : '' }}"><img src="./img/sidebar_icon9.svg" alt="">Compartir Suscripción</a>
 			<a href="{{ url('/account') }}" class="{{ request()->is('account') ? 'active' : '' }}"><img src="./img/sidebar_icon9.svg" alt="">Mi Cuenta</a>
+			<a target="_blank" href="https://billing.stripe.com/p/login/test_dR66p43ebbXs6nS288?prefilled_email={{$user->email}}" class="{{ request()->is('config') ? 'active' : '' }}"><img src="./img/sidebar_icon9.svg" alt="">Facturación</a>
 			<a href="{{ url('/logout') }}"><img src="./img/sidebar_icon9.svg">Cerrar Sesión</a>
 		@endif
 

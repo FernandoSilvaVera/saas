@@ -35,15 +35,19 @@ class AppController extends Controller
 		$nextDate = "";
 
 
-
 		if($clientSubscription->customerStripe){
 			$stripe = new \Stripe\StripeClient(config('services.stripe.secret'));
 			$customer = $stripe->customers->retrieve($clientSubscription->customerStripe, [ 'expand' => ['subscriptions']]);
 			$subs = $customer->subscriptions->data;
 			$currentSub = end($subs);
 
-			$currentPeriodEnd = Carbon::createFromTimestamp($currentSub->current_period_end);
-			$nextDate = $currentPeriodEnd->format('Y-m-d H:i:s');
+			if($currentSub){
+				$currentPeriodEnd = Carbon::createFromTimestamp($currentSub->current_period_end);
+				$nextDate = $currentPeriodEnd->format('Y-m-d H:i:s');
+			}else{
+				$nextDate = "Plan Cancelado";
+			}
+
 		}
 
 		$plan = SubscriptionPlan::Find($clientSubscription->plan_contratado);

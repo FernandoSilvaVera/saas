@@ -11,12 +11,108 @@
   </docTitle>
   <navMap>
     <navPoint id="navpoint-1" >
-      <navLabel><text>1. Introducción</text></navLabel>
-        <content src="text/ch001.x.html#1-Introducci-n"/>
+      <navLabel><text>1. Aprendizaje del uso de Power Query. Obtención y transformación de datos</text></navLabel>
+        <content src="text/ch001.x.html#1-Aprendizaje-del-uso-de-Power-Query-Obtenci-n-y-transformaci-n-de-datos"/>
     </navPoint>
     <navPoint id="navpoint-2" >
-      <navLabel><text>2. Qué es el tiempo</text></navLabel>
-        <content src="text/ch002.x.html#2-Qu-es-el-tiempo"/>
+      <navLabel><text>Conectar diferentes fuentes de datos</text></navLabel>
+        <content src="text/ch002.x.html#Conectar-diferentes-fuentes-de-datos"/>
+    </navPoint>
+    <navPoint id="navpoint-3" >
+      <navLabel><text>2. Transformar datos</text></navLabel>
+        <content src="text/ch003.x.html#2-Transformar-datos"/>
+      <navPoint id="navpoint-4">
+        <navLabel><text></text></navLabel>
+        <content src="text/ch003.x.html#"/>
+        <navPoint id="navpoint-5">
+          <navLabel><text>Filtrar datos</text></navLabel>
+          <content src="text/ch003.x.html#Filtrar-datos"/>
+        </navPoint>
+        <navPoint id="navpoint-6">
+          <navLabel><text>Ordenar datos</text></navLabel>
+          <content src="text/ch003.x.html#Ordenar-datos"/>
+        </navPoint>
+        <navPoint id="navpoint-7">
+          <navLabel><text>Agregar columnas</text></navLabel>
+          <content src="text/ch003.x.html#Agregar-columnas"/>
+        </navPoint>
+        <navPoint id="navpoint-8">
+          <navLabel><text>Combinar datos</text></navLabel>
+          <content src="text/ch003.x.html#Combinar-datos"/>
+        </navPoint>
+        <navPoint id="navpoint-9">
+          <navLabel><text>Dividir columnas</text></navLabel>
+          <content src="text/ch003.x.html#Dividir-columnas"/>
+        </navPoint>
+        <navPoint id="navpoint-10">
+          <navLabel><text>Aplicar transformaciones personalizadas</text></navLabel>
+          <content src="text/ch003.x.html#Aplicar-transformaciones-personalizadas"/>
+        </navPoint>
+      </navPoint>
+    </navPoint>
+    <navPoint id="navpoint-11" >
+      <navLabel><text>3. Combinar datos de diferentes orígenes</text></navLabel>
+        <content src="text/ch004.x.html#3-Combinar-datos-de-diferentes-or-genes"/>
+      <navPoint id="navpoint-12">
+        <navLabel><text>3.1 Elevar la primera fila y convertirla en los títulos de las columnas de una tabla</text></navLabel>
+        <content src="text/ch004.x.html#3-1-Elevar-la-primera-fila-y-convertirla-en-los-t-tulos-de-las-columnas-de-una-tabla"/>
+      </navPoint>
+      <navPoint id="navpoint-13">
+        <navLabel><text>3.2 Eliminar otras columnas para mostrar únicamente las columnas de interés</text></navLabel>
+        <content src="text/ch004.x.html#3-2-Eliminar-otras-columnas-para-mostrar-nicamente-las-columnas-de-inter-s"/>
+      </navPoint>
+      <navPoint id="navpoint-14">
+        <navLabel><text>3.3 Expandir una tabla Detalles_Pedido</text></navLabel>
+        <content src="text/ch004.x.html#3-3-Expandir-una-tabla-Detalles-Pedido"/>
+      </navPoint>
+      <navPoint id="navpoint-15">
+        <navLabel><text>3.4 Eliminar otras columnas para mostrar únicamente las columnas de interés</text></navLabel>
+        <content src="text/ch004.x.html#3-4-Eliminar-otras-columnas-para-mostrar-nicamente-las-columnas-de-inter-s"/>
+        <navPoint id="navpoint-16">
+          <navLabel><text>En esta tarea, se eliminarán las columnas seleccionadas.</text></navLabel>
+          <content src="text/ch004.x.html#En-esta-tarea-se-eliminar-n-las-columnas-seleccionadas-"/>
+        </navPoint>
+      </navPoint>
+      <navPoint id="navpoint-17">
+        <navLabel><text>3.5 Cálculo del total de línea para cada fila individual de la tabla &amp;quot;Detalles_Pedido&amp;quot;</text></navLabel>
+        <content src="text/ch004.x.html#3-5-C-lculo-del-total-de-l-nea-para-cada-fila-individual-de-la-tabla-quot-Detalles-Pedido-quot-"/>
+      </navPoint>
+      <navPoint id="navpoint-18">
+        <navLabel><text>3.6 Transformar una columna de año FechaPedido</text></navLabel>
+        <content src="text/ch004.x.html#3-6-Transformar-una-columna-de-a-o-FechaPedido"/>
+      </navPoint>
+      <navPoint id="navpoint-19">
+        <navLabel><text>3.7 Agrupar las filas por Id. de producto y año</text></navLabel>
+        <content src="text/ch004.x.html#3-7-Agrupar-las-filas-por-Id-de-producto-y-a-o"/>
+      </navPoint>
+      <navPoint id="navpoint-20">
+        <navLabel><text>3.8 Importar una consulta de productos</text></navLabel>
+        <content src="text/ch004.x.html#3-8-Importar-una-consulta-de-productos"/>
+      </navPoint>
+      <navPoint id="navpoint-21">
+        <navLabel><text>3.9 Deshabilitar descargas de consultas a un libro de Excel</text></navLabel>
+        <content src="text/ch004.x.html#3-9-Deshabilitar-descargas-de-consultas-a-un-libro-de-Excel"/>
+      </navPoint>
+      <navPoint id="navpoint-22">
+        <navLabel><text>3.10 Combinar las consultas de productos y ventas totales</text></navLabel>
+        <content src="text/ch004.x.html#3-10-Combinar-las-consultas-de-productos-y-ventas-totales"/>
+      </navPoint>
+      <navPoint id="navpoint-23">
+        <navLabel><text>3.11 Combinar el Id. de producto con una consulta de ventas totales</text></navLabel>
+        <content src="text/ch004.x.html#3-11-Combinar-el-Id-de-producto-con-una-consulta-de-ventas-totales"/>
+      </navPoint>
+      <navPoint id="navpoint-24">
+        <navLabel><text>3.12 Expandir una columna combinada</text></navLabel>
+        <content src="text/ch004.x.html#3-12-Expandir-una-columna-combinada"/>
+      </navPoint>
+      <navPoint id="navpoint-25">
+        <navLabel><text>3.13 Juntar archivos en Excel desde una carpeta</text></navLabel>
+        <content src="text/ch004.x.html#3-13-Juntar-archivos-en-Excel-desde-una-carpeta"/>
+      </navPoint>
+    </navPoint>
+    <navPoint id="navpoint-26" >
+      <navLabel><text>4. Cargar la consulta de Excel</text></navLabel>
+        <content src="text/ch005.x.html#4-Cargar-la-consulta-de-Excel"/>
     </navPoint>
   </navMap>
 </ncx>

@@ -39,6 +39,7 @@ class TemplateController extends Controller
 
 		if (!file_exists($pathLogo)) {
 			if (!mkdir($pathLogo, 0755, true)) {
+
 			}
 		}
 
@@ -47,6 +48,7 @@ class TemplateController extends Controller
 
 		if (!file_exists($pathLogo)) {
 			if (!mkdir($pathLogo, 0755, true)) {
+
 			}
 		}
 

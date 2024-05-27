@@ -33,13 +33,14 @@ class OpenAI
 		$textoNuevo = "";
 		$countTxtTotal = 0;
 
+		$assistantId = env('ASST_SUMMARY');
+
 		foreach($this->jsonArray as $title => $content){
 			$send .= $title . " -> " . $content;
 			$countTxt = strlen($send);
 			$countTxtTotal += $countTxt;
 			if($countTxt > 4000){
 				$message = "Dame un resumen extenso de esto en formato json de esto tambien quiero que me lo formatees en html" . $send;
-				$assistantId = "asst_vg9yWuWBqqWYQhO7OMlRQuxP";
 				$response = $this->assistant->execute($message, $assistantId);
 
 				if (isset($response->data[0]->content[0]->text->value)) {
@@ -66,7 +67,6 @@ class OpenAI
 
 		if($countTxtTotal <= 4000){
 				$message = "Dame un resumen extenso de esto en formato json de esto tambien quiero que me lo formatees en html" . $send;
-				$assistantId = "asst_vg9yWuWBqqWYQhO7OMlRQuxP";
 				$response = $this->assistant->execute($message, $assistantId);
 
 				if (isset($response->data[0]->content[0]->text->value)) {
@@ -108,19 +108,33 @@ class OpenAI
 		$textoNuevo = "";
 		$countTxtTotal = 0;
 
+		$assistantId = env('ASST_CONCEPTUAL_MAP');
+
 		foreach($this->jsonArray as $title => $content){
 			$send .= $title . " -> " . $content;
 			$countTxt = strlen($send);
 			$countTxtTotal += $countTxt;
 			if($countTxt > 4000){
 				$message = "Crea un mapa conceptual de esto " . $this->wordJson;
-				$assistantId = "asst_4ESaXO8NoqzMXeIlnfC1NrPS";
 				$response = $this->assistant->execute($message, $assistantId);
 
 				$data = null;
 
 				if (isset($response->data[0]->content[0]->text->value)) {
 					$data = $response->data[0]->content[0]->text->value;
+
+					$first_line = strtok($data, "\n");
+					$wrapped_first_line = wordwrap($first_line, 25, "<br>");
+					$data = str_replace($first_line, $wrapped_first_line, $data);
+
+/*
+					$lines = explode("\n", $data);
+					foreach ($lines as &$line) {
+						$line = wordwrap($line, 25, "<br>");
+					}
+					$data = implode("\n", $lines);
+*/
+
 					$file = file_get_contents($conceptualMapHTML);
 
 					$placeholder = '{markmapReplace}';
@@ -137,7 +151,6 @@ class OpenAI
 
 		if($countTxtTotal <= 4000){
 			$message = "Crea un mapa conceptual de esto " . $this->wordJson;
-			$assistantId = "asst_4ESaXO8NoqzMXeIlnfC1NrPS";
 			$response = $this->assistant->execute($message, $assistantId);
 
 			$data = null;
@@ -168,6 +181,8 @@ class OpenAI
 		$textoNuevo = "";
 		$countTxtTotal = 0;
 
+		$assistantId = env('ASST_QUESTIONS');
+
 		foreach($this->jsonArray as $title => $content){
 			$send .= $title . " -> " . $content;
 			$countTxt = strlen($send);
@@ -175,7 +190,6 @@ class OpenAI
 			if($countTxt > 4000){
 
 				$message = "Crea $numQuestions preguntas en formato json sobre esto " . $send;
-				$assistantId = "asst_wCSbBD0KHXIIaKMKvubNj1CB";
 				$response = $this->assistant->execute($message, $assistantId);
 
 				if (isset($response->data[0]->content[0]->text->value)) {
@@ -303,7 +317,6 @@ class OpenAI
 
 			if($countTxtTotal <= 4000){
 				$message = "Crea $numQuestions preguntas en formato json sobre esto " . $send;
-				$assistantId = "asst_wCSbBD0KHXIIaKMKvubNj1CB";
 				$response = $this->assistant->execute($message, $assistantId);
 
 				if (isset($response->data[0]->content[0]->text->value)) {

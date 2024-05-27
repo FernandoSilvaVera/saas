@@ -2,7 +2,11 @@
 
 	<div class="pb_15">
 		<h4 class="pb_5">Palabras restantes</h4>
-		<p>{{$currentSubscription->palabras_maximas}}/{{$plan->word_limit}}</p>
+		@if($currentSubscription->subscriptionPlan->unlimited_words)
+			<p>Plan Sin límites</p>
+		@else
+			<p>{{$currentSubscription->palabras_maximas}}/{{$plan->word_limit}}</p>
+		@endif
 	</div>
 
 	<div class="pb_15">
