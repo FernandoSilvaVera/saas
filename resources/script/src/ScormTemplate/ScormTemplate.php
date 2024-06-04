@@ -43,7 +43,7 @@ class ScormTemplate {
 		$this->images($outputUser);
 		$this->libraries($outputUser);
 		$this->imsmanifest($wordContent);
-		$this->zip();
+		$this->zip($outputUser);
 	}
 
 	public function createFolder(){
@@ -123,7 +123,7 @@ class ScormTemplate {
 
 	}
 
-	public function zip(){
+	public function zip($outputUser){
 		$currentDir = getcwd();
 		// Ruta al directorio que quieres comprimir
 		$path = $this->pathScript . "/tmp/" . $this->hash;
@@ -134,6 +134,11 @@ class ScormTemplate {
 
 		// Ejecuta el comando
 		exec($command);
+
+		$pathScormZip = $path . "/scorm.zip";
+		$command = "mv $pathScormZip $outputUser";
+		exec($command);
+
 	}
 
 	public function html($wordContent, $htmlTemplate){
