@@ -82,7 +82,12 @@
                                         <td class="text-center">{{$history->questionsUsed}}</td>
                                         <td class="text-center">{{$history->voiceOver}}</td>
 
-                                        <td><a href="{{ route('history.download', ['id' => $history->id]) }}" class="button">Descargar</a></td>
+					@if($history->pathZip != "")
+						<td><a href="{{ route('history.download', ['id' => $history->id]) }}" class="button">Descargar</a></td>
+					@else
+						<td>En proceso...</td>
+					@endif
+
                                     </tr>
 					@endforeach
                                 </tbody>

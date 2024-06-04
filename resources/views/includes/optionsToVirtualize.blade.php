@@ -35,45 +35,42 @@
 		</select>
 	</div>
 
-	@if($isAdmin || ($currentSubscription && $currentSubscription->subscriptionPlan->summaries))
-	<label class="mt-1">Resumen</label>
-	<div class="form-group">
-		<select class="form-select" id="summaryOptions">
-			@php
-				$summaryOptionPreview = $summaryOptionPreview ?? '0';
-			@endphp
-			<option value="0" @if($summaryOptionPreview == '0') selected @endif>Selecciona un tipo de resumen</option>
-			<option value="1" @if($summaryOptionPreview == '1') selected @endif>Resumen Largo</option>
-			<option value="2" @if($summaryOptionPreview == '2') selected @endif>Resumen Corto</option>
-		</select>
-	</div>
+	@if($isAdmin || ($currentSubscription && $currentSubscription->numero_resumenes))
+		<label class="mt-1">Resumen</label>
+		<div class="form-group">
+			<select class="form-select" id="summaryOptions">
+				@php
+					$summaryOptionPreview = $summaryOptionPreview ?? '0';
+				@endphp
+				<option value="0" @if($summaryOptionPreview == '0') selected @endif>Selecciona un tipo de resumen</option>
+				<option value="1" @if($summaryOptionPreview == '1') selected @endif>Resumen Largo</option>
+				<option value="2" @if($summaryOptionPreview == '2') selected @endif>Resumen Corto</option>
+			</select>
+		</div>
 	@endif
 
-
-	@if($isAdmin || ($currentSubscription && $currentSubscription->subscriptionPlan->test_questions_count))
-	<div class="form-check mt-1">
+	@if($isAdmin || ($currentSubscription && $currentSubscription->numero_preguntas))
 		@php
 			$generateQuestionsPreview = $generateQuestionsPreview ?? false;
 		@endphp
 
-		<input class="form-check-input" type="checkbox" id="generateQuestions" name="generateQuestions" @if($generateQuestionsPreview) checked @endif>
-		<label class="form-check-label" for="generateQuestions">
-			Preguntas
-		</label>
-	</div>
+		<div id="numberInputContainer" class="form-group mt-2">
+			<label for="numberOfQuestions">Cantidad de preguntas:</label>
+			<input type="number" class="form-control" id="generateQuestions" name="generateQuestions" min="1" step="1" value="{{$generateQuestionsPreview}}">
+		</div>
 	@endif
 
-	@if($isAdmin || ($currentSubscription && $currentSubscription->subscriptionPlan->concept_map))
-	<div class="form-check mt-1">
-		@php
-			$generateConceptMapPreview = $generateConceptMapPreview ?? false;
-		@endphp
+	@if($isAdmin || ($currentSubscription && $currentSubscription->numero_mapa_conceptual))
+		<div class="form-check mt-1">
+			@php
+				$generateConceptMapPreview = $generateConceptMapPreview ?? false;
+			@endphp
 
-		<input class="form-check-input" type="checkbox" id="generateConceptMap" name="generateConceptMap" @if($generateConceptMapPreview) checked @endif>
-		<label class="form-check-label" for="generateConceptMap">
-			Mapa Conceptual
-		</label>
-	</div>
+			<input class="form-check-input" type="checkbox" id="generateConceptMap" name="generateConceptMap" @if($generateConceptMapPreview) checked @endif>
+			<label class="form-check-label" for="generateConceptMap">
+				Mapa Conceptual
+			</label>
+		</div>
 	@endif
 
 	@if($isAdmin || ($currentSubscription && $currentSubscription->subscriptionPlan->voiceover))
@@ -84,7 +81,7 @@
 
 		<input class="form-check-input" type="checkbox" id="useNaturalVoice" name="useNaturalVoice" @if($useNaturalVoicePreview) checked @endif>
 		<label class="form-check-label" for="useNaturalVoice">
-			Voz natural
+			Texto de alta calidad
 		</label>
 	</div>
 	@endif

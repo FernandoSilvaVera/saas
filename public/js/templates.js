@@ -39,6 +39,7 @@ $(document).ready(function() {
 
 		var faviconImg = document.getElementById("faviconImg").getAttribute("src");
 		var logoImg = document.getElementById("logoImg").getAttribute("src");
+		var marcaDeAgua = document.getElementById("marcaDeAgua").getAttribute("src");
 
 		var jsonData = {};
 		jsonData.logo_path = logoImg;
@@ -52,8 +53,7 @@ $(document).ready(function() {
 		jsonData.font_size = $('#fontSize').val();
 		jsonData._token = csrfToken;
 		jsonData.templateId = templateId;
-
-
+		jsonData.marcaDeAgua = marcaDeAgua;
 
 		$.ajax({
 			url: templateNew,
@@ -75,7 +75,14 @@ $(document).ready(function() {
 				}
 			},
 			error: function(xhr, status, error) {
+				var mensajeError = '<div class="alert alert-danger" role="alert">';
+				mensajeError += '<strong>Error:</strong> Faltan campos por rellenar';
+				mensajeError += '</div>';
+				$('#mensaje-container').html(mensajeError);
 
+				setTimeout(function() {
+					$('#mensaje-container').empty();
+				}, 6000);
 			}
 		});
 	});

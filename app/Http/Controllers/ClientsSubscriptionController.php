@@ -11,7 +11,7 @@ use App\Subscription\ManageClientSubscription;
 class ClientsSubscriptionController extends Controller
 {
 
-	public function view(Request $request)
+	public function view(Request $request, $message="")
 	{
 		$id = $request->input('id');
 		$client = ClientsSubscription::find($id);
@@ -20,17 +20,28 @@ class ClientsSubscriptionController extends Controller
 		return view('client', [
 			'currentSubscription' => $client,
 			'plan' => $plan,
+			'message' => $message,
 		]);
 	}
 
-	public function edit(Request $request){
+	public function edit(Request $request)
+	{
 		$id = $request->input('id');
 		$wordLimit = $request->input('word_limit');
 
+		$questions = $request->input('questions');
+		$summary = $request->input('summary');
+		$conceptualMap = $request->input('conceptualMap');
+
 		$client = ClientsSubscription::find($id);
 		$client->palabras_maximas = $wordLimit;
+
+		$client->numero_resumenes = $summary;
+		$client->numero_mapa_conceptual = $conceptualMap;
+		$client->numero_preguntas = $questions;
+
 		$client->save();
-		return $this->view($request);
+		return $this->view($request, "datos actualizados correctamente");
 	}
 
 	public function unsubscribe($planId, Request $request)

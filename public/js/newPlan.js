@@ -14,11 +14,12 @@ function createPlan() {
 	var voiceOnlineCheckbox = document.getElementById("voiceOnline");
 */
 
-	var nTestChecked = $('#nTest').prop('checked');
-	var nSummaryChecked = $('#nSummary').prop('checked');
+	var nTestChecked = $('#nTest').val()
+	var nSummaryChecked = $('#nSummary').val()
+	var conceptualMap = $('#conceptualMap').val()
+
 	var voiceoverChecked = $('#voiceover').prop('checked');
 	var customPlanChecked = $('#customPlan').prop('checked');
-	var conceptualMap = $('#conceptualMap').prop('checked');
 	var wordNoLimit = $('#wordNoLimit').prop('checked');
 
 	plan.test_questions_count = nTestChecked

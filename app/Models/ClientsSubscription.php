@@ -19,6 +19,7 @@ class ClientsSubscription extends Model
 	    'otros_usuarios',
 	    'plan_contratado',
 	    'customerStripe',
+	    'numero_mapa_conceptual',
     ];
 
     public function subscriptionPlan()

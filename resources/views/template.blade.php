@@ -67,6 +67,8 @@
                                         <input id="templateName" type="text" class="input_field w-100"
                                             placeholder="Enter your template name" required="" value="{{$template->template_name}}">
                                     </div>
+
+
                                     <div class="upload_boxes d-flex align-items-center pt_20">
                                         <div class="upload w-50">
                                             <h4 class="pb_10">Logo</h4>
@@ -88,6 +90,7 @@
                                                     onchange="handleFileSelect(this)" />
                                             </div>
                                         </div>
+
                                         <div class="upload w-50">
                                             <h4 class="pb_10">Favicon</h4>
 
@@ -108,7 +111,38 @@
                                                     onchange="handleFileSelect(this)" />
                                             </div>
                                         </div>
+
                                     </div>
+
+                                    <div class="upload_boxes d-flex align-items-center pt_20">
+                                        <div class="upload w-50">
+                                            <h4 class="pb_10">Marca de agua (PDF)</h4>
+
+                                            <div id="drop-container" class="drop-container @if($template->marcaDeAguaPath) active @endif">
+                                                <label for="file-input3">
+                                                    <div class="upload_img">
+                                                        <img id="marcaDeAgua" class="icon preview-image" src="{{$template->marcaDeAguaPath}}"
+                                                            alt="Icon" onclick="handleImageClick(event)" />
+                                                        <button class="cross" onclick="removeImage()">
+                                                            <img src="./img/cross.svg" alt="" />
+                                                        </button>
+                                                    </div>
+                                                    <a class="redirect_btn upload-btn" onclick="uploadImage()">
+                                                        <img src="./img/filled_circled.svg" alt="">
+                                                    </a>
+                                                </label>
+                                                <input type="file" id="file-input3" style="display: none"
+                                                    onchange="handleFileSelect(this)" />
+                                            </div>
+                                        </div>
+
+                                        <div class="upload w-50">
+
+                                        </div>
+
+                                    </div>
+
+
                                     <div class="color_boxes pb_20 pt_20">
                                         <div class="color_box pb_20 d-flex align-items-center justify-content-between">
                                             <p class="text_sm">Derecha</p>
@@ -166,10 +200,11 @@
                                             <label for="FName" class="d-flex pb_10">Letras</label>
 
 					    <select id="fontSize" class="input_field select_field w-100" name="fontSize">
-						    <option value="20">20</option>
-						    <option value="24" selected>24</option>
-						    <option value="28">28</option>
-						    <option value="32">32</option>
+
+						@foreach($fontSize as $size)
+							<option value="{{$size}}">{{$size}}</option>
+						@endforeach
+
 					    </select>
 
 

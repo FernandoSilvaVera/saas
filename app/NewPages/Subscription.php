@@ -42,7 +42,6 @@ class Subscription
 
 		$openai = new OpenAI($word, $downloadPath, $userId);
 
-		\Log::info('IA CONCEPTUAL MAP');
 
 		$summary = false;
 		$questions = false;
@@ -50,11 +49,16 @@ class Subscription
 
 		if($generateConceptualMap){
 			if(ManageClientSubscription::haveConceptualMap($userId)){
+				\Log::info('IA CONCEPTUAL MAP NEW');
 				$ok = $openai->conceptualMap($conceptualMapHTML);
 				if($ok){
-					$conceptualMap = true;
+					$conceptualMap = 1;
 				}
+			}else{
+				\Log::info('no hay creditos para el conceptual map');
 			}
+		}else{
+			\Log::info('NO HAY FLAG PARA GENERAR EL CONCEPTUAL MAP');
 		}
 
 
@@ -73,8 +77,8 @@ class Subscription
 		if($generateQuestions){
 			if(ManageClientSubscription::haveQuestions($userId)){
 				\Log::info('IA PREGUNTAS');
-				$numQuestions = 10;
-				$ok = $openai->questions($questionsHTML, $downloadPath, $numQuestions);
+				$numQuestions = $generateQuestions;
+				$ok = $openai->questions($questionsHTML, $numQuestions);
 				if($ok){
 					$questions = $numQuestions;
 				}

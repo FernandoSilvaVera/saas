@@ -16,6 +16,8 @@ use App\Mail\DemoEmail;
 use Illuminate\Support\Facades\Mail;
 use App\Http\Controllers\ConfigController;
 use App\Http\Controllers\ContactController;
+use App\Models\Template;
+use App\Models\History;
 
 
 /*
@@ -118,6 +120,28 @@ Route::post('/download', function (Request $request) {
 			$useNaturalVoiceDownload,
 		);
 	}
+
+
+	$template = Template::find($templateId);
+
+	$history = new History();
+	$history->name = $fileName;
+	$history->userId = $userId;
+
+	$history->templateName =" ";
+
+	if($template){
+		$history->templateName = $template->template_name;
+	}
+	$history->wordsUsed = "En proceso...";
+	$history->voiceOver = $useNaturalVoiceDownload;
+
+	$history->summary = $summaryOptionDownload;
+	$history->conceptualMap = $generateConceptMapDownload;
+	$history->questionsUsed = $generateQuestionsDownload;
+
+	$history->pathZip = "";
+	$history->save();
 
 	FileDownloadJob::dispatch($fileName, $templateId, $userId, $language, $summaryOptionDownload, $generateQuestionsDownload, $generateConceptMapDownload, $useNaturalVoiceDownload);
 

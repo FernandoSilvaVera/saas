@@ -21,6 +21,7 @@ class Template extends Model
         'css_icons',
         'typography',
         'font_size',
-	'userId'
+	'userId',
+	'marcaDeAguaPath'
     ];
 }

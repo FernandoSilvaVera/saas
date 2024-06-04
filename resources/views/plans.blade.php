@@ -176,9 +176,10 @@
 
 						    <div class="price_lists">
 							<p><strong>Limite de palabras:</strong> {{$plan->word_limit}}</p>
-							<p><strong>Resumenes:</strong> {{$plan->summaries}}</p>
+							<p><strong>Nº Resumenes:</strong> {{$plan->summaries}}</p>
 							<p><strong>Nº Test:</strong> {{$plan->test_questions_count}}</p>
 							<p><strong>Nº Editores:</strong> {{$plan->editors_count}}</p>
+							<p><strong>Nº Mapas conceptuales:</strong> {{$plan->concept_map}}</p>
 							@if ($plan->voiceover > 0)
 								<p><strong>Locución en línea:</strong> {{$plan->voiceover}}</p>
 						        @endif
@@ -210,6 +211,7 @@
 							<p><strong>Resumenes:</strong> {{$plan->summaries}}</p>
 							<p><strong>Nº Test:</strong> {{$plan->test_questions_count}}</p>
 							<p><strong>Nº Editores:</strong> {{$plan->editors_count}}</p>
+							<p><strong>Nº Mapas conceptuales:</strong> {{$plan->concept_map}}</p>
 							@if ($plan->voiceover > 0)
 								<p><strong>Locución en línea:</strong> {{$plan->voiceover}}</p>
 						        @endif

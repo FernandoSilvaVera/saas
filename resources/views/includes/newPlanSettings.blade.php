@@ -9,30 +9,24 @@
 </div>
 
 <div class="pb_15">
+	<h4 class="Editors pb_5">Nº Preguntas</h4>
+	<input id="nTest" type="number" class="input_field w-100" placeholder="" required {{ $bloquearCampos ? 'disabled' : '' }} value="{{$plan->test_questions_count}}">
+</div>
+
+<div class="pb_15">
+	<h4 class="Editors pb_5">Nº Resumenes</h4>
+	<input id="nSummary" type="number" class="input_field w-100" placeholder="" required {{ $bloquearCampos ? 'disabled' : '' }} value="{{$plan->summaries}}">
+</div>
+
+<div class="pb_15">
+	<h4 class="Editors pb_5">Nº Mapa Conceptual</h4>
+	<input id="conceptualMap" type="number" class="input_field w-100" placeholder="" required {{ $bloquearCampos ? 'disabled' : '' }} value="{{$plan->concept_map}}">
+</div>
+
+<div class="pb_15">
 	<div class="form-check">
 		<input id="wordNoLimit" type="checkbox" class="form-check-input" {{ $bloquearCampos ? 'disabled' : '' }} @checked($plan->unlimited_words)>
 		<label class="form-check-label" for="wordNoLimit">Sin límite de palabras</label>
-	</div>
-</div>
-
-<div class="pb_15">
-	<div class="form-check">
-		<input id="nTest" type="checkbox" class="form-check-input" {{ $bloquearCampos ? 'disabled' : '' }} @checked($plan->test_questions_count > 0)>
-		<label class="form-check-label" for="nTest">Preguntas</label>
-	</div>
-</div>
-
-<div class="pb_15">
-	<div class="form-check">
-		<input id="nSummary" type="checkbox" class="form-check-input" {{ $bloquearCampos ? 'disabled' : '' }} @checked($plan->summaries)>
-		<label class="form-check-label" for="nSummary">Resumen</label>
-	</div>
-</div>
-
-<div class="pb_15">
-	<div class="form-check">
-		<input id="conceptualMap" type="checkbox" class="form-check-input" {{ $bloquearCampos ? 'disabled' : '' }} @checked($plan->concept_map)>
-		<label class="form-check-label" for="conceptualMap">Mapa Conceptual</label>
 	</div>
 </div>
 

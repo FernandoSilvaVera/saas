@@ -43,6 +43,7 @@ class ManageClientSubscription
 					'locucion_en_linea' => $plan->voiceover,
 					'plan_contratado' => $plan->id,
 					'customerStripe' => $currentSub->customer,
+					'numero_mapa_conceptual' => $plan->concept_map,
 			]);
 		} else {
 			$clientSubscription = ClientsSubscription::create([
@@ -55,6 +56,7 @@ class ManageClientSubscription
 					'otros_usuarios' => "",
 					'plan_contratado' => $plan->id,
 					'customerStripe' => $currentSub->customer,
+					'numero_mapa_conceptual' => $plan->concept_map,
 			]);
 		}
 	}
@@ -69,6 +71,19 @@ class ManageClientSubscription
 		$email = self::getEmail($userId);
 		$clientSubscription = ClientsSubscription::where('email', $email)->first();
 		$clientSubscription->palabras_maximas -= $wordsUsed;
+		$clientSubscription->save();
+	}
+
+	public static function consumeConceptualMap($userId) {
+
+		$isAdmin = User::isAdmin($userId);
+		if($isAdmin){
+			return true;
+		}
+
+		$email = self::getEmail($userId);
+		$clientSubscription = ClientsSubscription::where('email', $email)->first();
+		$clientSubscription->numero_mapa_conceptual -= 1;
 		$clientSubscription->save();
 	}
 
@@ -134,7 +149,7 @@ class ManageClientSubscription
 		$email = self::getEmail($userId);
 		$clientSubscription = ClientsSubscription::where('email', $email)->first();
 
-		return $clientSubscription->subscriptionPlan->summaries;
+		return $clientSubscription->subscriptionPlan->summaries > 0;
 	}
 
 	public static function haveQuestions($userId){
@@ -145,7 +160,7 @@ class ManageClientSubscription
 		$email = self::getEmail($userId);
 		$clientSubscription = ClientsSubscription::where('email', $email)->first();
 
-		return $clientSubscription->subscriptionPlan->test_questions_count;
+		return $clientSubscription->subscriptionPlan->test_questions_count > 0;
 	}
 
 	public static function haveVoiceOver($userId){
@@ -165,7 +180,7 @@ class ManageClientSubscription
 		}
 		$email = self::getEmail($userId);
 		$clientSubscription = ClientsSubscription::where('email', $email)->first();
-		return $clientSubscription->subscriptionPlan->concept_map;
+		return $clientSubscription->subscriptionPlan->concept_map > 0;
 	}
 
 
@@ -206,21 +221,21 @@ class ManageClientSubscription
 			}
 
 			$summaryWords = round($wordsUsed * $config/100);
-			$wordsUsed += $summaryWords;
-			$message .= "$summaryWords $txt<br>";
+//			$wordsUsed += $summaryWords;
+//			$message .= "$summaryWords $txt<br>";
 		}
 		if($generateQuestions){
 			$config = get_config('questions_percentage');
 			$questionsWords = round($wordsUsed * $config/100);
-			$wordsUsed += $questionsWords;
-			$message .= "$questionsWords en generar preguntas<br>";
+//			$wordsUsed += $questionsWords;
+//			$message .= "$generateQuestions en generar preguntas<br>";
 		}
 
 		if($generateConceptualMap){
 			$config = get_config('concept_map_percentage');
 			$conceptualMapWords = round($wordsUsed * $config/100);
-			$wordsUsed += $conceptualMapWords;
-			$message .= "$conceptualMapWords en el mapa conceptual<br>";
+//			$wordsUsed += $conceptualMapWords;
+//			$message .= "$conceptualMapWords en el mapa conceptual<br>";
 		}
 
 		$return = "Se va a consumir un total de <b>$wordsUsed</b> palabras<br><br>";

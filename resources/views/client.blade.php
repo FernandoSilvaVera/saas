@@ -47,6 +47,8 @@
             <!-- main_content -->
             <div class="main_content pl_24 pr_24 pb_60 w-100">
 
+	    @include('includes/message')
+
                 <!-- Create user Section -->
                 <div class="create_user_page">
                     <div class="container-fluid">
@@ -56,6 +58,8 @@
 					@include('includes/remaining', ['bloquearCampos' => true])
                                 </div>
                             </div>
+
+				
 
                             <div class="col-lg-9">
                                 <div class="Create_user section_padding_bg">
@@ -72,6 +76,31 @@
 								<label for="Name" class="d-flex pb_10">Palabras restantes</label>
 								<input name="word_limit" type="number" class="input_field w-100"
 									value="{{$currentSubscription->palabras_maximas}}"
+									required>
+							</div>
+
+						</div>
+						<div class="form_groups d-flex gap_24 pb_20 align-items-center">
+							<div class="form_group w-100">
+								<label for="Name" class="d-flex pb_10">Preguntas restantes</label>
+								<input name="questions" type="number" class="input_field w-100"
+									value="{{$currentSubscription->numero_preguntas}}"
+									required>
+							</div>
+						</div>
+						<div class="form_groups d-flex gap_24 pb_20 align-items-center">
+							<div class="form_group w-100">
+								<label for="Name" class="d-flex pb_10">Resumenes restantes</label>
+								<input name="summary" type="number" class="input_field w-100"
+									value="{{$currentSubscription->numero_resumenes}}"
+									required>
+							</div>
+						</div>
+						<div class="form_groups d-flex gap_24 pb_20 align-items-center">
+							<div class="form_group w-100">
+								<label for="Name" class="d-flex pb_10">Mapa conceptual restante</label>
+								<input name="conceptualMap" type="number" class="input_field w-100"
+									value="{{$currentSubscription->numero_mapa_conceptual}}"
 									required>
 							</div>
 						</div>

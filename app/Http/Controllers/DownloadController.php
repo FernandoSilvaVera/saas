@@ -18,7 +18,7 @@ use App\Models\SubscriptionPlan;
 use App\Jobs\FileDownloadJob;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\DownloadFile;
-
+use App\Services\PdfWatermarkService;
 
 class DownloadController extends Controller
 {
@@ -29,6 +29,10 @@ class DownloadController extends Controller
 		$hashids = new Hashids('tu_salt_personalizado', 10);
 		$hash = $hashids->encode($timestamp);
 		return $hash;
+	}
+
+	public function aplicarMarcaDeAgua($path){
+
 	}
 
 	public function useTemplate($templateId, $path)
@@ -85,6 +89,11 @@ class DownloadController extends Controller
 
 		$favicon = $path . "/imagenes/favicon.ico";
 		exec("cp $template->favicon_path $favicon");
+
+		if($template->marcaDeAguaPath){
+			$pdf = $path . "/download.pdf";
+			(new PdfWatermarkService())->addWatermark($pdf, $template->marcaDeAguaPath);
+		}
 
 		return $template;
 	}
@@ -156,6 +165,12 @@ class DownloadController extends Controller
 	{
 		try {
 
+		$clientSubscription = ManageClientSubscription::getClientSubscription($userId);
+
+		if($generateQuestions > $clientSubscription->numero_preguntas){
+			$generateQuestions = $clientSubscription->numero_preguntas;
+		}
+
 		\Log::info('DownloadController Start ' . $language);
 
 		$user = User::find($userId);
@@ -174,6 +189,7 @@ class DownloadController extends Controller
 		\Log::info('DownloadController getPath after');
 
 		$palabras = @(new WordHelper)->getAllWords($word);
+		$title = @(new WordHelper)->getMainTitle($word);
 
 		ManageClientSubscription::getAllWordsUsed($palabras, $generateSummary, $generateQuestions, $generateConceptualMap, $generateVoiceOver);
 
@@ -196,7 +212,10 @@ class DownloadController extends Controller
 		$contenido = @(new WordHelper)->convertToArray($word);
 
 		\Log::info('VA A EMPEZAR EL PROCESO IA');
+$generateConceptualMap = 1;	
 		list($conceptualMap, $summary, $questionsUsed) = Subscription::generateNewPages($contenido, $path, $userId, $generateSummary, $generateQuestions, $generateConceptualMap, $generateVoiceOver);
+
+
 		\Log::info('IA TERMINADO');
 
 		if($generateVoiceOver && ManageClientSubscription::haveVoiceOver($userId)){
@@ -214,28 +233,37 @@ class DownloadController extends Controller
 		$command = "cd $userPath && zip -r {$hashId}.zip {$hashId}";
 		exec($command);
 
-		\Log::info('VAMOS A GUARDAR EL HISTORIAL');
-		$history = new History();
-		$history->name = ' ';
-		$history->userId = $userId;
-		$history->templateName =" ";
+		\Log::info('VAMOS A GUARDAR EL HISTORIAL ' . $fileName);
 
-		if($template){
-			$history->templateName = $template->template_name;
+		if($conceptualMap){
+			ManageClientSubscription::consumeConceptualMap($userId);
 		}
-		$history->wordsUsed = $palabras;
-		$history->voiceOver = $voiceOver;
 
-		$history->summary = $summary;
-		$history->conceptualMap = $conceptualMap;
-		$history->questionsUsed = $questionsUsed;
+		if($summary){
+			ManageClientSubscription::consumeSummaries($summary, $userId);
+		}
 
-		$history->pathZip = $zipFilePath . ".zip";
-		$history->save();
+		if($questionsUsed){
+			ManageClientSubscription::consumeQuestions($questionsUsed, $userId);
+		}
+
+		$history = History::updateOrCreate(
+			['name' => $fileName],
+			[
+				'userId' => $userId,
+				'templateName' => $template ? $template->template_name : '',
+				'wordsUsed' => $palabras,
+				'voiceOver' => $voiceOver,
+				'summary' => $summary,
+				'conceptualMap' => $conceptualMap,
+				'questionsUsed' => $questionsUsed,
+				'pathZip' => $zipFilePath . ".zip"
+			]
+		);
+
 		\Log::info('FIN DEL HISTORIAL');
 
 		\Log::info('DownloadController End');
-
 
 		$user = User::find($userId);
 		$email = $user->email;
@@ -268,6 +296,7 @@ class DownloadController extends Controller
 		$useNaturalVoicePreview = $request->input('useNaturalVoicePreview');
 
 		$palabras = 0;
+		$title = "";
 		if($archivo){
 			try {
 				$fileName = $archivo->getFilename();
@@ -279,8 +308,10 @@ class DownloadController extends Controller
 				exec($comando, $output, $return);
 
 				$palabras = @(new WordHelper)->getAllWords($filePath);
+				$title = @(new WordHelper)->getMainTitle($filePath);
 				$messageWordsUsed = ManageClientSubscription::getAllWordsUsed($palabras, $summaryOptionPreview, $generateQuestionsPreview, $generateConceptMapPreview, $useNaturalVoicePreview);
 			} catch (\Exception $e) {
+
 				// Manejar la excepción
 				echo "Error al copiar el archivo: " . $e->getMessage();
 			}
@@ -295,7 +326,7 @@ class DownloadController extends Controller
 		$user = User::find($userId);
 
 		if(!ManageClientSubscription::haveMaximumWords($palabras, $userId) && $user->idProfile == 2){
-			$errorShowDownloadButton = "No disponene de palabras suficientes para generar la virtualización";
+			$errorShowDownloadButton .= "No dispones de palabras suficientes para generar la virtualización<br>";
 		}
 
 		$scriptPath = resource_path('script/index.php');
@@ -344,6 +375,8 @@ class DownloadController extends Controller
 			'generateQuestionsPreview' => $generateQuestionsPreview,
 			'generateConceptMapPreview' => $generateConceptMapPreview,
 			'useNaturalVoicePreview' => $useNaturalVoicePreview,
+
+			'title' => $title,
 		]);
 
 	}

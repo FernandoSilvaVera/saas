@@ -34,8 +34,12 @@ class TemplateController extends Controller
 		$hashids = new Hashids('favicon', 10);
 		$hash2 = $hashids->encode($timestamp);
 
+		$hashids = new Hashids('marcaDeAgua', 10);
+		$hash3 = $hashids->encode($timestamp);
+
 		$pathLogo = env("DOWNLOAD_PATH") . "$user";
 		$pathFavico = env("DOWNLOAD_PATH") . "$user";
+		$pathMarcaDeAgua = env("DOWNLOAD_PATH") . "$user";
 
 		if (!file_exists($pathLogo)) {
 			if (!mkdir($pathLogo, 0755, true)) {
@@ -45,6 +49,7 @@ class TemplateController extends Controller
 
 		$pathLogo .= "/images";
 		$pathFavico .= "/images";
+		$pathMarcaDeAgua .= "/images";
 
 		if (!file_exists($pathLogo)) {
 			if (!mkdir($pathLogo, 0755, true)) {
@@ -54,6 +59,7 @@ class TemplateController extends Controller
 
 		$pathLogo .= "/$hash1.png";
 		$pathFavico .= "/$hash2.png";
+		$pathMarcaDeAgua .= "/$hash3.png";
 
 		list($type, $dataLogo) = explode(';', $data['logo_path']);
 		list(, $dataLogo)      = explode(',', $dataLogo);
@@ -67,13 +73,21 @@ class TemplateController extends Controller
 		$favicon_data = base64_decode($dataFavicon);
 		file_put_contents($pathFavico, $favicon_data);
 
+		if(isset($data['marcaDeAgua'])){
+			list($type, $dataMarcaDeAgua) = explode(';', $data['marcaDeAgua']);
+			list(, $dataMarcaDeAgua)      = explode(',', $dataMarcaDeAgua);
+
+			$marca_de_agua_data = base64_decode($dataMarcaDeAgua);
+			file_put_contents($pathMarcaDeAgua, $marca_de_agua_data);
+			$data['marcaDeAguaPath'] = $pathMarcaDeAgua;
+		}
+
 		$data['favicon_path'] = $pathFavico;
 		$data['logo_path'] = $pathLogo;
 	}
 
 	public function store(Request $request)
 	{
-
 		$userId = Auth::id();
 		$data = $request->all();
 		$data['userId'] = $userId;
@@ -87,7 +101,6 @@ class TemplateController extends Controller
 			$template = Template::create($data);
 		}
 
-
 		return response()->json($template, 201);
 	}
 
@@ -96,12 +109,20 @@ class TemplateController extends Controller
 		$id = $request->input('id');
 		$template = Template::find($id);
 
+		$fontSize = env('FONT_SIZE');
+		$fontSize = explode(',', $fontSize);
+
 		if($template){
 			$logoBase64 = base64_encode(File::get($template->logo_path));
 			$faviconBase64 = base64_encode(File::get($template->favicon_path));
 
 			$template->logo_path = 'data:image/png;base64,' . $logoBase64;
 			$template->favicon_path = 'data:image/png;base64,' . $faviconBase64;
+			if($template->marcaDeAguaPath){
+				$marcaDeAguaBase64 = base64_encode(File::get($template->marcaDeAguaPath));
+				$template->marcaDeAguaPath = 'data:image/png;base64,' . $logoBase64;
+			}
+
 		}
 
 		if(!$template){
@@ -110,6 +131,7 @@ class TemplateController extends Controller
 
 		return view('template', [
 			'template' => $template,
+			'fontSize' => $fontSize
 		]);
 	}
 

@@ -58,7 +58,7 @@
 
 				@if(isset($errorShowDownloadButton) && $errorShowDownloadButton != "")
 					<div class="alert alert-danger" role="alert">
-						{{$errorShowDownloadButton}}
+						{!! $errorShowDownloadButton !!}
 					</div>
 				@endif
 

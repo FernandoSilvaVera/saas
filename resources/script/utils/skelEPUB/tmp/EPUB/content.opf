@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <package xmlns="http://www.idpf.org/2007/opf" version="2.0" unique-identifier="epub-id-1">
   <metadata xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:opf="http://www.idpf.org/2007/opf">
-    <dc:title id="epub-title-1"/>
-    <dc:title id="epub-title-2"/>
-    <dc:date id="epub-date-1">2024-05-27T13:36:32Z</dc:date>
+    <dc:title id="epub-title-1">4. Cálculo, determinación y certificación de la carga de refrigerante del sistema frigorífico. Etiquetado y registros del equipo. </dc:title>
+    <dc:title id="epub-title-2">4. Cálculo, determinación y certificación de la carga de refrigerante del sistema frigorífico. Etiquetado y registros del equipo. </dc:title>
+    <dc:date id="epub-date-1">2024-06-04T05:14:28Z</dc:date>
     <dc:language>es</dc:language>
     <dc:creator id="epub-creator-1"/>
     <meta/>
@@ -13,19 +13,10 @@
     <item id="nav" href="nav.x.html" media-type="application/xhtml+xml"/>
     <item id="style" href="styles/stylesheet1.css" media-type="text/css"/>
     <item id="ch001_x.html" href="text/ch001.x.html" media-type="application/xhtml+xml"/>
-    <item id="image1.jpeg" href="media/image1.jpeg" media-type="image/jpeg"/>
-    <item id="image2.jpeg" href="media/image2.jpeg" media-type="image/jpeg"/>
-    <item id="image3.jpeg" href="media/image3.jpeg" media-type="image/jpeg"/>
-    <item id="image4.jpeg" href="media/image4.jpeg" media-type="image/jpeg"/>
-    <item id="image5.jpeg" href="media/image5.jpeg" media-type="image/jpeg"/>
-    <item id="image6.jpeg" href="media/image6.jpeg" media-type="image/jpeg"/>
-    <item id="image7.jpeg" href="media/image7.jpeg" media-type="image/jpeg"/>
-    <item id="image8.jpeg" href="media/image8.jpeg" media-type="image/jpeg"/>
-    <item id="image9.jpeg" href="media/image9.jpeg" media-type="image/jpeg"/>
-    <item id="image10.png" href="media/image10.png" media-type="image/png"/>
-    <item id="image11.jpeg" href="media/image11.jpeg" media-type="image/jpeg"/>
-    <item id="image12.jpeg" href="media/image12.jpeg" media-type="image/jpeg"/>
-    <item id="image13.jpeg" href="media/image13.jpeg" media-type="image/jpeg"/>
+    <item id="image1.png" href="media/image1.png" media-type="image/png"/>
+    <item id="image2.png" href="media/image2.png" media-type="image/png"/>
+    <item id="image3.png" href="media/image3.png" media-type="image/png"/>
+    <item id="image4.png" href="media/image4.png" media-type="image/png"/>
   </manifest>
   <spine toc="ncx">
     <itemref idref="ch001_x.html"/>

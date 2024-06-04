@@ -98,7 +98,6 @@
         </div>
     </div>
 
-
     <!-- all js here -->
     <script src="js/jquery-3.4.1.min.js"></script>
     <script src="js/plugins.js"></script>
@@ -111,7 +110,6 @@
 		planId = '{{$plan->id}}'
 
 	</script>
-
 
 </body>
 </html>

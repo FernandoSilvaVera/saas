@@ -332,6 +332,12 @@ return;
 		return $return;
 	}
 
+	function getMainTitle($filePath) {
+		$phpWord = IOFactory::load($filePath);
+		$properties = $phpWord->getDocInfo();
+		$title = $properties->getTitle();
+		return $title;
+	}
 
 
 }

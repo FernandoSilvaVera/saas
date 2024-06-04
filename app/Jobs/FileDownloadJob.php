@@ -43,6 +43,7 @@ class FileDownloadJob implements ShouldQueue{
 	public function handle()
 	{
 		\Log::info('Download Start ' . $this->fileName . " " . $this->templateId . " " . $this->userId . " " . $this->language);
+
 		$this->downloadController->download(
 			$this->fileName, 
 			$this->templateId, 

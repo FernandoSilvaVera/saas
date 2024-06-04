@@ -13,7 +13,7 @@ function getSummaryOption() {
 }
 
 function isGenerateQuestionsChecked() {
-	return $('#generateQuestions').is(':checked');
+	return $('#generateQuestions').val()
 }
 
 function isGenerateConceptMapChecked() {
@@ -29,7 +29,7 @@ function previewDocument(){
 	document.getElementById("languageInput").value = getLanguage()
 
 	$('#summaryOptionPreview').val(getSummaryOption());
-	$('#generateQuestionsPreview').val(isGenerateQuestionsChecked() ? '1' : '0');
+	$('#generateQuestionsPreview').val(isGenerateQuestionsChecked())
 	$('#generateConceptMapPreview').val(isGenerateConceptMapChecked() ? '1' : '0');
 	$('#useNaturalVoicePreview').val(isUseNaturalVoiceChecked() ? '1' : '0');
 
@@ -42,7 +42,7 @@ function downloadButton(){
 	document.getElementById("languageInputDownload").value = getLanguage()
 
 	$('#summaryOptionDownload').val(getSummaryOption());
-	$('#generateQuestionsDownload').val(isGenerateQuestionsChecked() ? '1' : '0');
+	$('#generateQuestionsDownload').val(isGenerateQuestionsChecked());
 	$('#generateConceptMapDownload').val(isGenerateConceptMapChecked() ? '1' : '0');
 	$('#useNaturalVoiceDownload').val(isUseNaturalVoiceChecked() ? '1' : '0');
 	var formulario = document.getElementById("download");

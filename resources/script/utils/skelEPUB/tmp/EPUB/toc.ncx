@@ -11,290 +11,30 @@
   </docTitle>
   <navMap>
     <navPoint id="navpoint-1" >
-      <navLabel><text></text></navLabel>
-        <content src="text/ch001.x.html#"/>
+      <navLabel><text>4. Cálculo, determinación y certificación de la carga de refrigerante del sistema frigorífico. Etiquetado y registros del equipo. </text></navLabel>
+        <content src="text/ch001.x.html#4-C-lculo-determinaci-n-y-certificaci-n-de-la-carga-de-refrigerante-del-sistema-frigor-fico-Etiquetado-y-registros-del-equipo-"/>
       <navPoint id="navpoint-2">
-        <navLabel><text>Introducción</text></navLabel>
-        <content src="text/ch001.x.html#Introducci-n"/>
-      </navPoint>
-      <navPoint id="navpoint-3">
-        <navLabel><text>Instrumentos para el acceso electrónico a las administraciones públicas</text></navLabel>
-        <content src="text/ch001.x.html#Instrumentos-para-el-acceso-electr-nico-a-las-administraciones-p-blicas"/>
-        <navPoint id="navpoint-4">
-          <navLabel><text>Ley 40/2015, de 1 de octubre, de régimen jurídico del sector público</text></navLabel>
-          <content src="text/ch001.x.html#Ley-40-2015-de-1-de-octubre-de-r-gimen-jur-dico-del-sector-p-blico"/>
+        <navLabel><text>4.1. Cálculo, determinación y certificación de la carga delsistema frigorífico</text></navLabel>
+        <content src="text/ch001.x.html#4-1-C-lculo-determinaci-n-y-certificaci-n-de-la-carga-delsistema-frigor-fico"/>
+        <navPoint id="navpoint-3">
+          <navLabel><text>Carga del sistema frigorífico</text></navLabel>
+          <content src="text/ch001.x.html#Carga-del-sistema-frigor-fico"/>
         </navPoint>
+      </navPoint>
+      <navPoint id="navpoint-4">
+        <navLabel><text>4.2 Etiquetado y registros del equipo</text></navLabel>
+        <content src="text/ch001.x.html#4-2-Etiquetado-y-registros-del-equipo"/>
         <navPoint id="navpoint-5">
-          <navLabel><text>RD 203/2021, de 30 de marzo, por el que se aprueba el reglamento de actuación y funcionamiento del sector público por medios electrónicos</text></navLabel>
-          <content src="text/ch001.x.html#RD-203-2021-de-30-de-marzo-por-el-que-se-aprueba-el-reglamento-de-actuaci-n-y-funcionamiento-del-sector-p-blico-por-medios-electr-nicos"/>
+          <navLabel><text>Requisito de etiquetado</text></navLabel>
+          <content src="text/ch001.x.html#Requisito-de-etiquetado"/>
         </navPoint>
         <navPoint id="navpoint-6">
-          <navLabel><text>Portales de internet, punto de acceso general electrónico y sedes electrónicas</text></navLabel>
-          <content src="text/ch001.x.html#Portales-de-internet-punto-de-acceso-general-electr-nico-y-sedes-electr-nicas"/>
+          <navLabel><text>Forma de la etiqueta</text></navLabel>
+          <content src="text/ch001.x.html#Forma-de-la-etiqueta"/>
         </navPoint>
         <navPoint id="navpoint-7">
-          <navLabel><text>Portal de internet (L40 art.39) y portales de internet de las AAPP (RD 203/2021 art.5)</text></navLabel>
-          <content src="text/ch001.x.html#Portal-de-internet-L40-art-39-y-portales-de-internet-de-las-AAPP-RD-203-2021-art-5-"/>
-        </navPoint>
-        <navPoint id="navpoint-8">
-          <navLabel><text>Portales de internet existentes y aplicaciones específicas en el ámbito estatal (RD 203/2021 disposición transitoria segunda)</text></navLabel>
-          <content src="text/ch001.x.html#Portales-de-internet-existentes-y-aplicaciones-espec-ficas-en-el-mbito-estatal-RD-203-2021-disposici-n-transitoria-segunda-"/>
-        </navPoint>
-        <navPoint id="navpoint-9">
-          <navLabel><text>Creación y supresión de portales de internet en el ámbito estatal (RD 203/2021 disposición transitoria segunda)</text></navLabel>
-          <content src="text/ch001.x.html#Creaci-n-y-supresi-n-de-portales-de-internet-en-el-mbito-estatal-RD-203-2021-disposici-n-transitoria-segunda-"/>
-        </navPoint>
-        <navPoint id="navpoint-10">
-          <navLabel><text>Punto de acceso general electrónico (RD 203/2021 art.7)</text></navLabel>
-          <content src="text/ch001.x.html#Punto-de-acceso-general-electr-nico-RD-203-2021-art-7-"/>
-        </navPoint>
-        <navPoint id="navpoint-11">
-          <navLabel><text>Carpeta ciudadana del sector público estatal (RD 203/2021 art.8)</text></navLabel>
-          <content src="text/ch001.x.html#Carpeta-ciudadana-del-sector-p-blico-estatal-RD-203-2021-art-8-"/>
-        </navPoint>
-        <navPoint id="navpoint-12">
-          <navLabel><text>Creación y supresión de las sedes electrónicas y sedes electrónicas asociadas (RD 203/2021 art.10)</text></navLabel>
-          <content src="text/ch001.x.html#Creaci-n-y-supresi-n-de-las-sedes-electr-nicas-y-sedes-electr-nicas-asociadas-RD-203-2021-art-10-"/>
-        </navPoint>
-        <navPoint id="navpoint-13">
-          <navLabel><text>Contenido y servicios de las sedes electrónicas y sedes asociadas (RD 203/2021 art. 11)</text></navLabel>
-          <content src="text/ch001.x.html#Contenido-y-servicios-de-las-sedes-electr-nicas-y-sedes-asociadas-RD-203-2021-art-11-"/>
-        </navPoint>
-        <navPoint id="navpoint-14">
-          <navLabel><text>Responsabilidad sobre la sede electrónica o sede electrónica asociada  (RD 203/2021 art. 11)</text></navLabel>
-          <content src="text/ch001.x.html#Responsabilidad-sobre-la-sede-electr-nica-o-sede-electr-nica-asociada-RD-203-2021-art-11-"/>
-        </navPoint>
-        <navPoint id="navpoint-15">
-          <navLabel><text> Identificación y autenticación de las AAPP</text></navLabel>
-          <content src="text/ch001.x.html#-Identificaci-n-y-autenticaci-n-de-las-AAPP"/>
-        </navPoint>
-        <navPoint id="navpoint-16">
-          <navLabel><text>Actuación administrativa automatizada (L40 art. 41 Y RD 203/2021 art.13)</text></navLabel>
-          <content src="text/ch001.x.html#Actuaci-n-administrativa-automatizada-L40-art-41-Y-RD-203-2021-art-13-"/>
-        </navPoint>
-        <navPoint id="navpoint-17">
-          <navLabel><text>Sistemas de firma para la actuación administrativa automatizada (L40 art. 42 Y RD 203/2021 art.20)</text></navLabel>
-          <content src="text/ch001.x.html#Sistemas-de-firma-para-la-actuaci-n-administrativa-automatizada-L40-art-42-Y-RD-203-2021-art-20-"/>
-        </navPoint>
-        <navPoint id="navpoint-18">
-          <navLabel><text>Firma electrónica del personal al servicio de las AAPP (L40 art.43) y sistemas de firma electrónica del personal al servicio de las AAPP (RD 203/2021 art.22)</text></navLabel>
-          <content src="text/ch001.x.html#Firma-electr-nica-del-personal-al-servicio-de-las-AAPP-L40-art-43-y-sistemas-de-firma-electr-nica-del-personal-al-servicio-de-las-AAPP-RD-203-2021-art-22-"/>
-        </navPoint>
-        <navPoint id="navpoint-19">
-          <navLabel><text>Aseguramiento e interoperabilidad de la firma electrónica (L40 art.45)</text></navLabel>
-          <content src="text/ch001.x.html#Aseguramiento-e-interoperabilidad-de-la-firma-electr-nica-L40-art-45-"/>
-        </navPoint>
-        <navPoint id="navpoint-20">
-          <navLabel><text>Archivo electrónico de documentos (L40 art.46)</text></navLabel>
-          <content src="text/ch001.x.html#Archivo-electr-nico-de-documentos-L40-art-46-"/>
-        </navPoint>
-        <navPoint id="navpoint-21">
-          <navLabel><text>Ubicación de los sistemas de información y comunicaciones para el registro de datos (L40 art.46 BIS)</text></navLabel>
-          <content src="text/ch001.x.html#Ubicaci-n-de-los-sistemas-de-informaci-n-y-comunicaciones-para-el-registro-de-datos-L40-art-46-BIS-"/>
-        </navPoint>
-        <navPoint id="navpoint-22">
-          <navLabel><text>Plataforma de verificación de certificados electrónicos y de otros sistemas de identificación (RD 203/2021 art.16)</text></navLabel>
-          <content src="text/ch001.x.html#Plataforma-de-verificaci-n-de-certificados-electr-nicos-y-de-otros-sistemas-de-identificaci-n-RD-203-2021-art-16-"/>
-        </navPoint>
-        <navPoint id="navpoint-23">
-          <navLabel><text>Política de firma electrónica y de certificados en el ámbito estatal (RD 203/2021 art.17)</text></navLabel>
-          <content src="text/ch001.x.html#Pol-tica-de-firma-electr-nica-y-de-certificados-en-el-mbito-estatal-RD-203-2021-art-17-"/>
-        </navPoint>
-        <navPoint id="navpoint-24">
-          <navLabel><text>Identificación de las sedes electrónicas y de las sedes electrónicas asociadas (RD 203/2021 art.18)</text></navLabel>
-          <content src="text/ch001.x.html#Identificaci-n-de-las-sedes-electr-nicas-y-de-las-sedes-electr-nicas-asociadas-RD-203-2021-art-18-"/>
-        </navPoint>
-        <navPoint id="navpoint-25">
-          <navLabel><text>Identificación mediante sello electrónico basado en certificado electrónico cualificado que reúna los requisitos exigidos por la legislación de firma electrónica (RD 203/2021 art.19)</text></navLabel>
-          <content src="text/ch001.x.html#Identificaci-n-mediante-sello-electr-nico-basado-en-certificado-electr-nico-cualificado-que-re-na-los-requisitos-exigidos-por-la-legislaci-n-de-firma-electr-nica-RD-203-2021-art-19-"/>
-        </navPoint>
-        <navPoint id="navpoint-26">
-          <navLabel><text>Sistema de firma basados en código seguro de verificación para la actuación administrativa automatizada (RD 203/2021 art.21)</text></navLabel>
-          <content src="text/ch001.x.html#Sistema-de-firma-basados-en-c-digo-seguro-de-verificaci-n-para-la-actuaci-n-administrativa-automatizada-RD-203-2021-art-21-"/>
-        </navPoint>
-        <navPoint id="navpoint-27">
-          <navLabel><text>Certificados electrónicos de empleado público con número de identificación profesional (RD 203/2021 art.21)</text></navLabel>
-          <content src="text/ch001.x.html#Certificados-electr-nicos-de-empleado-p-blico-con-n-mero-de-identificaci-n-profesional-RD-203-2021-art-21-"/>
-        </navPoint>
-        <navPoint id="navpoint-28">
-          <navLabel><text>Sistemas de identificación y firma electrónica del personal al servicio de la AGE y sus OOPP y entidades de derecho público vinculados o dependientes (RD 203/2021 art.24)</text></navLabel>
-          <content src="text/ch001.x.html#Sistemas-de-identificaci-n-y-firma-electr-nica-del-personal-al-servicio-de-la-AGE-y-sus-OOPP-y-entidades-de-derecho-p-blico-vinculados-o-dependientes-RD-203-2021-art-24-"/>
-        </navPoint>
-        <navPoint id="navpoint-29">
-          <navLabel><text>Autorización de representantes de terceros por la AGE y sus OOPP y entidades de derecho público vinculados o dependientes(RD 203/2021 art.36)</text></navLabel>
-          <content src="text/ch001.x.html#Autorizaci-n-de-representantes-de-terceros-por-la-AGE-y-sus-OOPP-y-entidades-de-derecho-p-blico-vinculados-o-dependientes-RD-203-2021-art-36-"/>
-        </navPoint>
-        <navPoint id="navpoint-30">
-          <navLabel><text> Servicios y colaboración</text></navLabel>
-          <content src="text/ch001.x.html#-Servicios-y-colaboraci-n"/>
-        </navPoint>
-        <navPoint id="navpoint-31">
-          <navLabel><text>Técnicas de colaboración (L40 ART. 142)</text></navLabel>
-          <content src="text/ch001.x.html#T-cnicas-de-colaboraci-n-L40-ART-142-"/>
-        </navPoint>
-        <navPoint id="navpoint-32">
-          <navLabel><text>Relaciones interadministrativas e interorgánicas por medios electrónicos (RD 203/2021 ART.56)</text></navLabel>
-          <content src="text/ch001.x.html#Relaciones-interadministrativas-e-interorg-nicas-por-medios-electr-nicos-RD-203-2021-ART-56-"/>
-        </navPoint>
-        <navPoint id="navpoint-33">
-          <navLabel><text>Comunicaciones en la AGE (RD 203/2021 ART.7)</text></navLabel>
-          <content src="text/ch001.x.html#Comunicaciones-en-la-AGE-RD-203-2021-ART-7-"/>
-        </navPoint>
-        <navPoint id="navpoint-34">
-          <navLabel><text>Adhesión a sedes electrónicas y sedes electrónica asociadas (RD 203/2021 ART.58)</text></navLabel>
-          <content src="text/ch001.x.html#Adhesi-n-a-sedes-electr-nicas-y-sedes-electr-nica-asociadas-RD-203-2021-ART-58-"/>
-        </navPoint>
-        <navPoint id="navpoint-35">
-          <navLabel><text>Adhesión a la carpeta ciudadana del sector público estatal (RD 203/2021 ART.59)</text></navLabel>
-          <content src="text/ch001.x.html#Adhesi-n-a-la-carpeta-ciudadana-del-sector-p-blico-estatal-RD-203-2021-ART-59-"/>
-        </navPoint>
-        <navPoint id="navpoint-36">
-          <navLabel><text>Sistema de interconexión de registros (RD 203/2021 ART.60)</text></navLabel>
-          <content src="text/ch001.x.html#Sistema-de-interconexi-n-de-registros-RD-203-2021-ART-60-"/>
-        </navPoint>
-        <navPoint id="navpoint-37">
-          <navLabel><text>Transmisiones de datos (RD 203/2021 ART.61)</text></navLabel>
-          <content src="text/ch001.x.html#Transmisiones-de-datos-RD-203-2021-ART-61-"/>
-        </navPoint>
-        <navPoint id="navpoint-38">
-          <navLabel><text>Plataformas de intermediación de datos (RD 203/2021 ART.62)</text></navLabel>
-          <content src="text/ch001.x.html#Plataformas-de-intermediaci-n-de-datos-RD-203-2021-ART-62-"/>
-        </navPoint>
-        <navPoint id="navpoint-39">
-          <navLabel><text>Remisión electrónica de expedientes administrativos en el ámbito de las AAPP mediante puesta a disposición (RD 203/2021 ART.63)</text></navLabel>
-          <content src="text/ch001.x.html#Remisi-n-electr-nica-de-expedientes-administrativos-en-el-mbito-de-las-AAPP-mediante-puesta-a-disposici-n-RD-203-2021-ART-63-"/>
-        </navPoint>
-        <navPoint id="navpoint-40">
-          <navLabel><text>Intercambio y transmisión de datos</text></navLabel>
-          <content src="text/ch001.x.html#Intercambio-y-transmisi-n-de-datos"/>
-        </navPoint>
-        <navPoint id="navpoint-41">
-          <navLabel><text>Transmisiones de datos entre AAPP (L40 ART. 155)</text></navLabel>
-          <content src="text/ch001.x.html#Transmisiones-de-datos-entre-AAPP-L40-ART-155-"/>
-        </navPoint>
-        <navPoint id="navpoint-42">
-          <navLabel><text>Interoperabilidad y seguridad</text></navLabel>
-          <content src="text/ch001.x.html#Interoperabilidad-y-seguridad"/>
-        </navPoint>
-        <navPoint id="navpoint-43">
-          <navLabel><text>Reutilización y transferencia</text></navLabel>
-          <content src="text/ch001.x.html#Reutilizaci-n-y-transferencia"/>
-        </navPoint>
-        <navPoint id="navpoint-44">
-          <navLabel><text>Transferencia de tecnología entre AAPP (L40 ART.158)</text></navLabel>
-          <content src="text/ch001.x.html#Transferencia-de-tecnolog-a-entre-AAPP-L40-ART-158-"/>
-        </navPoint>
-        <navPoint id="navpoint-45">
-          <navLabel><text>Adhesión a las plataformas de la AGE (L40 ART.65)</text></navLabel>
-          <content src="text/ch001.x.html#Adhesi-n-a-las-plataformas-de-la-AGE-L40-ART-65-"/>
-        </navPoint>
-        <navPoint id="navpoint-46">
-          <navLabel><text>Nodo de interoperabilidad de identificación electrónica del reino de España (RD 203/2021 ART. DISPOSICIÓN ADICIONAL TERCERA)</text></navLabel>
-          <content src="text/ch001.x.html#Nodo-de-interoperabilidad-de-identificaci-n-electr-nica-del-reino-de-Espa-a-RD-203-2021-ART-DISPOSICI-N-ADICIONAL-TERCERA-"/>
-        </navPoint>
-        <navPoint id="navpoint-47">
-          <navLabel><text>Comisión sectorial de administración electrónica (L40 ART. DISPOSICIÓN ADICIONAL NOVENA)</text></navLabel>
-          <content src="text/ch001.x.html#Comisi-n-sectorial-de-administraci-n-electr-nica-L40-ART-DISPOSICI-N-ADICIONAL-NOVENA-"/>
-        </navPoint>
-        <navPoint id="navpoint-48">
-          <navLabel><text>Adhesión de las entidades de derecho privado vinculadas o dependientes de la AGE en el ejercicio de potestades administrativas a las sedes electrónicas y sedes electrónicas asociadas y sistemas de firma y notificaciones electrónicas aplicables (RD 203/2021. DISPOSICIÓN ADICIONAL CUARTA)</text></navLabel>
-          <content src="text/ch001.x.html#Adhesi-n-de-las-entidades-de-derecho-privado-vinculadas-o-dependientes-de-la-AGE-en-el-ejercicio-de-potestades-administrativas-a-las-sedes-electr-nicas-y-sedes-electr-nicas-asociadas-y-sistemas-de-firma-y-notificaciones-electr-nicas-aplicables-RD-203-2021-DISPOSICI-N-ADICIONAL-CUARTA-"/>
-        </navPoint>
-        <navPoint id="navpoint-49">
-          <navLabel><text>Adhesión de los órganos constitucionales al uso de las plataformas, registros o servicios electrónicos de la AGE (RD 203/2021 ART. DISPOSICIÓN ADICIONAL QUINTA)</text></navLabel>
-          <content src="text/ch001.x.html#Adhesi-n-de-los-rganos-constitucionales-al-uso-de-las-plataformas-registros-o-servicios-electr-nicos-de-la-AGE-RD-203-2021-ART-DISPOSICI-N-ADICIONAL-QUINTA-"/>
-        </navPoint>
-        <navPoint id="navpoint-50">
-          <navLabel><text>Situación de las sedes electrónicas y subsedes electrónicas en el ámbito estatal existentes a la entrada en vigor de este RD (RD 203/2021 ART. DISPOSICIÓN ADICIONAL SEXTA)</text></navLabel>
-          <content src="text/ch001.x.html#Situaci-n-de-las-sedes-electr-nicas-y-subsedes-electr-nicas-en-el-mbito-estatal-existentes-a-la-entrada-en-vigor-de-este-RD-RD-203-2021-ART-DISPOSICI-N-ADICIONAL-SEXTA-"/>
-        </navPoint>
-        <navPoint id="navpoint-51">
-          <navLabel><text>Instrumentos para la cooperación entre administraciones públicas en materia de administración electrónica</text></navLabel>
-          <content src="text/ch001.x.html#Instrumentos-para-la-cooperaci-n-entre-administraciones-p-blicas-en-materia-de-administraci-n-electr-nica"/>
-        </navPoint>
-        <navPoint id="navpoint-52">
-          <navLabel><text>Principales normas que regulan la cooperación entre administraciones en materia de tecnología de la información y las comunicaciones</text></navLabel>
-          <content src="text/ch001.x.html#Principales-normas-que-regulan-la-cooperaci-n-entre-administraciones-en-materia-de-tecnolog-a-de-la-informaci-n-y-las-comunicaciones"/>
-        </navPoint>
-        <navPoint id="navpoint-53">
-          <navLabel><text>Órganos con competencias en materia de administración digital</text></navLabel>
-          <content src="text/ch001.x.html#-rganos-con-competencias-en-materia-de-administraci-n-digital"/>
-        </navPoint>
-        <navPoint id="navpoint-54">
-          <navLabel><text>La comisión sectorial de administración electrónica</text></navLabel>
-          <content src="text/ch001.x.html#La-comisi-n-sectorial-de-administraci-n-electr-nica"/>
-        </navPoint>
-        <navPoint id="navpoint-55">
-          <navLabel><text>Secretaria general de administración digital</text></navLabel>
-          <content src="text/ch001.x.html#Secretaria-general-de-administraci-n-digital"/>
-        </navPoint>
-        <navPoint id="navpoint-56">
-          <navLabel><text>La comisión de estrategia TIC</text></navLabel>
-          <content src="text/ch001.x.html#La-comisi-n-de-estrategia-TIC"/>
-        </navPoint>
-        <navPoint id="navpoint-57">
-          <navLabel><text>Las comisiones ministeriales de administración digital</text></navLabel>
-          <content src="text/ch001.x.html#Las-comisiones-ministeriales-de-administraci-n-digital"/>
-        </navPoint>
-        <navPoint id="navpoint-58">
-          <navLabel><text>El comité de dirección de las tecnologías de información y comunicaciones</text></navLabel>
-          <content src="text/ch001.x.html#El-comit-de-direcci-n-de-las-tecnolog-as-de-informaci-n-y-comunicaciones"/>
-        </navPoint>
-        <navPoint id="navpoint-59">
-          <navLabel><text>Unidades TIC</text></navLabel>
-          <content src="text/ch001.x.html#Unidades-TIC"/>
-        </navPoint>
-        <navPoint id="navpoint-60">
-          <navLabel><text>Infraestructuras y servicios comunes en materia de administración electrónica</text></navLabel>
-          <content src="text/ch001.x.html#Infraestructuras-y-servicios-comunes-en-materia-de-administraci-n-electr-nica"/>
-        </navPoint>
-        <navPoint id="navpoint-61">
-          <navLabel><text> Identidad digital y firma electrónica</text></navLabel>
-          <content src="text/ch001.x.html#-Identidad-digital-y-firma-electr-nica"/>
-        </navPoint>
-        <navPoint id="navpoint-62">
-          <navLabel><text>Cl@ve firma – Firma criptográfica basada en certificados centralizados</text></navLabel>
-          <content src="text/ch001.x.html#Cl-ve-firma-Firma-criptogr-fica-basada-en-certificados-centralizados"/>
-        </navPoint>
-        <navPoint id="navpoint-63">
-          <navLabel><text>Cl@ve firma – Plataforma de validación de certificados y firmas</text></navLabel>
-          <content src="text/ch001.x.html#Cl-ve-firma-Plataforma-de-validaci-n-de-certificados-y-firmas"/>
-        </navPoint>
-        <navPoint id="navpoint-64">
-          <navLabel><text>FIRE – Solución integral de firma electrónica</text></navLabel>
-          <content src="text/ch001.x.html#FIRE-Soluci-n-integral-de-firma-electr-nica"/>
-        </navPoint>
-        <navPoint id="navpoint-65">
-          <navLabel><text>TS@ - Plataforma de sellado de tiempo </text></navLabel>
-          <content src="text/ch001.x.html#TS-Plataforma-de-sellado-de-tiempo-"/>
-        </navPoint>
-        <navPoint id="navpoint-66">
-          <navLabel><text>VALIDE – Validación de firmas y certificados electrónicos</text></navLabel>
-          <content src="text/ch001.x.html#VALIDE-Validaci-n-de-firmas-y-certificados-electr-nicos"/>
-        </navPoint>
-        <navPoint id="navpoint-67">
-          <navLabel><text>Cliente de firma electrónica de @FIRMA</text></navLabel>
-          <content src="text/ch001.x.html#Cliente-de-firma-electr-nica-de-FIRMA"/>
-        </navPoint>
-        <navPoint id="navpoint-68">
-          <navLabel><text>PORT@FIRMAS – Firma electrónica de empleado público</text></navLabel>
-          <content src="text/ch001.x.html#PORT-FIRMAS-Firma-electr-nica-de-empleado-p-blico"/>
-        </navPoint>
-        <navPoint id="navpoint-69">
-          <navLabel><text>Autentica– Autentificación de empleado público</text></navLabel>
-          <content src="text/ch001.x.html#Autentica-Autentificaci-n-de-empleado-p-blico"/>
-        </navPoint>
-        <navPoint id="navpoint-70">
-          <navLabel><text>Sistema europeo de reconocimiento de identidades electrónicas - eIDAS</text></navLabel>
-          <content src="text/ch001.x.html#Sistema-europeo-de-reconocimiento-de-identidades-electr-nicas-eIDAS"/>
-        </navPoint>
-        <navPoint id="navpoint-71">
-          <navLabel><text>Registros y representación del ciudadano ante las AAPP</text></navLabel>
-          <content src="text/ch001.x.html#Registros-y-representaci-n-del-ciudadano-ante-las-AAPP"/>
-        </navPoint>
-        <navPoint id="navpoint-72">
-          <navLabel><text>Registro electrónico general</text></navLabel>
-          <content src="text/ch001.x.html#Registro-electr-nico-general"/>
+          <navLabel><text>Colocación de la etiqueta</text></navLabel>
+          <content src="text/ch001.x.html#Colocaci-n-de-la-etiqueta"/>
         </navPoint>
       </navPoint>
     </navPoint>
