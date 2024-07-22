@@ -47,8 +47,16 @@
 
 		    <button type="submit" class="button w-100">Iniciar Sesión</button>
 
-		    <p onclick="register()" class="text_xsm pt_24 text-center">¿No tienes una cuenta? <a href="#">Registrarse</a>
+		    <p onclick="register()" class="text_xsm pt_24 text-center">
+		    	¿No tienes una cuenta?
+			<a href="#">Registrarse</a>
 		    </p>
+
+		    <p onclick="recover()" class="text_xsm pt_24 text-center">
+		    	¿Olvidastes tu contraseña?
+			<a href="#">Recuperar contraseña</a>
+		    </p>
+
 		</div>
 
 	    </form>
@@ -59,8 +67,16 @@
 </div>
 
 @include('includes/register')
+@include('includes/recover')
 
 <script>
+
+	function recover()
+	{
+		$("#login_modal").modal("hide");
+		$("#recover_modal").modal("show");
+	}
+
 	function register()
 	{
 		$("#login_modal").modal("hide");

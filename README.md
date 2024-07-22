@@ -19,6 +19,9 @@ composer require predis/predis
 
 sudo apt-get install php8.1-redis
 
+https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.RegionsAndAvailabilityZones.html
+
+php artisan route:cache
 
 ps aux | grep "queue:work"
-nohup php artisan queue:work --daemon --tries=3 --timeout=900 --memory=2048 > /dev/null 2>&1 &
+nohup php artisan queue:work --daemon --tries=3 --timeout=3600 --memory=4048 > /dev/null 2>&1 &

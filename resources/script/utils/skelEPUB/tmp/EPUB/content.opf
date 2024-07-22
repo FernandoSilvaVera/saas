@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <package xmlns="http://www.idpf.org/2007/opf" version="2.0" unique-identifier="epub-id-1">
   <metadata xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:opf="http://www.idpf.org/2007/opf">
-    <dc:title id="epub-title-1">Introducción </dc:title>
-    <dc:title id="epub-title-2">Introducción </dc:title>
-    <dc:date id="epub-date-1">2024-06-04T08:14:21Z</dc:date>
+    <dc:title id="epub-title-1">1. INTRODUCCIÓN</dc:title>
+    <dc:title id="epub-title-2">1. INTRODUCCIÓN</dc:title>
+    <dc:date id="epub-date-1">2024-07-22T09:56:19Z</dc:date>
     <dc:language>es</dc:language>
     <dc:creator id="epub-creator-1"/>
     <meta/>
@@ -21,8 +21,9 @@
     <item id="ch007_x.html" href="text/ch007.x.html" media-type="application/xhtml+xml"/>
     <item id="ch008_x.html" href="text/ch008.x.html" media-type="application/xhtml+xml"/>
     <item id="ch009_x.html" href="text/ch009.x.html" media-type="application/xhtml+xml"/>
-    <item id="image1.jpeg" href="media/image1.jpeg" media-type="image/jpeg"/>
-    <item id="image2.jpeg" href="media/image2.jpeg" media-type="image/jpeg"/>
+    <item id="image1.png" href="media/image1.png" media-type="image/png"/>
+    <item id="image2.png" href="media/image2.png" media-type="image/png"/>
+    <item id="image3.png" href="media/image3.png" media-type="image/png"/>
   </manifest>
   <spine toc="ncx">
     <itemref idref="ch001_x.html"/>

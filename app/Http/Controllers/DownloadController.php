@@ -19,6 +19,8 @@ use App\Jobs\FileDownloadJob;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\DownloadFile;
 use App\Services\PdfWatermarkService;
+use App\Ia\OpenAI;
+use App\Http\Controllers\PdfController;
 
 class DownloadController extends Controller
 {
@@ -161,8 +163,82 @@ class DownloadController extends Controller
 
 	}
 
+	public function downloadQuestions($fileName, $userId, $language, $generateQuestions, $isPdf = false)
+	{
+
+		$user = User::find($userId);
+		$hashId = $this->generateHashId();
+		$downloadPath = $this->getPath("DOWNLOAD_PATH", $hashId, $user);
+		if (!is_dir($downloadPath)) {
+			mkdir($downloadPath, 0777, true);
+		}
+
+		$history = History::where('name', $fileName)->first();
+
+		$word = $this->getPath("FILE_PATH", $hashId, $user) . $fileName;
+
+		if($isPdf){
+			$pdfController = new PdfController();
+			$word = $pdfController->parsePdfToArray($word);
+			$word = json_encode($word->original);
+		}else{
+			$word = @(new WordHelper)->convertToArray($word);
+			$array = [];
+			Subscription::orderArray($word, $word);
+			$word = json_encode($word);
+			$array = array_filter($word);
+		}
+
+		if(ManageClientSubscription::haveQuestions($userId)){
+			$history->status = "Se van a generar las preguntas";
+			$history->save();
+			$numQuestions = $generateQuestions;
+			$openai = new OpenAI($word, $downloadPath, $userId, null, $history);
+
+			$filePath = '/tmp/randomFile.txt';
+			file_put_contents($filePath, '');
+
+			$ok = $openai->questions($filePath, $numQuestions, null);
+			if($ok){
+				$history->status = "Preguntas generadas";
+				$history->save();
+				$questions = $numQuestions;
+			}
+
+			$zipFilePath = $downloadPath;
+
+			$userPath = $this->getPath("DOWNLOAD_PATH", null, $user);
+			$command = "cd $userPath && zip -r {$hashId}.zip {$hashId}";
+			exec($command);
+
+			if($generateQuestions){
+				ManageClientSubscription::consumeQuestions($generateQuestions, $userId);
+			}
+
+			$history = History::updateOrCreate(
+				['name' => $fileName],
+				[
+					'userId' => $userId,
+					'templateName' => '',
+					'wordsUsed' => '',
+					'voiceOver' => false,
+					'summary' => false,
+					'conceptualMap' => false,
+					'questionsUsed' => $generateQuestions,
+					'pathZip' => $zipFilePath . ".zip",
+					"status" => "OK",
+				]
+			);
+
+		}
+	}
+
+
 	public function download($fileName, $templateId, $userId, $language, $generateSummary, $generateQuestions, $generateConceptualMap, $generateVoiceOver)
 	{
+
+		$history = History::where('name', $fileName)->first();
+
 		try {
 
 		$clientSubscription = ManageClientSubscription::getClientSubscription($userId);
@@ -196,6 +272,8 @@ class DownloadController extends Controller
 		\Log::info('DownloadController fin palabras');
 
 		if(!ManageClientSubscription::haveMaximumWords($palabras, $userId)){
+			$history->status= "el fichero es demasiado graned para su plan";
+			$history->save();
 			\Log::info('DownloadController el fichero es demasiado grande para su plan');
 			return false;
 		}else{
@@ -207,26 +285,35 @@ class DownloadController extends Controller
 
 			\Log::info('DownloadController use template');
 			$template = $this->useTemplate($templateId, $path);
+			$history->status= "virtualización normal terminada";
+			$history->save();
 		}
 
 		$contenido = @(new WordHelper)->convertToArray($word);
 
-		\Log::info('VA A EMPEZAR EL PROCESO IA');
-$generateConceptualMap = 1;	
-		list($conceptualMap, $summary, $questionsUsed) = Subscription::generateNewPages($contenido, $path, $userId, $generateSummary, $generateQuestions, $generateConceptualMap, $generateVoiceOver);
-
-
-		\Log::info('IA TERMINADO');
-
 		if($generateVoiceOver && ManageClientSubscription::haveVoiceOver($userId)){
+			$history->status = "generando voz natural";
+			$history->save();
 			\Log::info('VA A EMPEZAR EL PROCESO DE VOZ');
-			Subscription::texToSpeech($contenido, $path, $userId);
+			Subscription::texToSpeech($contenido, $path, $userId, $history);
 			$voiceOver = true;
 			\Log::info('VOZ TERMINADA');
+			$history->status = "terminado de generar el proceso de voz";
+			$history->save();
 		}else{
 			$this->hiddenPremiumButtons($path);
 			$voiceOver = false;
 		}
+
+		\Log::info('VA A EMPEZAR EL PROCESO IA');
+		$history->status = "VA A COMENZAR EL PROCESO IA";
+		$history->save();
+
+		list($conceptualMap, $summary, $questionsUsed) = Subscription::generateNewPages($contenido, $path, $userId, $generateSummary, $generateQuestions, $generateConceptualMap, $generateVoiceOver, $history, $language);
+
+		\Log::info('IA TERMINADO');
+		$history->status = "IA TERMINADO";
+		$history->save();
 
 		$zipFilePath = $path;
 
@@ -257,7 +344,8 @@ $generateConceptualMap = 1;
 				'summary' => $summary,
 				'conceptualMap' => $conceptualMap,
 				'questionsUsed' => $questionsUsed,
-				'pathZip' => $zipFilePath . ".zip"
+				'pathZip' => $zipFilePath . ".zip",
+				"status" => "OK",
 			]
 		);
 
@@ -274,6 +362,8 @@ $generateConceptualMap = 1;
 //		return response()->download($zipFilePath . ".zip");
 
 		} catch (\Exception $e) {
+			$history->status = "ERROR EN EL PROCESO";
+			$history->save();
 			\Log::info('DownloadController End CON ERROR ' . $e->getMessage());
 		}
 
@@ -313,7 +403,7 @@ $generateConceptualMap = 1;
 			} catch (\Exception $e) {
 
 				// Manejar la excepción
-				echo "Error al copiar el archivo: " . $e->getMessage();
+				echo "Error al copiar el archivo: " . $e->getMessage();die;
 			}
 		}else{
 			$fileName = $request->input('filePath');

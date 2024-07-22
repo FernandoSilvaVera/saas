@@ -11,56 +11,260 @@
   </docTitle>
   <navMap>
     <navPoint id="navpoint-1" >
-      <navLabel><text>Introducción </text></navLabel>
-        <content src="text/ch001.x.html#Introducci-n-"/>
+      <navLabel><text>1. INTRODUCCIÓN</text></navLabel>
+        <content src="text/ch001.x.html#1-INTRODUCCI-N"/>
     </navPoint>
     <navPoint id="navpoint-2" >
-      <navLabel><text>Conceptos generales</text></navLabel>
-        <content src="text/ch002.x.html#Conceptos-generales"/>
-    </navPoint>
-    <navPoint id="navpoint-3" >
-      <navLabel><text>Teorías del juego: causales, finales y estructurales</text></navLabel>
-        <content src="text/ch003.x.html#Teor-as-del-juego-causales-finales-y-estructurales"/>
+      <navLabel><text>2. LA CONSTITUCIÓN ESPAÑOLA</text></navLabel>
+        <content src="text/ch002.x.html#2-LA-CONSTITUCI-N-ESPA-OLA"/>
+      <navPoint id="navpoint-3">
+        <navLabel><text>2.1. CARACTERÍSTICAS</text></navLabel>
+        <content src="text/ch002.x.html#2-1-CARACTER-STICAS"/>
+      </navPoint>
       <navPoint id="navpoint-4">
-        <navLabel><text></text></navLabel>
-        <content src="text/ch003.x.html#"/>
-        <navPoint id="navpoint-5">
-          <navLabel><text>Teorías causales del juego</text></navLabel>
-          <content src="text/ch003.x.html#Teor-as-causales-del-juego"/>
-        </navPoint>
+        <navLabel><text>2.2. ESTRUCTURA</text></navLabel>
+        <content src="text/ch002.x.html#2-2-ESTRUCTURA"/>
+      </navPoint>
+      <navPoint id="navpoint-5">
+        <navLabel><text>2.3. PROCEDIMIENTOS DE REFORMA</text></navLabel>
+        <content src="text/ch002.x.html#2-3-PROCEDIMIENTOS-DE-REFORMA"/>
         <navPoint id="navpoint-6">
-          <navLabel><text>Teorías finales del juego</text></navLabel>
-          <content src="text/ch003.x.html#Teor-as-finales-del-juego"/>
+          <navLabel><text>2.3.1.	INICIATIVA</text></navLabel>
+          <content src="text/ch002.x.html#2-3-1-INICIATIVA"/>
         </navPoint>
         <navPoint id="navpoint-7">
-          <navLabel><text>Teorías estructurales del juego</text></navLabel>
-          <content src="text/ch003.x.html#Teor-as-estructurales-del-juego"/>
+          <navLabel><text>2.3.2.	PROCEDIMIENTOS</text></navLabel>
+          <content src="text/ch002.x.html#2-3-2-PROCEDIMIENTOS"/>
+        </navPoint>
+        <navPoint id="navpoint-8">
+          <navLabel><text>2.3.3.	LÍMITES</text></navLabel>
+          <content src="text/ch002.x.html#2-3-3-L-MITES"/>
+        </navPoint>
+        <navPoint id="navpoint-9">
+          <navLabel><text>2.3.4.	REFORMAS DE LA CE HASTA LA ACTUALIDAD</text></navLabel>
+          <content src="text/ch002.x.html#2-3-4-REFORMAS-DE-LA-CE-HASTA-LA-ACTUALIDAD"/>
+        </navPoint>
+      </navPoint>
+      <navPoint id="navpoint-10">
+        <navLabel><text>2.4	LOS PRINCIPIOS CONSTITUCIONALES</text></navLabel>
+        <content src="text/ch002.x.html#2-4-LOS-PRINCIPIOS-CONSTITUCIONALES"/>
+      </navPoint>
+      <navPoint id="navpoint-11">
+        <navLabel><text>2.5	LOS DERECHOS FUNDAMENTALES Y SUS GARANTÍAS</text></navLabel>
+        <content src="text/ch002.x.html#2-5-LOS-DERECHOS-FUNDAMENTALES-Y-SUS-GARANT-AS"/>
+      </navPoint>
+      <navPoint id="navpoint-12">
+        <navLabel><text>2.6	LOS ESTADOS EXCEPCIONALES</text></navLabel>
+        <content src="text/ch002.x.html#2-6-LOS-ESTADOS-EXCEPCIONALES"/>
+      </navPoint>
+    </navPoint>
+    <navPoint id="navpoint-13" >
+      <navLabel><text>3.	LA CORONA</text></navLabel>
+        <content src="text/ch003.x.html#3-LA-CORONA"/>
+      <navPoint id="navpoint-14">
+        <navLabel><text>3.1	ESTATUTO JURÍDICO DEL REY Y REFRENDO</text></navLabel>
+        <content src="text/ch003.x.html#3-1-ESTATUTO-JUR-DICO-DEL-REY-Y-REFRENDO"/>
+      </navPoint>
+      <navPoint id="navpoint-15">
+        <navLabel><text>3.2	SUCESIÓN, REGENCIA Y TUTELA</text></navLabel>
+        <content src="text/ch003.x.html#3-2-SUCESI-N-REGENCIA-Y-TUTELA"/>
+        <navPoint id="navpoint-16">
+          <navLabel><text>-	Sucesión (art. 57 CE)</text></navLabel>
+          <content src="text/ch003.x.html#-Sucesi-n-art-57-CE-"/>
+        </navPoint>
+        <navPoint id="navpoint-17">
+          <navLabel><text>-	Regencia (art. 59 CE)</text></navLabel>
+          <content src="text/ch003.x.html#-Regencia-art-59-CE-"/>
+        </navPoint>
+        <navPoint id="navpoint-18">
+          <navLabel><text>-	Tutela (art. 60 CE)</text></navLabel>
+          <content src="text/ch003.x.html#-Tutela-art-60-CE-"/>
+        </navPoint>
+      </navPoint>
+      <navPoint id="navpoint-19">
+        <navLabel><text>3.3	FUNCIONES DEL REY</text></navLabel>
+        <content src="text/ch003.x.html#3-3-FUNCIONES-DEL-REY"/>
+        <navPoint id="navpoint-20">
+          <navLabel><text>3.3.1.	FUNCIONES POLÍTICAS</text></navLabel>
+          <content src="text/ch003.x.html#3-3-1-FUNCIONES-POL-TICAS"/>
+        </navPoint>
+        <navPoint id="navpoint-21">
+          <navLabel><text>3.3.2.	FUNCIONES JURÍDICAS</text></navLabel>
+          <content src="text/ch003.x.html#3-3-2-FUNCIONES-JUR-DICAS"/>
+        </navPoint>
+        <navPoint id="navpoint-22">
+          <navLabel><text>3.3.3.	FUNCIONES EN EL ÁMBITO INTERNACIONAL</text></navLabel>
+          <content src="text/ch003.x.html#3-3-3-FUNCIONES-EN-EL-MBITO-INTERNACIONAL"/>
         </navPoint>
       </navPoint>
     </navPoint>
-    <navPoint id="navpoint-8" >
-      <navLabel><text>Evolución del juego en el ciclo vital humano</text></navLabel>
-        <content src="text/ch004.x.html#Evoluci-n-del-juego-en-el-ciclo-vital-humano"/>
+    <navPoint id="navpoint-23" >
+      <navLabel><text>4.	CORTES GENERALES. CONGRESO DE LOS DIPUTADOS Y SENADO</text></navLabel>
+        <content src="text/ch004.x.html#4-CORTES-GENERALES-CONGRESO-DE-LOS-DIPUTADOS-Y-SENADO"/>
+      <navPoint id="navpoint-24">
+        <navLabel><text>4.1	CARACTERÍSTICAS</text></navLabel>
+        <content src="text/ch004.x.html#4-1-CARACTER-STICAS"/>
+      </navPoint>
+      <navPoint id="navpoint-25">
+        <navLabel><text>4.2	ESTRUCTURA</text></navLabel>
+        <content src="text/ch004.x.html#4-2-ESTRUCTURA"/>
+      </navPoint>
+      <navPoint id="navpoint-26">
+        <navLabel><text>4.3	COMPOSICIÓN</text></navLabel>
+        <content src="text/ch004.x.html#4-3-COMPOSICI-N"/>
+        <navPoint id="navpoint-27">
+          <navLabel><text>4.3.1.	CONGRESO DE LOS DIPUTADOS</text></navLabel>
+          <content src="text/ch004.x.html#4-3-1-CONGRESO-DE-LOS-DIPUTADOS"/>
+        </navPoint>
+        <navPoint id="navpoint-28">
+          <navLabel><text>4.3.2.	SENADO</text></navLabel>
+          <content src="text/ch004.x.html#4-3-2-SENADO"/>
+        </navPoint>
+      </navPoint>
+      <navPoint id="navpoint-29">
+        <navLabel><text>4.4	FUNCIONES</text></navLabel>
+        <content src="text/ch004.x.html#4-4-FUNCIONES"/>
+        <navPoint id="navpoint-30">
+          <navLabel><text>4.4.1.	FUNCIÓN LEGISLATIVA</text></navLabel>
+          <content src="text/ch004.x.html#4-4-1-FUNCI-N-LEGISLATIVA"/>
+        </navPoint>
+        <navPoint id="navpoint-31">
+          <navLabel><text>4.4.2.	FUNCIONES ECONÓMICAS</text></navLabel>
+          <content src="text/ch004.x.html#4-4-2-FUNCIONES-ECON-MICAS"/>
+        </navPoint>
+        <navPoint id="navpoint-32">
+          <navLabel><text>4.4.3.	FUNCIONES DE CONTROL DEL GOBIERNO Y LA ADMINISTRACIÓN</text></navLabel>
+          <content src="text/ch004.x.html#4-4-3-FUNCIONES-DE-CONTROL-DEL-GOBIERNO-Y-LA-ADMINISTRACI-N"/>
+        </navPoint>
+        <navPoint id="navpoint-33">
+          <navLabel><text>4.4.4.	FUNCIÓN DE PROVISIÓN DE PERSONAL DE OTROS ÓRGANOS</text></navLabel>
+          <content src="text/ch004.x.html#4-4-4-FUNCI-N-DE-PROVISI-N-DE-PERSONAL-DE-OTROS-RGANOS"/>
+        </navPoint>
+        <navPoint id="navpoint-34">
+          <navLabel><text>4.4.5.	FUNCIONES EN LOS ESTADOS EXCEPCIONALES</text></navLabel>
+          <content src="text/ch004.x.html#4-4-5-FUNCIONES-EN-LOS-ESTADOS-EXCEPCIONALES"/>
+        </navPoint>
+      </navPoint>
+      <navPoint id="navpoint-35">
+        <navLabel><text>4.5	FUNCIONAMIENTO</text></navLabel>
+        <content src="text/ch004.x.html#4-5-FUNCIONAMIENTO"/>
+        <navPoint id="navpoint-36">
+          <navLabel><text>4.5.1.	PERÍODOS DE SESIONES</text></navLabel>
+          <content src="text/ch004.x.html#4-5-1-PER-ODOS-DE-SESIONES"/>
+        </navPoint>
+        <navPoint id="navpoint-37">
+          <navLabel><text>4.5.2.	SESIÓN CONJUNTA DEL CONGRESO Y EL SENADO</text></navLabel>
+          <content src="text/ch004.x.html#4-5-2-SESI-N-CONJUNTA-DEL-CONGRESO-Y-EL-SENADO"/>
+        </navPoint>
+      </navPoint>
+      <navPoint id="navpoint-38">
+        <navLabel><text>4.6	ORGANIZACIÓN</text></navLabel>
+        <content src="text/ch004.x.html#4-6-ORGANIZACI-N"/>
+      </navPoint>
+      <navPoint id="navpoint-39">
+        <navLabel><text>4.7	DISOLUCIÓN</text></navLabel>
+        <content src="text/ch004.x.html#4-7-DISOLUCI-N"/>
+      </navPoint>
+      <navPoint id="navpoint-40">
+        <navLabel><text>4.8	ESTATUTO DE DIPUTADOS Y SENADORES. INCOMPATIBILIDADES</text></navLabel>
+        <content src="text/ch004.x.html#4-8-ESTATUTO-DE-DIPUTADOS-Y-SENADORES-INCOMPATIBILIDADES"/>
+      </navPoint>
     </navPoint>
-    <navPoint id="navpoint-9" >
-      <navLabel><text>Antropología del juego</text></navLabel>
-        <content src="text/ch005.x.html#Antropolog-a-del-juego"/>
+    <navPoint id="navpoint-41" >
+      <navLabel><text>5.	EL GOBIERNO</text></navLabel>
+        <content src="text/ch005.x.html#5-EL-GOBIERNO"/>
+      <navPoint id="navpoint-42">
+        <navLabel><text>4.8	ESTATUTO DE DIPUTADOS Y SENADORES. INCOMPATIBILIDADES</text></navLabel>
+        <content src="text/ch005.x.html#4-8-ESTATUTO-DE-DIPUTADOS-Y-SENADORES-INCOMPATIBILIDADES"/>
+        <navPoint id="navpoint-43">
+          <navLabel><text>5.1	REGULACIÓN, FUNCIONES Y PRINCIPIOS</text></navLabel>
+          <content src="text/ch005.x.html#5-1-REGULACI-N-FUNCIONES-Y-PRINCIPIOS"/>
+        </navPoint>
+        <navPoint id="navpoint-44">
+          <navLabel><text>5.2	FORMACIÓN DEL GOBIERNO</text></navLabel>
+          <content src="text/ch005.x.html#5-2-FORMACI-N-DEL-GOBIERNO"/>
+        </navPoint>
+        <navPoint id="navpoint-45">
+          <navLabel><text>5.3	COMPOSICIÓN</text></navLabel>
+          <content src="text/ch005.x.html#5-3-COMPOSICI-N"/>
+        </navPoint>
+        <navPoint id="navpoint-46">
+          <navLabel><text>5.4	CESE</text></navLabel>
+          <content src="text/ch005.x.html#5-4-CESE"/>
+        </navPoint>
+      </navPoint>
+      <navPoint id="navpoint-47">
+        <navLabel><text>5.5	CONTROL PARLAMENTARIO DEL GOBIERNO</text></navLabel>
+        <content src="text/ch005.x.html#5-5-CONTROL-PARLAMENTARIO-DEL-GOBIERNO"/>
+        <navPoint id="navpoint-48">
+          <navLabel><text>5.5.1.	INSTRUMENTOS DE CONTROL ORDINARIO</text></navLabel>
+          <content src="text/ch005.x.html#5-5-1-INSTRUMENTOS-DE-CONTROL-ORDINARIO"/>
+        </navPoint>
+        <navPoint id="navpoint-49">
+          <navLabel><text>5.5.2.	INSTRUMENTOS DE CONTROL EXTRAORDINARIOS</text></navLabel>
+          <content src="text/ch005.x.html#5-5-2-INSTRUMENTOS-DE-CONTROL-EXTRAORDINARIOS"/>
+        </navPoint>
+      </navPoint>
     </navPoint>
-    <navPoint id="navpoint-10" >
-      <navLabel><text>El juego como medio educativo</text></navLabel>
-        <content src="text/ch006.x.html#El-juego-como-medio-educativo"/>
+    <navPoint id="navpoint-50" >
+      <navLabel><text>6.	LOS ÓRGANOS CONSTITUCIONALES DE CONTROL DEL GOBIERNO</text></navLabel>
+        <content src="text/ch006.x.html#6-LOS-RGANOS-CONSTITUCIONALES-DE-CONTROL-DEL-GOBIERNO"/>
+      <navPoint id="navpoint-51">
+        <navLabel><text>6.1	EL TRIBUNAL DE CUENTAS</text></navLabel>
+        <content src="text/ch006.x.html#6-1-EL-TRIBUNAL-DE-CUENTAS"/>
+        <navPoint id="navpoint-52">
+          <navLabel><text>6.1.1.	NATURALEZA</text></navLabel>
+          <content src="text/ch006.x.html#6-1-1-NATURALEZA"/>
+        </navPoint>
+        <navPoint id="navpoint-53">
+          <navLabel><text>6.1.2.	FUNCIONES</text></navLabel>
+          <content src="text/ch006.x.html#6-1-2-FUNCIONES"/>
+        </navPoint>
+        <navPoint id="navpoint-54">
+          <navLabel><text>6.1.3. ORGANIZACIÓN</text></navLabel>
+          <content src="text/ch006.x.html#6-1-3-ORGANIZACI-N"/>
+        </navPoint>
+      </navPoint>
+      <navPoint id="navpoint-55">
+        <navLabel><text>6.2	EL DEFENSOR DEL PUEBLO</text></navLabel>
+        <content src="text/ch006.x.html#6-2-EL-DEFENSOR-DEL-PUEBLO"/>
+        <navPoint id="navpoint-56">
+          <navLabel><text>6.2.1.	NATURALEZA</text></navLabel>
+          <content src="text/ch006.x.html#6-2-1-NATURALEZA"/>
+        </navPoint>
+        <navPoint id="navpoint-57">
+          <navLabel><text>6.2.2.	NOMBRAMIENTO Y ESTATUS JURÍDICO</text></navLabel>
+          <content src="text/ch006.x.html#6-2-2-NOMBRAMIENTO-Y-ESTATUS-JUR-DICO"/>
+        </navPoint>
+        <navPoint id="navpoint-58">
+          <navLabel><text>6.2.3.	FUNCIONES</text></navLabel>
+          <content src="text/ch006.x.html#6-2-3-FUNCIONES"/>
+        </navPoint>
+      </navPoint>
     </navPoint>
-    <navPoint id="navpoint-11" >
-      <navLabel><text>Clasificación epistemológica del juego motor</text></navLabel>
-        <content src="text/ch007.x.html#Clasificaci-n-epistemol-gica-del-juego-motor"/>
+    <navPoint id="navpoint-59" >
+      <navLabel><text>7.	LA FUNCIÓN CONSULTIVA: EL CONSEJO DE ESTADO</text></navLabel>
+        <content src="text/ch007.x.html#7-LA-FUNCI-N-CONSULTIVA-EL-CONSEJO-DE-ESTADO"/>
+      <navPoint id="navpoint-60">
+        <navLabel><text>7.1	NATURALEZA</text></navLabel>
+        <content src="text/ch007.x.html#7-1-NATURALEZA"/>
+      </navPoint>
+      <navPoint id="navpoint-61">
+        <navLabel><text>7.2	ORGANIZACIÓN</text></navLabel>
+        <content src="text/ch007.x.html#7-2-ORGANIZACI-N"/>
+      </navPoint>
+      <navPoint id="navpoint-62">
+        <navLabel><text>7.3	FUNCIONES</text></navLabel>
+        <content src="text/ch007.x.html#7-3-FUNCIONES"/>
+      </navPoint>
     </navPoint>
-    <navPoint id="navpoint-12" >
-      <navLabel><text>El juego motor en los programas de Educación Física y recreación</text></navLabel>
-        <content src="text/ch008.x.html#El-juego-motor-en-los-programas-de-Educaci-n-F-sica-y-recreaci-n"/>
+    <navPoint id="navpoint-63" >
+      <navLabel><text>8.	CONCLUSIÓN</text></navLabel>
+        <content src="text/ch008.x.html#8-CONCLUSI-N"/>
     </navPoint>
-    <navPoint id="navpoint-13" >
-      <navLabel><text>Bibliografía</text></navLabel>
-        <content src="text/ch009.x.html#Bibliograf-a"/>
+    <navPoint id="navpoint-64" >
+      <navLabel><text>9. ANEXO</text></navLabel>
+        <content src="text/ch009.x.html#9-ANEXO"/>
     </navPoint>
   </navMap>
 </ncx>

@@ -22,13 +22,13 @@ class WordHelper
 	{
 		switch ($title) {
 			case 1:
-				return $style == "Ttulo1";
+				return $style == "Ttulo1" || $style == "NormalWeb" || $style == "Heading1";
 				break;
 			case 2:
-				return $style == "Ttulo2";
+				return $style == "Ttulo2" || $style == "Heading2";
 				break;
 			case 3:
-				return $style == "Ttulo3";
+				return $style == "Ttulo3" || $style == "Heading3";
 				break;
 		}
 
@@ -54,10 +54,35 @@ class WordHelper
 
 		foreach ($phpWord->getSections() as $section) {
 			foreach ($section->getElements() as $element) {
-				if ($element instanceof \PhpOffice\PhpWord\Element\TextRun) {
-					$fullText = $element->getText();
-					$paragraphStyle = $element->getParagraphStyle();
-					$style = $paragraphStyle->getStyleName();
+				if ($element instanceof \PhpOffice\PhpWord\Element\TextRun || $element instanceof \PhpOffice\PhpWord\Element\Title) {
+
+					$fullText = null;
+					$style = null;
+
+					if($element instanceof \PhpOffice\PhpWord\Element\Title){
+						$elementPrev = $element->getText();
+
+						if($elementPrev instanceof \PhpOffice\PhpWord\Element\TextRun){
+							$element = $elementPrev;
+							$fullText = $element->getText();
+						}else{
+							$fullText = $elementPrev;
+							$style = $element->getStyle();
+						}
+
+					}
+
+					if(!$fullText){
+						$fullText = $element->getText();
+					}
+
+
+					if(!$style){
+						$paragraphStyle = $element->getParagraphStyle();
+						$style = $paragraphStyle->getStyleName();
+					}
+
+
 
 					$lineas = explode("\n", $fullText);
 

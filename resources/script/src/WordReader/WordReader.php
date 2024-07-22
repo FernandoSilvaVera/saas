@@ -28,13 +28,13 @@ class WordReader {
 	{
 		switch ($title) {
 			case 1:
-				return $style == "Ttulo1";
+				return $style == "Ttulo1" || $style == "NormalWeb" || $style == "Heading1";
 				break;
 			case 2:
-				return $style == "Ttulo2";
+				return $style == "Ttulo2" || $style == "Heading2";
 				break;
 			case 3:
-				return $style == "Ttulo3";
+				return $style == "Ttulo3" || $style == "Heading3";
 				break;
 		}
 
@@ -63,10 +63,34 @@ class WordReader {
 
 		foreach ($phpWord->getSections() as $section) {
 			foreach ($section->getElements() as $element) {
-				if ($element instanceof \PhpOffice\PhpWord\Element\TextRun) {
-					$fullText = $element->getText();
-					$paragraphStyle = $element->getParagraphStyle();
-					$style = $paragraphStyle->getStyleName();
+				if ($element instanceof \PhpOffice\PhpWord\Element\TextRun || $element instanceof \PhpOffice\PhpWord\Element\Title) {
+
+					$fullText = null;
+					$style = null;
+
+					if($element instanceof \PhpOffice\PhpWord\Element\Title){
+						$elementPrev = $element->getText();
+
+						if($elementPrev instanceof \PhpOffice\PhpWord\Element\TextRun){
+							$element = $elementPrev;
+							$fullText = $element->getText();
+						}else{
+							$fullText = $elementPrev;
+							$style = $element->getStyle();
+						}
+
+					}
+
+					if(!$fullText){
+						$fullText = $element->getText();
+					}
+
+
+					if(!$style){
+						$paragraphStyle = $element->getParagraphStyle();
+						$style = $paragraphStyle->getStyleName();
+					}
+
 
 					$lineas = explode("\n", $fullText);
 
@@ -74,6 +98,7 @@ class WordReader {
 					$isTest = false;
 
 					foreach ($lineas as $linea) {
+
 
 
 						/* - Poner aqui los title - */
@@ -102,7 +127,9 @@ class WordReader {
 							$isCustomPager = $this->checkIfCustomPager($fullText);
 
 							if(!$isTest && !$isCustomPager){
-								$this->addStyle($fullText, $element, $style);
+								if($element instanceof \PhpOffice\PhpWord\Element\TextRun){
+									$this->addStyle($fullText, $element, $style);
+								}
 							}
 
 
@@ -127,11 +154,19 @@ class WordReader {
 
 
 
-				} elseif ($element instanceof \PhpOffice\PhpWord\Element\Image) {
+				} 
+				else if ($element instanceof \PhpOffice\PhpWord\Element\Text) {
+					$fullText = $element->getText();
+					echo $fullText;
+					echo "\n";
+				}
+
+				elseif ($element instanceof \PhpOffice\PhpWord\Element\Image) {
 
 				} elseif ($element instanceof \PhpOffice\PhpWord\Element\TextBreak) {
-
+//lineas vacias
 				} elseif ($element instanceof \PhpOffice\PhpWord\Element\PageBreak) {
+//paginas vacias
 
 				} elseif ($element instanceof \PhpOffice\PhpWord\Element\Table) {
 
@@ -207,6 +242,7 @@ class WordReader {
 			}
 
 		}
+
 		return $estructura;
 	}
 
@@ -334,6 +370,7 @@ class WordReader {
 		$htmlTemplate->saveImages($imagesPath);
 
 		$pages = $htmlTemplate->getPages($wordContent);
+
 		$pos = 0;
 		foreach($pages as $title => $content){
 			$htmlTemplate->loadTemplate($htmlTemplatePath);

@@ -13,6 +13,7 @@ class History extends Model
 
 
     protected $fillable = [
+    	'id',
         'name',
 	'userId',
         'templateName',
@@ -22,5 +23,6 @@ class History extends Model
 	'summary',
 	'questionsUsed',
 	'voiceOver',
+	'status',
     ];
 }

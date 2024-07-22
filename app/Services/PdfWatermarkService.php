@@ -21,13 +21,13 @@ class PdfWatermarkService
 			    $pdf->useTemplate($templateId);
 
 			    // Ajusta la opacidad de la marca de agua
-			    $pdf->SetAlpha(0.5);
+			    $pdf->SetAlpha(env('MARCA_DE_AGUA_OPACIDAD'));
 
 			    // Posición y tamaño de la marca de agua
 			    $x = ($size['width'] - 50) / 2; // Centrar en la página
 			    $y = ($size['height'] - 50) / 2;
-			    $w = 50;
-			    $h = 50;
+			    $w = env('MARCA_DE_AGUA_W');
+			    $h = env('MARCA_DE_AGUA_Y');
 
 			    $pdf->Image($watermarkImage, $x, $y, $w, $h);
 

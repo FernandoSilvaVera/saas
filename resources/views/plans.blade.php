@@ -125,10 +125,17 @@
                     </div>
                 </div>
 
+		@if(session('status'))
+			<div class="alert alert-success text-center">
+				{{ session('status') }}
+			</div>
+		@endif
+
+
 		@auth
 		@else
 			<div class="alert alert-success text-center" role="alert">
-				Ese necesario iniciar sesión para poder suscribirse
+				Es necesario iniciar sesión para poder suscribirse
 			</div>
 		@endauth
 

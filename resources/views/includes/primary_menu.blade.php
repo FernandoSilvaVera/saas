@@ -8,12 +8,18 @@
 		{{-- admin --}}
 	@if ($user->idProfile === 1)
 			<a href="{{ url('/app') }}" class="{{ request()->is('app') ? 'active' : '' }}"><img src="./img/sidebar_icon1.svg" alt="">Virtualizar</a>
+			<a href="{{ url('/appQuestions') }}" class="{{ request()->is('appQuestions') ? 'active' : '' }}"><img src="./img/sidebar_icon1.svg" alt="">Generar Preguntas</a>
 			<a href="{{ url('/history') }}" class="{{ request()->is('history') ? 'active' : '' }}"><img src="./img/sidebar_icon2.svg" alt="">Historial</a>
 
 
 			<a href="{{ url('templates') }}" class="{{ request()->is('templates', 'template') ? 'active' : '' }}">
 				<img src="./img/sidebar_icon4.svg" alt="">Plantillas
 			</a>
+
+			<a href="{{ url('/listProducts') }}" class="{{ request()->is('listProducts') || request()->is('product') ? 'active' : '' }}">
+				<img src="./img/sidebar_icon2.svg" alt="">Todos los productos
+			</a>
+
 
 			<a href="{{ url('/listPlans') }}" class="{{ request()->is('listPlans') || request()->is('plan') ? 'active' : '' }}">
 				<img src="./img/sidebar_icon2.svg" alt="">Todos los planes
@@ -36,6 +42,7 @@
 		{{-- client --}}
 		@if ($user->idProfile === 2)
 			<a href="{{ url('/app') }}" class="{{ request()->is('app') ? 'active' : '' }}"><img src="./img/sidebar_icon1.svg" alt="">Virtualizar</a>
+			<a href="{{ url('/appQuestions') }}" class="{{ request()->is('appQuestions') ? 'active' : '' }}"><img src="./img/sidebar_icon1.svg" alt="">Generar Preguntas</a>
 			<a href="{{ url('/history') }}" class="{{ request()->is('history') ? 'active' : '' }}"><img src="./img/sidebar_icon2.svg" alt="">Historial</a>
 
 			<a href="{{ url('templates') }}" class="{{ request()->is('templates', 'template') ? 'active' : '' }}">

@@ -13,7 +13,7 @@ use GuzzleHttp\Client;
 class OpenAI
 {
 
-	public function __construct($wordJson, $downloadPath, $userId)
+	public function __construct($wordJson, $downloadPath, $userId, $scormZip, $history)
 	{
 		$this->jsonArray = json_decode($wordJson, true);
 		
@@ -24,9 +24,13 @@ class OpenAI
 		$this->wordJson = $wordJson;
 		$this->downloadPath = $downloadPath;
 		$this->userId = $userId;
+
+		$this->scormZip = $scormZip;
+
+		$this->history = $history;
 	}
 
-	public function summary($summaryHTML)
+	public function summary($summaryHTML, $scorm, $language="es-ES")
 	{
 		$generated = false;
 		$send = "";
@@ -41,10 +45,17 @@ class OpenAI
 			$countTxtTotal += $countTxt;
 			if($countTxtTotal > 4000){
 				$message = "Dame un resumen extenso de esto en formato json de esto tambien quiero que me lo formatees en html" . $send;
-				$response = $this->assistant->execute($message, $assistantId);
+				$response = $this->assistant->execute($message, $assistantId, "summary ", $this->history->id);
+
+				if(!$response){
+					\Log::info("NO HA PODIDO GENERAR EL RESUMEN");
+					return false;
+				}
 
 				if (isset($response->data[0]->content[0]->text->value)) {
 					$data = $response->data[0]->content[0]->text->value;
+
+					\Log::info("RESUMEN" . $data);
 
 					$data = json_decode($data, true);
 
@@ -56,9 +67,14 @@ class OpenAI
 						$textoNuevo .= "<h1>$titulo</h1>";
 						$textoNuevo .= "<p>$contenido</p>";
 
-
+					}else{
+						\Log::info("NO HAY NODO DE RESUMEN 1");
+						break;
 					}
 
+				}else{
+					\Log::info("EL RESUMEN ESTA DANDO UNA RESPUESTA QUE NO ESPERO 1");
+					break;
 				}
 
 				$send = "";
@@ -67,10 +83,17 @@ class OpenAI
 
 		if($countTxtTotal <= 4000){
 				$message = "Dame un resumen extenso de esto en formato json de esto tambien quiero que me lo formatees en html" . $send;
-				$response = $this->assistant->execute($message, $assistantId);
+				$response = $this->assistant->execute($message, $assistantId, "summary2 ", $this->history->id);
+
+				if(!$response){
+					\Log::info("NO HA PODIDO GENERAR EL RESUMEN");
+					return false;
+				}
 
 				if (isset($response->data[0]->content[0]->text->value)) {
 					$data = $response->data[0]->content[0]->text->value;
+
+					\Log::info("RESUMEN" . $data);
 
 					$data = json_decode($data, true);
 
@@ -83,17 +106,31 @@ class OpenAI
 						$textoNuevo .= "<p>$contenido</p>";
 
 
+					}else{
+						\Log::info("NO HAY NODO DE RESUMEN 1");
+						return false;
 					}
 
+				}else{
+					\Log::info("EL RESUMEN ESTA DANDO UNA RESPUESTA QUE NO ESPERO 2");
+					return false;
 				}
 
 		}
+
+
 
 		if($textoNuevo){
 			$placeholder = '{summary}';
 			$file = file_get_contents($summaryHTML);
 			$file = str_replace($placeholder, $textoNuevo, $file);
 			file_put_contents($summaryHTML, $file);
+
+			$summaryHTMLScorm = $this->downloadPath  . "/scorm/" . $scorm;
+			$scormFile = file_get_contents($summaryHTMLScorm);
+			$scormFile = str_replace($placeholder, $textoNuevo, $scormFile);
+			file_put_contents($summaryHTMLScorm, $scormFile);
+
 			return true;
 		}
 			
@@ -101,7 +138,7 @@ class OpenAI
 
 	}
 
-	public function conceptualMap($conceptualMapHTML)
+	public function conceptualMap($conceptualMapHTML, $scorm, $language="es-ES")
 	{
 		$generated = false;
 		$send = "";
@@ -120,7 +157,12 @@ class OpenAI
 			if($countTxtTotal > 4000){
 				\Log::info('ES GRANDE SE TIENE QUE HACER EN SEGMENTOS');
 				$message = "Crea un mapa conceptual de esto " . $send;
-				$response = $this->assistant->execute($message, $assistantId);
+				$response = $this->assistant->execute($message, $assistantId, "conceptualMap", $this->history->id);
+
+				if(!$response){
+					\Log::info("NO HA PODIDO GENERAR EL MAPA CONCEPTUAL");
+					return false;
+				}
 
 				$data = null;
 
@@ -148,7 +190,18 @@ class OpenAI
 					$file = str_replace("espacioContenido col l9 m12 s12", "col l9 m12 s12", $file);
 
 					file_put_contents($conceptualMapHTML, $file);
+
+					$conceptualMapHTMLScorm = $this->downloadPath  . "/scorm/" . $scorm;
+
+					$scormFile = file_get_contents($conceptualMapHTMLScorm);
+					$scormFile = str_replace($placeholder, $textoNuevo, $scormFile);
+					$scormFile = str_replace("espacioContenido col l9 m12 s12", "col l9 m12 s12", $scormFile);
+					file_put_contents($conceptualMapHTMLScorm, $scormFile);
+
 					return true;
+				}else{
+					\Log::info("EL MAPA ME ESTA DANDO UNA RESPUETA QUE NO ESPERO 1");
+					break;
 				}
 			}
 		}
@@ -156,7 +209,12 @@ class OpenAI
 		if($countTxtTotal){
 			\Log::info('ES PEQUEÑO NO HACE FALTA HACER SEGMENTOS');
 			$message = "Crea un mapa conceptual de esto " . $this->wordJson;
-			$response = $this->assistant->execute($message, $assistantId);
+			$response = $this->assistant->execute($message, $assistantId, "conceptualMap2 ", $this->history->id);
+
+			if(!$response){
+				\Log::info("NO HA PODIDO GENERAR EL MAPA CONCEPTUAL");
+				return false;
+			}
 
 			$data = null;
 
@@ -171,7 +229,16 @@ class OpenAI
 				$file = str_replace("espacioContenido col l9 m12 s12", "col l9 m12 s12", $file);
 
 				file_put_contents($conceptualMapHTML, $file);
+
+				$conceptualMapHTMLScorm = $this->downloadPath  . "/scorm/" . $scorm;
+				$scormFile = file_get_contents($conceptualMapHTMLScorm);
+				$scormFile = str_replace($placeholder, $textoNuevo, $scormFile);
+				$scormFile = str_replace("espacioContenido col l9 m12 s12", "col l9 m12 s12", $scormFile);
+				file_put_contents($conceptualMapHTMLScorm, $scormFile);
+
 				return true;
+			}else{
+				\Log::info("EL MAPA ME ESTA DANDO UNA RESPUETA QUE NO ESPERO 2");
 			}
 
 		}
@@ -183,8 +250,9 @@ class OpenAI
 
 	}
 
-	public function questions($questionsHTML, $numQuestions)
+	public function questions($questionsHTML, $numQuestions, $scorm=null, $language="es-ES")
 	{
+
 		$generated = false;
 		$send = "";
 		$textoNuevo = "";
@@ -199,7 +267,12 @@ class OpenAI
 			if($countTxtTotal > 4000){
 
 				$message = "Crea $numQuestions preguntas en formato json sobre esto " . $send;
-				$response = $this->assistant->execute($message, $assistantId);
+				$response = $this->assistant->execute($message, $assistantId, "questions", $this->history->id);
+
+				if(!$response){
+					\Log::info("NO HA PODIDO GENERAR LAS PREGUNTAS");
+					return false;
+				}
 
 				if (isset($response->data[0]->content[0]->text->value)) {
 					$data = $response->data[0]->content[0]->text->value;
@@ -317,10 +390,21 @@ class OpenAI
 						file_put_contents($questionsHTML, $file);
 						file_put_contents($this->downloadPath. "/preguntas.aiken", $aiken);
 
+						if($scorm){
+							$questionsHTMLScorm = $this->downloadPath  . "/scorm/" . $scorm;
+							$scormFile = file_get_contents($questionsHTMLScorm);
+							$scormFile = str_replace($placeholder, $textoNuevo, $scormFile);
+							file_put_contents($questionsHTMLScorm, $scormFile);
+						}
+
+
 						return true;
 
 					}
 
+				}else{
+					\Log::info("LAS PREGUNTAS ME ESTAN DANDO UN FORMATO QUE NO ESPERO 1");
+					break;
 				}
 
 				$send = "";
@@ -339,11 +423,16 @@ class OpenAI
 					\Log::info($questionsCount);
 
 					$message = "Crea 15 preguntas en formato json sobre esto " . $send;
-					$response = $this->assistant->execute($message, $assistantId);
+					$response = $this->assistant->execute($message, $assistantId, "questions2", $this->history->id);
+
+					if(!$response){
+						\Log::info("NO HA PODIDO GENERAR LAS PREGUNTAS");
+						return false;
+					}
 
 					if (isset($response->data[0]->content[0]->text->value)) {
 
-					\Log::info("Procesando las preguntas ");
+						\Log::info("Procesando las preguntas ");
 
 						$data = $response->data[0]->content[0]->text->value;
 						$data = json_decode($data, true);
@@ -472,6 +561,12 @@ class OpenAI
 					file_put_contents($questionsHTML, $file);
 					file_put_contents($this->downloadPath. "/preguntas.aiken", $aiken);
 
+					if($scorm){
+						$questionsHTMLScorm = $this->downloadPath  . "/scorm/" . $scorm;
+						$scormFile = file_get_contents($questionsHTMLScorm);
+						$scormFile = str_replace($placeholder, $textoNuevo, $scormFile);
+						file_put_contents($questionsHTMLScorm, $scormFile);
+					}
 
 					return true;
 
@@ -486,5 +581,54 @@ class OpenAI
 		return false;
 
 	}
+
+	public function openScorm()
+	{
+		// Esto es un zip
+		$scormZip = $this->scormZip;
+		// Extraerlo en esta ruta
+		$downloadPath = $this->downloadPath;
+
+		// Obtener el nombre del archivo zip sin la extensión
+		$zipFileName = pathinfo($scormZip, PATHINFO_FILENAME);
+		// Crear la ruta completa donde se extraerá el contenido
+		$extractPath = $downloadPath . '/' . $zipFileName;
+
+		// Crear una instancia de ZipArchive
+		$zip = new \ZipArchive;
+
+		// Abrir el archivo zip
+		if ($zip->open($scormZip) === TRUE) {
+			// Extraer el contenido en la ruta especificada
+			$zip->extractTo($extractPath);
+			$zip->close();
+		} else {
+			echo "No se pudo abrir el archivo zip.\n";
+		}
+	}
+
+
+
+	public function closeScorm()
+	{
+		$scormZip = $this->scormZip;
+		$downloadPath = $this->downloadPath;
+
+		$zipFileName = pathinfo($scormZip, PATHINFO_FILENAME);
+		$extractPath = $downloadPath . '/' . $zipFileName;
+
+		$newZipPath = $scormZip;
+
+		if (file_exists($newZipPath)) {
+			unlink($newZipPath);
+		}
+
+		$command = "cd " . escapeshellarg($downloadPath) . " && zip -r " . escapeshellarg($newZipPath) . " " . escapeshellarg($zipFileName);
+
+		$output = null;
+		$resultCode = null;
+		exec($command, $output, $resultCode);
+	}
+
 
 }

@@ -32,6 +32,7 @@ class HTMLTemplate {
 	}
 
 	public function getPages($index) {
+
 		$pages = [];
 		$prevKey = null;
 
@@ -135,7 +136,9 @@ class HTMLTemplate {
 			if (is_array($content)) {
 				// Si es un array, llamar recursivamente y aumentar la profundidad
 				$li .= str_replace(['{content}', '{pageLi}', '{active}'], [$positionContent, count($position), "{active}".count($position)], $liLevels[$depth]);
-				$position[$positionContent] = $positionContent;
+				if($positionContent){
+					$position[$positionContent] = $positionContent;
+				}
 				$prevKey = $positionContent;
 				$liAux = $this->createIndex($content, $depth + 1, $position, $prevKey);
 				$li.= $liAux;
@@ -148,7 +151,9 @@ class HTMLTemplate {
 				}
 				// Si no es un array, procesar el contenido actual
 				$li .= str_replace(['{content}', '{pageLi}', '{active}'], [$positionContent, count($position), "{active}".count($position)], $liLevels[$depth]);
-				$position[$positionContent] = $content;
+				if($content){
+					$position[$positionContent] = $content;
+				}
 			}
 		}
 		return $li;

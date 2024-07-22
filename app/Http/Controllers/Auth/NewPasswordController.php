@@ -19,7 +19,7 @@ class NewPasswordController extends Controller
      *
      * @throws \Illuminate\Validation\ValidationException
      */
-    public function store(Request $request): JsonResponse
+    public function store(Request $request)
     {
         $request->validate([
             'token' => ['required'],
@@ -48,6 +48,6 @@ class NewPasswordController extends Controller
             ]);
         }
 
-        return response()->json(['status' => __($status)]);
+	return redirect('/plans')->with('status', 'Contraseña actualizada');
     }
 }

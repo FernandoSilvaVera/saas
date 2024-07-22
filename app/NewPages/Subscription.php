@@ -10,7 +10,7 @@ use App\Subscription\ManageClientSubscription;
 class Subscription
 {
 
-	public static function generateNewPages($word, $downloadPath, $userId, $generateSummary, $generateQuestions, $generateConceptualMap, $generateVoiceOver)
+	public static function generateNewPages($word, $downloadPath, $userId, $generateSummary, $generateQuestions, $generateConceptualMap, $generateVoiceOver, $history, $language="es-ES")
 	{
 		$array = [];
 		self::orderArray($word, $array);
@@ -18,10 +18,15 @@ class Subscription
 		$array = array_filter($array);
 		$word = json_encode($array);
 
-
 		$conceptualMapHTML = null;
 		$summaryHTML = null;
 		$questionsHTML = null;
+		
+		$conceptualMapHTMLScorm = null;
+		$summaryHTMLScorm = null;
+		$questionsHTMLScorm = null;
+		
+		$scormZip = null;
 
 		for ($i = 0; ; $i++) {
 			$pathNewHTML = "$downloadPath/$i.html";
@@ -29,6 +34,12 @@ class Subscription
 			$i0 = $i-3;
 			$i1 = $i-2;
 			$i2 = $i-1;
+
+			$scormZip = "$downloadPath/scorm.zip";
+
+			$conceptualMapHTMLScorm = "$i0.html";
+			$summaryHTMLScorm = "$i1.html";
+			$questionsHTMLScorm = "$i2.html";
 
 			$conceptualMapHTML = "$downloadPath/$i0.html";
 			$summaryHTML = "$downloadPath/$i1.html";
@@ -40,8 +51,8 @@ class Subscription
 
 		}
 
-		$openai = new OpenAI($word, $downloadPath, $userId);
-
+		$openai = new OpenAI($word, $downloadPath, $userId, $scormZip, $history);
+		$openai->openScorm();
 
 		$summary = false;
 		$questions = false;
@@ -49,13 +60,18 @@ class Subscription
 
 		if($generateConceptualMap){
 			if(ManageClientSubscription::haveConceptualMap($userId)){
+				$history->status = "Se va a generar el mapa conceptual";
+				$history->save();
 				\Log::info('IA CONCEPTUAL MAP NEW');
-				$ok = $openai->conceptualMap($conceptualMapHTML);
+				$ok = $openai->conceptualMap($conceptualMapHTML, $conceptualMapHTMLScorm, $language);
 				if($ok){
 					$conceptualMap = 1;
+					$history->status = "Mapa conceptual generado";
+					$history->save();
 				}
 			}else{
 				\Log::info('no hay creditos para el conceptual map');
+
 			}
 		}else{
 			\Log::info('NO HAY FLAG PARA GENERAR EL CONCEPTUAL MAP');
@@ -65,10 +81,14 @@ class Subscription
 
 		if($generateSummary){
 			if(ManageClientSubscription::haveSummaries($userId)){
+				$history->status = "Se va a generar el resumen";
+				$history->save();
 				\Log::info('IA RESUMEN');
-				$ok = $openai->summary($summaryHTML);
+				$ok = $openai->summary($summaryHTML, $summaryHTMLScorm, $language);
 				if($ok){
 					$summary = 1;
+					$history->status = "Resumen creado";
+					$history->save();
 				}
 			}
 
@@ -76,15 +96,20 @@ class Subscription
 
 		if($generateQuestions){
 			if(ManageClientSubscription::haveQuestions($userId)){
+				$history->status = "Se van a generar las preguntas";
+				$history->save();
 				\Log::info('IA PREGUNTAS');
 				$numQuestions = $generateQuestions;
-				$ok = $openai->questions($questionsHTML, $numQuestions);
+				$ok = $openai->questions($questionsHTML, $numQuestions, $questionsHTMLScorm, $language);
 				if($ok){
+					$history->status = "Preguntas generadas";
+					$history->save();
 					$questions = $numQuestions;
 				}
 			}
 		}
 
+		$openai->closeScorm();
 
 		return [$conceptualMap, $summary, $questions];
 
@@ -140,7 +165,7 @@ class Subscription
 
 	}
 
-	public static function texToSpeech($contenido, $path, $userId)
+	public static function texToSpeech($contenido, $path, $userId, $history)
 	{
 		$providers = ['amazon', 'google', 'openai'];
 		$providers = ['amazon'];
@@ -153,7 +178,7 @@ class Subscription
 			File::makeDirectory($audioStoragePathMain, $mode = 0777, true, true);
 		}
 
-		$posX = 1;
+		$posX = 0;
 		$pos = 0;
 
 		$unionFinal = "";
@@ -163,6 +188,10 @@ class Subscription
 		self::orderArray($contenido, $textToSpeechContent);
 
 		foreach ($textToSpeechContent as $index => $message) {
+
+			\Log::info("Generando audio -> " . $posX);
+			$history->status = "Generando audio " . $posX;
+			$history->save();
 
 			foreach ($providers as $provider) {
 
@@ -181,7 +210,31 @@ class Subscription
 				$union = "";
 
 				foreach($segmentos as $segmento){
-					$result = TextToSpeech::dispatch($audioStoragePath, $segmento, $provider, $pos++);
+
+					$maxRetries = 5; // Máximo número de reintentos
+					$retryDelay = 30; // Tiempo de espera en segundos antes de reintentar
+					$attempt = 0; // Contador de intentos
+
+					while ($attempt < $maxRetries) {
+						try {
+							$result = TextToSpeech::dispatch($audioStoragePath, $segmento, $provider, $pos++);
+							break; // Si el llamado es exitoso, salimos del bucle
+						} catch (Exception $e) {
+
+							\Log::info('INTENTO ' . $attempt . ' HA FALLADO AL LLAMAR A POLLY -> ' . $e->getMessage());
+
+							$attempt++;
+							if ($attempt >= $maxRetries) {
+								\Log::info('HA FALLADO VARIAS VECES AL LLAMAR A POLLY - TERMINAMOS CON ESTE ERROR ' . $e->getMessage());
+								// Si alcanzamos el número máximo de reintentos, lanzamos la excepción o manejamos el error
+								throw $e;
+							}
+							// Esperamos antes de reintentar
+							sleep($retryDelay);
+						}
+					}
+
+
 					$results['audios'][$provider][] = $result;
 					$union .= $audioStoragePath . $result['audio'] . "|";
 				}

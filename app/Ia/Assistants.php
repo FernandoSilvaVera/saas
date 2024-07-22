@@ -155,7 +155,7 @@ class Assistants
 		return $return;
 	}
 
-	public function execute($message, $assistantId)
+	public function execute($message, $assistantId, $process, $historyID)
 	{
 		$this->thread = $this->createThread();
 		$this->threadId = $this->thread->id;
@@ -168,13 +168,21 @@ class Assistants
 		$attempts = 0;
 
 		do {
+			sleep(20); 
 			$status = $this->checkStatus($runId);
 
 			if ($status->status != "completed") {
-				sleep(10); 
+				\Log::info($process . ' FALLO AL GENERAR INFO CON IA INTENTO ' . $attempts . " RUN " . $runId . "historyID " . $historyID);
 				$attempts++;
 			}
 		} while ($status->status != "completed" && $attempts < $maxAttempts);
+
+		if($status->status != "completed"){ 
+			\Log::info($process . ' NO SE HA PODIDO GENERAR LA INFO INTENTOS ' . $attempts. " RUN " . $runId . "historyID " . $historyID);
+			return false;
+		}else{
+			\Log::info($process . ' GENERADO CONTENIDO CON IA DESPUES DE ' . $attempts . " RUN " . $runId . "historyID " . $historyID);
+		}
 
 		return $this->messages();
 

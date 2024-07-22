@@ -88,7 +88,7 @@ class EPUBTemplate {
 
 			//text
 			$this->saveHTMLFile($skelEPUBPATH, $fileName);
-			$this->pages[] = $fileName;
+			$pages[] = $fileName;
 
 		}
 
@@ -96,7 +96,7 @@ class EPUBTemplate {
 		$this->saveImages($skelEPUBPATH, $imagesPath);
 
 		//content.opf
-		$this->contentOPF->setPages($this->pages);
+		$this->contentOPF->setPages($pages);
 		$this->contentOPF->setImages($imagesPath);
 		$this->contentOPF->createOPF($skelEPUBPATH, $wordTitles);
 

@@ -37,4 +37,10 @@ class User extends Authenticatable
 		return $user->idProfile == 1;
 	}
 
+	public function sendPasswordResetNotification($token)
+	{
+		$this->notify(new \App\Notifications\ResetPasswordNotification($token));
+	}
+
+
 }

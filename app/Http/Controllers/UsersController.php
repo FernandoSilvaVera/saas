@@ -32,6 +32,25 @@ class UsersController extends Controller
 		]);
 	}
 
+	public function newPassword(Request $request)
+	{
+		$request->validate([
+			'password' => 'required',
+			'password_confirmation' => 'required|min:8|confirmed',
+		]);
+
+		$user = Auth::user();
+
+		if (!Hash::check($request->current_password, $user->password)) {
+			return back()->withErrors(['current_password' => 'La contraseña actual no es correcta']);
+		}
+
+		$user->password = Hash::make($request->new_password);
+		$user->save();
+
+		return back()->with('success', 'Contraseña actualizada correctamente');
+	}
+
 	public function updatePassword(Request $request)
 	{
 		$request->validate([
