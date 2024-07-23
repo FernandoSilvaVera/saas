@@ -16,7 +16,7 @@ class HistoryController extends Controller
 	{
 		$user = Auth::user();
 		$userId = $user->id;
-
+$userId = 6;
 		$histories = History::where('userId', $userId)
 			->orderBy('created_at', 'desc')
 			->get();

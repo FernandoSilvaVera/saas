@@ -306,9 +306,7 @@ class DownloadController extends Controller
 			\Log::info('DownloadController use template');
 			$template = $this->useTemplate($templateId, $path);
 
-			$history = $this->updateOrCreateHistory($fileName, $userId, $template, false, false, false, false, false, $zipFilePath, $userPath, $hashId);
-			$history->status = "30%";
-			$history->save();
+			$history = $this->updateOrCreateHistory($fileName, $userId, $template, false, false, false, false, false, $zipFilePath, $userPath, $hashId, "30%");
 
 //			$history->status= "virtualización normal terminada";
 //			$history->save();
@@ -353,7 +351,7 @@ class DownloadController extends Controller
 			ManageClientSubscription::consumeQuestions($questionsUsed, $userId);
 		}
 
-		$history = $this->updateOrCreateHistory($fileName, $userId, $template, $palabras, $voiceOver, $summary, $conceptualMap, $questionsUsed, $zipFilePath, $userPath, $hashId);
+		$history = $this->updateOrCreateHistory($fileName, $userId, $template, $palabras, $voiceOver, $summary, $conceptualMap, $questionsUsed, $zipFilePath, $userPath, $hashId, "100%");
 		
 
 		\Log::info('FIN DEL HISTORIAL');
@@ -488,7 +486,7 @@ class DownloadController extends Controller
 		return redirect()->route('/app');
 	}
 
-	public function updateOrCreateHistory($fileName, $userId, $template, $palabras, $voiceOver, $summary, $conceptualMap, $questionsUsed, $zipFilePath, $userPath, $hashId) {
+	public function updateOrCreateHistory($fileName, $userId, $template, $palabras, $voiceOver, $summary, $conceptualMap, $questionsUsed, $zipFilePath, $userPath, $hashId, $status) {
 		$history = History::updateOrCreate(
 			['name' => $fileName],
 				[
@@ -500,7 +498,7 @@ class DownloadController extends Controller
 				'conceptualMap' => $conceptualMap,
 				'questionsUsed' => $questionsUsed,
 				'pathZip' => $zipFilePath . ".zip",
-				"status" => "100%",
+				"status" => $status,
 			]
 		);
 

@@ -45,7 +45,7 @@ class OpenAI
 			$countTxtTotal += $countTxt;
 			if($countTxtTotal > 4000){
 				$message = "Dame un resumen extenso de esto en formato json de esto tambien quiero que me lo formatees en html" . $send;
-				$response = $this->assistant->execute($message, $assistantId, "summary ", $this->history->id);
+				$response = $this->assistant->execute($message, $assistantId, "summary ", null);
 
 				if(!$response){
 					\Log::info("NO HA PODIDO GENERAR EL RESUMEN");
@@ -81,7 +81,7 @@ class OpenAI
 
 		if($countTxtTotal <= 4000){
 				$message = "Dame un resumen extenso de esto en formato json de esto tambien quiero que me lo formatees en html" . $send;
-				$response = $this->assistant->execute($message, $assistantId, "summary2 ", $this->history->id);
+				$response = $this->assistant->execute($message, $assistantId, "summary2 ", null);
 
 				if(!$response){
 					\Log::info("NO HA PODIDO GENERAR EL RESUMEN");
@@ -156,7 +156,7 @@ class OpenAI
 				\Log::info('ES GRANDE SE TIENE QUE HACER EN SEGMENTOS');
 				$message = "Crea un mapa conceptual de esto " . $send;
 
-				$response = $this->assistant->execute($message, $assistantId, "conceptualMap", $this->history->id);
+				$response = $this->assistant->execute($message, $assistantId, "conceptualMap", null);
 
 				if(!$response){
 					\Log::info("NO HA PODIDO GENERAR EL MAPA CONCEPTUAL");
@@ -208,7 +208,7 @@ class OpenAI
 		if($countTxtTotal){
 			\Log::info('ES PEQUEÑO NO HACE FALTA HACER SEGMENTOS');
 			$message = "Crea un mapa conceptual de esto " . $this->wordJson;
-			$response = $this->assistant->execute($message, $assistantId, "conceptualMap2 ", $this->history->id);
+			$response = $this->assistant->execute($message, $assistantId, "conceptualMap2 ",null);
 
 			if(!$response){
 				\Log::info("NO HA PODIDO GENERAR EL MAPA CONCEPTUAL");
@@ -266,7 +266,7 @@ class OpenAI
 			if($countTxtTotal > 4000){
 
 				$message = "Crea $numQuestions preguntas en formato json sobre esto " . $send;
-				$response = $this->assistant->execute($message, $assistantId, "questions", $this->history->id);
+				$response = $this->assistant->execute($message, $assistantId, "questions", null);
 
 				if(!$response){
 					\Log::info("NO HA PODIDO GENERAR LAS PREGUNTAS");
@@ -422,7 +422,7 @@ class OpenAI
 					\Log::info($questionsCount);
 
 					$message = "Crea 15 preguntas en formato json sobre esto " . $send;
-					$response = $this->assistant->execute($message, $assistantId, "questions2", $this->history->id);
+					$response = $this->assistant->execute($message, $assistantId, "questions2", null);
 
 					if(!$response){
 						\Log::info("NO HA PODIDO GENERAR LAS PREGUNTAS");

@@ -3,7 +3,7 @@
   <metadata xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:opf="http://www.idpf.org/2007/opf">
     <dc:title id="epub-title-1"/>
     <dc:title id="epub-title-2"/>
-    <dc:date id="epub-date-1">2024-07-23T17:23:21Z</dc:date>
+    <dc:date id="epub-date-1">2024-07-23T20:35:57Z</dc:date>
     <dc:language>es</dc:language>
     <dc:creator id="epub-creator-1"/>
     <meta/>
@@ -14,16 +14,10 @@
     <item id="style" href="styles/stylesheet1.css" media-type="text/css"/>
     <item id="ch001_x.html" href="text/ch001.x.html" media-type="application/xhtml+xml"/>
     <item id="ch002_x.html" href="text/ch002.x.html" media-type="application/xhtml+xml"/>
-    <item id="ch003_x.html" href="text/ch003.x.html" media-type="application/xhtml+xml"/>
-    <item id="ch004_x.html" href="text/ch004.x.html" media-type="application/xhtml+xml"/>
-    <item id="image1.png" href="media/image1.png" media-type="image/png"/>
-    <item id="image2.png" href="media/image2.png" media-type="image/png"/>
   </manifest>
   <spine toc="ncx">
     <itemref idref="ch001_x.html"/>
     <itemref idref="ch002_x.html"/>
-    <itemref idref="ch003_x.html"/>
-    <itemref idref="ch004_x.html"/>
   </spine>
   <guide>
     <reference type="toc" title="ud1_practicas_iniciacion_prof_curso2" href="nav.x.html"/>
