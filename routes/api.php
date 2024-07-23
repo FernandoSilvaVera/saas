@@ -55,3 +55,16 @@ Route::post('/text-to-speech', [TextToSpeechController::class, 'index']);
 Route::post('/subscriptions', [SubscriptionController::class, 'createSession']);
 Route::post('/subscriptions/webhook/success', [SubscriptionController::class, 'webhookSuccess']);
 Route::post('/subscriptions/webhook/cancel', [SubscriptionController::class, 'webhookCancel']);
+
+
+
+
+
+Route::post('/subscriptions/webhook/successProduct', [SubscriptionController::class, 'webhookSuccessProduct']);
+
+
+
+
+
+
+

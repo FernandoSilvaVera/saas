@@ -71,42 +71,88 @@
 						
 						<input type="hidden" name="id" value="{{$currentSubscription->id}}">
 
-						<div class="form_groups d-flex gap_24 pb_20 align-items-center">
-							<div class="form_group w-100">
+						<h1>Suscripción</h1>
+
+						<div class="mt-5 form_groups d-flex gap_24 pb_20 align-items-center">
+							<div class="form_group w-50">
 								<label for="Name" class="d-flex pb_10">Palabras restantes</label>
 								<input name="word_limit" type="number" class="input_field w-100"
 									value="{{$currentSubscription->palabras_maximas}}"
 									required>
 							</div>
 
-						</div>
-						<div class="form_groups d-flex gap_24 pb_20 align-items-center">
-							<div class="form_group w-100">
+							<div class="form_group w-50">
 								<label for="Name" class="d-flex pb_10">Preguntas restantes</label>
 								<input name="questions" type="number" class="input_field w-100"
 									value="{{$currentSubscription->numero_preguntas}}"
 									required>
 							</div>
+
 						</div>
 						<div class="form_groups d-flex gap_24 pb_20 align-items-center">
-							<div class="form_group w-100">
+							<div class="form_group w-50">
 								<label for="Name" class="d-flex pb_10">Resumenes restantes</label>
 								<input name="summary" type="number" class="input_field w-100"
 									value="{{$currentSubscription->numero_resumenes}}"
 									required>
 							</div>
-						</div>
-						<div class="form_groups d-flex gap_24 pb_20 align-items-center">
-							<div class="form_group w-100">
+							<div class="form_group w-50">
 								<label for="Name" class="d-flex pb_10">Mapa conceptual restante</label>
 								<input name="conceptualMap" type="number" class="input_field w-100"
 									value="{{$currentSubscription->numero_mapa_conceptual}}"
 									required>
 							</div>
+
 						</div>
 
 						<div class="form_group d-flex justify-content-end">
 							<button onclick="createPlan()" class="button">Actualizar</button>
+						</div>
+
+					</form>
+
+					<form action="{{ route('client.editCredits') }}" method="POST">
+
+						@csrf
+						
+						<input type="hidden" name="id" value="{{$credito->id}}">
+
+						<h1>Compras</h1>
+
+						<div class="mt-5 form_groups d-flex gap_24 pb_20 align-items-center">
+							<div class="form_group w-50">
+								<label for="Name" class="d-flex pb_10">Palabras restantes</label>
+								<input name="palabras" type="number" class="input_field w-100"
+									value="{{$credito->palabras}}"
+									required>
+							</div>
+
+							<div class="form_group w-50">
+								<label for="Name" class="d-flex pb_10">Preguntas restantes</label>
+								<input name="preguntas" type="number" class="input_field w-100"
+									value="{{$credito->preguntas}}"
+									required>
+							</div>
+
+						</div>
+						<div class="form_groups d-flex gap_24 pb_20 align-items-center">
+							<div class="form_group w-50">
+								<label for="Name" class="d-flex pb_10">Resumenes restantes</label>
+								<input name="resumenes" type="number" class="input_field w-100"
+									value="{{$credito->resumenes}}"
+									required>
+							</div>
+							<div class="form_group w-50">
+								<label for="Name" class="d-flex pb_10">Mapa conceptual restante</label>
+								<input name="mapa" type="number" class="input_field w-100"
+									value="{{$credito->mapa}}"
+									required>
+							</div>
+
+						</div>
+
+						<div class="form_group d-flex justify-content-end">
+							<button type="submit" class="button">Actualizar</button>
 						</div>
 
 					</form>

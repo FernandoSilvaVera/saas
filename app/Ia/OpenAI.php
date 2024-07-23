@@ -55,8 +55,6 @@ class OpenAI
 				if (isset($response->data[0]->content[0]->text->value)) {
 					$data = $response->data[0]->content[0]->text->value;
 
-					\Log::info("RESUMEN" . $data);
-
 					$data = json_decode($data, true);
 
 					if(isset($data['resumen'])){
@@ -157,6 +155,7 @@ class OpenAI
 			if($countTxtTotal > 4000){
 				\Log::info('ES GRANDE SE TIENE QUE HACER EN SEGMENTOS');
 				$message = "Crea un mapa conceptual de esto " . $send;
+
 				$response = $this->assistant->execute($message, $assistantId, "conceptualMap", $this->history->id);
 
 				if(!$response){

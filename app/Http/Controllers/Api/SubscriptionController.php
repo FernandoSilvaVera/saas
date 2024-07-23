@@ -13,6 +13,9 @@ use Stripe\Stripe;
 use Stripe\Webhook;
 use UnexpectedValueException;
 use App\Subscription\ManageClientSubscription;
+use App\Models\Product;
+use App\Models\User;
+use App\Models\Credito;
 
 class SubscriptionController extends Controller
 {
@@ -68,13 +71,60 @@ class SubscriptionController extends Controller
         }
     }
 
+    public function webhookSuccessProduct(Request $request)
+    {
+        Stripe::setApiKey(config('services.stripe.secret'));
+
+	$stripe = new \Stripe\StripeClient(config('services.stripe.secret'));
+
+        $payload = $request->getContent();
+	$event = json_decode($payload, true);
+
+	$id = $event['data']['object']['id'];
+
+	$email = $event["data"]["object"]['customer_details']['email'];
+
+	$session = $stripe->checkout->sessions->retrieve(
+		$id,
+		['expand' => ['line_items']]
+	);
+	
+	$productStripeID = $session['line_items']['data'][0]->price->product;
+
+	$product = Product::where('stripe_product_id', $productStripeID)->first();
+
+	$user = User::where('email', $email)->first();
+
+	$credito = Credito::firstOrNew(['idUsuario' => $user->id]);
+
+	switch($product->type){
+		case Product::PALABRAS:
+			$credito->palabras += $product->quantity;
+			break;
+		case Product::PREGUNTAS:
+			$credito->preguntas += $product->quantity;
+			break;
+		case Product::RESUMENES:
+			$credito->resumenes += $product->quantity;
+			break;
+		case Product::MAPA_CONCEPTUAL:
+			$credito->mapa += $product->quantity;
+			break;
+	}
+
+	$credito->save();
+
+    }
+
     public function webhookSuccess(Request $request)
     {
-
-        file_put_contents('/tmp/stripe.log', "6", FILE_APPEND);
         Stripe::setApiKey(config('services.stripe.secret'));
         $payload = $request->getContent();
+
         $sig_header = $request->header('Stripe-Signature');
+
+	file_put_contents('/tmp/stripe.log', $sig_header, FILE_APPEND);
+
         $event = null;
         try {
             $event = Webhook::constructEvent(
@@ -89,13 +139,15 @@ class SubscriptionController extends Controller
         }
         switch ($event->type) {
             case 'payment_intent.succeeded':
+
+		$stripe = new \Stripe\StripeClient(config('services.stripe.secret'));
+
                 $paymentIntent = $event->data->object;
 	
                 Subscription::create([
                     'payload' => json_encode($paymentIntent)
                 ]);
 
-		$stripe = new \Stripe\StripeClient(config('services.stripe.secret'));
 		$customer = $stripe->customers->retrieve($paymentIntent->customer, [ 'expand' => ['subscriptions']]);
 		ManageClientSubscription::update($customer);
 

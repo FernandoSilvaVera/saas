@@ -189,67 +189,95 @@ class Subscription
 
 		foreach ($textToSpeechContent as $index => $message) {
 
-			\Log::info("Generando audio -> " . $posX);
-			$history->status = "Generando audio " . $posX;
-			$history->save();
+			$host = 'polly.eu-west-3.amazonaws.com';
+			$maxAttempts = 5;
+			$attempt = 0;
+			$resolved = false;
 
-			foreach ($providers as $provider) {
+			$dnsRecords = dns_get_record($host, DNS_A);
 
-				$send = $index . " " . $message;
-				$segmentos = self::splitTextWithSense($send);
+			while ($attempt < $maxAttempts && !$resolved) {
+				$dnsRecords = dns_get_record($host, DNS_A);
 
-
-				$audioStoragePath = $audioStoragePathMain . $posX++ . "/";
-
-//				\Log::info($segmentos);
-
-				if (!File::exists($audioStoragePath)) {
-					File::makeDirectory($audioStoragePath, $mode = 0777, true, true);
+				if ($dnsRecords !== false && count($dnsRecords) > 0) {
+					$resolved = true;
+				} else {
+					$attempt++;
+					if ($attempt < $maxAttempts) {
+						\Log::warning("Intento $attempt: No se pudo resolver el host: $host. Reintentando en 20 segundos...");
+						sleep(20); // Esperar 20 segundos antes de intentar nuevamente
+					}
 				}
+			}
 
-				$union = "";
+			if ($resolved) {
+				sleep(5);
+				\Log::info("Generando audio -> " . $posX);
+				$history->status = "Generando audio " . $posX;
+				$history->save();
 
-				foreach($segmentos as $segmento){
+				foreach ($providers as $provider) {
 
-					$maxRetries = 5; // Máximo número de reintentos
-					$retryDelay = 30; // Tiempo de espera en segundos antes de reintentar
-					$attempt = 0; // Contador de intentos
+					$send = $index . " " . $message;
+					$segmentos = self::splitTextWithSense($send);
 
-					while ($attempt < $maxRetries) {
-						try {
-							$result = TextToSpeech::dispatch($audioStoragePath, $segmento, $provider, $pos++);
-							break; // Si el llamado es exitoso, salimos del bucle
-						} catch (Exception $e) {
 
-							\Log::info('INTENTO ' . $attempt . ' HA FALLADO AL LLAMAR A POLLY -> ' . $e->getMessage());
+					$audioStoragePath = $audioStoragePathMain . $posX++ . "/";
 
-							$attempt++;
-							if ($attempt >= $maxRetries) {
-								\Log::info('HA FALLADO VARIAS VECES AL LLAMAR A POLLY - TERMINAMOS CON ESTE ERROR ' . $e->getMessage());
-								// Si alcanzamos el número máximo de reintentos, lanzamos la excepción o manejamos el error
-								throw $e;
-							}
-							// Esperamos antes de reintentar
-							sleep($retryDelay);
-						}
+					//				\Log::info($segmentos);
+
+					if (!File::exists($audioStoragePath)) {
+						File::makeDirectory($audioStoragePath, $mode = 0777, true, true);
 					}
 
+					$union = "";
 
-					$results['audios'][$provider][] = $result;
-					$union .= $audioStoragePath . $result['audio'] . "|";
-				}
+					foreach($segmentos as $segmento){
 
-				$finalFileName = "final.mp3";
-				$cmd = "ffmpeg -i \"concat:$union\" -acodec copy " . $audioStoragePath . $finalFileName;
-				shell_exec($cmd);
+						$maxRetries = 5; // Máximo número de reintentos
+						$retryDelay = 30; // Tiempo de espera en segundos antes de reintentar
+						$attempt = 0; // Contador de intentos
 
-				$unionFinal .= $audioStoragePath.$finalFileName . "|";
+						while ($attempt < $maxRetries) {
+							try {
+								if(!$segmento || $segmento == "."){
+									break;
+								}
+								\Log::info("Generando audio -> " . $segmento);
+								$result = TextToSpeech::dispatch($audioStoragePath, $segmento, $provider, $pos++);
+								break; // Si el llamado es exitoso, salimos del bucle
+							} catch (Exception $e) {
 
-				$files = glob($audioStoragePath . "*");
+								\Log::info('INTENTO ' . $attempt . ' HA FALLADO AL LLAMAR A POLLY -> ' . $e->getMessage());
 
-				foreach ($files as $file) {
-					if (basename($file) !== $finalFileName) {
-						unlink($file);
+								$attempt++;
+								if ($attempt >= $maxRetries) {
+									\Log::info('HA FALLADO VARIAS VECES AL LLAMAR A POLLY - TERMINAMOS CON ESTE ERROR ' . $e->getMessage());
+									// Si alcanzamos el número máximo de reintentos, lanzamos la excepción o manejamos el error
+									throw $e;
+								}
+								// Esperamos antes de reintentar
+								sleep($retryDelay);
+							}
+						}
+
+
+						$results['audios'][$provider][] = $result;
+						$union .= $audioStoragePath . $result['audio'] . "|";
+					}
+
+					$finalFileName = "final.mp3";
+					$cmd = "ffmpeg -i \"concat:$union\" -acodec copy " . $audioStoragePath . $finalFileName;
+					shell_exec($cmd);
+
+					$unionFinal .= $audioStoragePath.$finalFileName . "|";
+
+					$files = glob($audioStoragePath . "*");
+
+					foreach ($files as $file) {
+						if (basename($file) !== $finalFileName) {
+							unlink($file);
+						}
 					}
 				}
 			}

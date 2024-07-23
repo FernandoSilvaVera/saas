@@ -50,10 +50,11 @@ Route::get('/', function () {
 
 Route::get('/app', [AppController::class, 'index'])->middleware('auth.redirect')->name('app');
 Route::get('/appQuestions', [AppQuestions::class, 'index'])->middleware('auth.redirect')->name('appQuestions');
-
+Route::get('/buyProduct/{id}', [ProductController::class, 'buyProduct'])->middleware('auth.redirect');
 
 Route::get('/listProducts', [ProductController::class, 'showAll']);
 Route::get('/product', [ProductController::class, 'editProduct'])->name('product');
+Route::post('/saveProduct', [ProductController::class, 'saveProduct'])->name('saveProduct');
 
 
 Route::get('/listPlans', [PlansController::class, 'showAll']);
@@ -249,6 +250,7 @@ Route::get('/client', function () {
 
 Route::get('/client', [ClientsSubscriptionController::class, 'view'])->name('client')->middleware('auth.redirect');
 Route::post('/clientEdit', [ClientsSubscriptionController::class, 'edit'])->name('client.edit')->middleware('auth.redirect');
+Route::post('/clientEditCredit', [ClientsSubscriptionController::class, 'editCredits'])->name('client.editCredits')->middleware('auth.redirect');
 
 
 Route::get('/account', [UsersController::class, 'view'])->name('user.view')->middleware('auth.redirect');

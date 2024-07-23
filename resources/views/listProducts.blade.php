@@ -64,27 +64,42 @@
                                     <tr>
                                         <th>Nombre</th>
                                         <th>Tipo</th>
+                                        <th>Cantidad</th>
                                         <th>Precio</th>
                                         <th>Activar/Desactivar</th>
-                                        <th>Acción</th>
+					<th>Acción</th>
                                     </tr>
                                 </thead>
                                 <tbody>
 					@foreach($products as $product)
                                     <tr>
-                                        <td>{{$plan->name}}</td>
-                                        <td>
-						    <a href="/buy/{{$plan->stripe_monthly_price_id}}" class="button w-100" target="_blank">{{$plan->monthly_price}}€ / mes</a>
+                                        <td>{{$product->name}}</td>
+					<td>
+						@switch($product->type)
+							@case(1)
+								Palabras           
+								@break
+							@case(2)
+								Preguntas
+								@break
+							@case(3)
+								Resumenes
+								@break
+							@case(4)
+								Mapa conceptual
+								@break
+						@endswitch
 					</td>
+                                        <td>{{$product->quantity}}</td>
                                         <td>
-						    <a href="/buy/{{$plan->stripe_annual_price_id}}" class="button w-100" target="_blank">{{$plan->annual_price}}€ / año</a>
+						    <a href="/buyProduct/{{$product->stripe_price_id}}" class="button w-100" target="_blank">{{$product->price}}</a>
 					</td>
-					@if($plan->is_active)
-						<td><a onclick="desactivarConfirm({{ $plan->id }})" class="button buttonRed">Desactivar</a></td>
+					@if($product->is_active)
+						<td><a onclick="desactivarConfirm({{ $product->id }})" class="button buttonRed">Desactivar</a></td>
 					@else
-						<td><a onclick="activarConfirm({{ $plan->id }})" class="button buttonGreen">Activar</a></td>
+						<td><a onclick="activarConfirm({{ $product->id }})" class="button buttonGreen">Activar</a></td>
 					@endif
-                                        <td><a href="{{ route('plan', ['id' => $plan->id]) }}" class="button">Editar</a></td>
+                                        <td><a href="{{ route('product', ['id' => $product->id]) }}" class="button">Editar</a></td>
                                     </tr>
 					@endforeach
                                 </tbody>

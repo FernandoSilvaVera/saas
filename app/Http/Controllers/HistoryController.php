@@ -37,7 +37,6 @@ class HistoryController extends Controller
 	{
 		$id = $request->input('id');
 		$history = History::find($id);
-		echo $history->pathZip;die;
 		return response()->download($history->pathZip);
 	}
 

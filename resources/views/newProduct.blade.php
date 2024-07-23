@@ -62,16 +62,21 @@
                                 <div class="Create_user section_padding_bg">
                                     <div class="container-fluid">
 
+
+					<form id="formularioSubir" action="{{ route('saveProduct') }}" method="POST" enctype="multipart/form-data">
+						@csrf
+						<input type="hidden" id="id" name="id" value="{{$product->id}}">
+
                                             <div class="form_groups d-flex gap_24 pb_20 align-items-center">
                                                 <div class="form_group w-50">
                                                     <label for="planName" class="d-flex pb_10">Nombre del producto</label>
-                                                    <input id="planName" type="text" class="input_field w-100" placeholder="" value="{{$product->name}}"
+                                                    <input id="planName" name="name" type="text" class="input_field w-100" placeholder="" value="{{$product->name}}"
                                                         required>
                                                 </div>
 
                                                 <div class="form_group w-50">
                                                     <label for="planName" class="d-flex pb_10">Cantidad</label>
-                                                    <input id="planName" type="text" class="input_field w-100" placeholder="" value="{{$product->name}}"
+                                                    <input id="planName" name="quantity" type="text" class="input_field w-100" placeholder="" value="{{$product->quantity}}"
                                                         required>
                                                 </div>
                                             </div>
@@ -80,36 +85,39 @@
                                                 <div class="form_group w-50">
                                                     <label for="planName" class="d-flex pb_10">Tipo</label>
 
-							<select class="form-select input_field w-100" id="template">
-								<option value="-1">
-									Selecciona un tipo
-								</option>
-								<option value="1">
-									Palabras
-								</option>
-								<option value="2">
-									Preguntas
-								</option>
-								<option value="3">
-									Resumenes
-								</option>
-								<option value="4">
-									Mapa conceptual
-								</option>
-							</select>
+						    <select class="form-select input_field w-100" id="template" name="type">
+							    <option value="-1" @selected($product->type == -1)>
+								    Selecciona un tipo
+							    </option>
+							    <option value="1" @selected($product->type == 1)>
+								    Palabras
+							    </option>
+							    <option value="2" @selected($product->type == 2)>
+								    Preguntas
+							    </option>
+							    <option value="3" @selected($product->type == 3)>
+								    Resumenes
+							    </option>
+							    <option value="4" @selected($product->type == 4)>
+								    Mapa conceptual
+							    </option>
+						    </select>
+
 
                                                 </div>
 
                                                 <div class="form_group w-50">
                                                     <label for="planName" class="d-flex pb_10">Precio</label>
-                                                    <input id="planName" type="text" class="input_field w-100" placeholder="" value="{{$product->name}}"
+                                                    <input id="planName" type="text" class="input_field w-100" placeholder="" value="{{$product->price}}" name="price"
                                                         required>
                                                 </div>
                                             </div>
 
                                             <div class="form_group d-flex justify-content-end">
-                                                <button onclick="createPlan()" class="button">Guardar</button>
+                                                <button type="submit" class="button">Guardar</button>
                                             </div>
+
+					</form>
 
                                     </div>
                                 </div>

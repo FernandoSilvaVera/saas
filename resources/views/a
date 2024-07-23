@@ -1,0 +1,149 @@
+plans.blade.php:74:                                    <form action="#" class="account-info">
+plans.blade.php:75:                                        <div class="form_group pb_24 w-100">
+plans.blade.php:90:                                        <div class="form_group w-100 account_info_form_group align-items-end">
+plans.blade.php:91:                                            <div class="form_inner_wrap">
+plans.blade.php:108:                                    </form>
+client.blade.php:68:					<form action="{{ route('client.edit') }}" method="POST">
+client.blade.php:74:						<div class="form_groups d-flex gap_24 pb_20 align-items-center">
+client.blade.php:75:							<div class="form_group w-100">
+client.blade.php:83:						<div class="form_groups d-flex gap_24 pb_20 align-items-center">
+client.blade.php:84:							<div class="form_group w-100">
+client.blade.php:91:						<div class="form_groups d-flex gap_24 pb_20 align-items-center">
+client.blade.php:92:							<div class="form_group w-100">
+client.blade.php:99:						<div class="form_groups d-flex gap_24 pb_20 align-items-center">
+client.blade.php:100:							<div class="form_group w-100">
+client.blade.php:108:						<div class="form_group d-flex justify-content-end">
+client.blade.php:112:					</form>
+emails/demo.blade.php:45:¡Estamos encantados de informarte que el archivo va adjunto en este correo! También puedes consultarlo en cualquier momento visitando el siguiente enlace:
+newPlan.blade.php:64:                                            <div class="form_groups d-flex gap_24 pb_20 align-items-center">
+newPlan.blade.php:65:                                                <div class="form_group w-100">
+newPlan.blade.php:72:                                            <div class="form_groups d-flex gap_24 pb_20 align-items-center">
+newPlan.blade.php:73:                                                <div class="form_group w-50">
+newPlan.blade.php:79:                                                <div class="form_group w-50">
+newPlan.blade.php:87:                                            <div class="form_group d-flex justify-content-end">
+createUsers.blade.php:56:                                                <div class="form_group">
+createUsers.blade.php:67:					<div class="form_group">
+createUsers.blade.php:83:                                        <form action="#" class="contact_form">
+createUsers.blade.php:84:                                            <div class="form_groups d-flex gap_24 pb_20 align-items-center">
+createUsers.blade.php:85:                                                <div class="form_group w-50">
+createUsers.blade.php:90:                                                <div class="form_group w-100">
+createUsers.blade.php:96:                                            <div class="form_groups d-flex gap_24 pb_20 align-items-center">
+createUsers.blade.php:97:                                                <div class="form_group w-50">
+createUsers.blade.php:102:                                                <div class="form_group w-50">
+createUsers.blade.php:109:                                            <div class="form_group d-flex justify-content-end">
+createUsers.blade.php:112:                                        </form>
+app.blade.php:74:				<form id="formularioSubir" action="{{ route('preview-document') }}" method="POST" enctype="multipart/form-data">
+app.blade.php:88:				</form>
+app.blade.php:91:				<form id="download" action="{{ route('download') }}" method="POST" enctype="multipart/form-data">
+app.blade.php:103:				</form>
+includes/newPlanSettings.blade.php:27:	<div class="form-check">
+includes/newPlanSettings.blade.php:28:		<input id="wordNoLimit" type="checkbox" class="form-check-input" {{ $bloquearCampos ? 'disabled' : '' }} @checked($plan->unlimited_words)>
+includes/newPlanSettings.blade.php:29:		<label class="form-check-label" for="wordNoLimit">Sin límite de palabras</label>
+includes/newPlanSettings.blade.php:34:	<div class="form-check">
+includes/newPlanSettings.blade.php:35:		<input id="voiceover" type="checkbox" class="form-check-input" {{ $bloquearCampos ? 'disabled' : '' }} @checked($plan->voiceover)>
+includes/newPlanSettings.blade.php:36:		<label class="form-check-label" for="voiceover">Locución en línea</label>
+includes/newPlanSettings.blade.php:41:	<div class="form-check">
+includes/newPlanSettings.blade.php:42:		<input id="customPlan" type="checkbox" class="form-check-input" {{ $bloquearCampos ? 'disabled' : '' }} @checked($plan->custom_plan)>
+includes/newPlanSettings.blade.php:43:		<label class="form-check-label" for="customPlan">Plan personalizado (si se marca no aparecerá para los clientes)</label>
+includes/optionsToVirtualizeQuestions.blade.php:14:		<select class="form-select" id="language">
+includes/optionsToVirtualizeQuestions.blade.php:28:		<div id="numberInputContainer" class="form-group mt-2">
+includes/optionsToVirtualizeQuestions.blade.php:30:			<input type="number" class="form-control" id="generateQuestions" name="generateQuestions" min="1" step="1" value="{{$generateQuestionsPreview}}">
+includes/login.blade.php:15:		 <form method="POST" action="{{ route('login') }}">
+includes/login.blade.php:17:			<div class="form_group pb_24 w-100">
+includes/login.blade.php:23:			<div class="form_group w-100 account_info_form_group align-items-end">
+includes/login.blade.php:24:			    <div class="form_inner_wrap">
+includes/login.blade.php:62:	    </form>
+includes/optionsToVirtualize.blade.php:15:		<select class="form-select" id="template">
+includes/optionsToVirtualize.blade.php:29:		<select class="form-select" id="language">
+includes/optionsToVirtualize.blade.php:40:		<div class="form-group">
+includes/optionsToVirtualize.blade.php:41:			<select class="form-select" id="summaryOptions">
+includes/optionsToVirtualize.blade.php:57:		<div id="numberInputContainer" class="form-group mt-2">
+includes/optionsToVirtualize.blade.php:59:			<input type="number" class="form-control" id="generateQuestions" name="generateQuestions" min="1" step="1" value="{{$generateQuestionsPreview}}">
+includes/optionsToVirtualize.blade.php:64:		<div class="form-check mt-1">
+includes/optionsToVirtualize.blade.php:69:			<input class="form-check-input" type="checkbox" id="generateConceptMap" name="generateConceptMap" @if($generateConceptMapPreview) checked @endif>
+includes/optionsToVirtualize.blade.php:70:			<label class="form-check-label" for="generateConceptMap">
+includes/optionsToVirtualize.blade.php:77:	<div class="form-check mt-1">
+includes/optionsToVirtualize.blade.php:82:		<input class="form-check-input" type="checkbox" id="useNaturalVoice" name="useNaturalVoice" @if($useNaturalVoicePreview) checked @endif>
+includes/optionsToVirtualize.blade.php:83:		<label class="form-check-label" for="useNaturalVoice">
+includes/recover.blade.php:15:		 <form method="POST" action="{{ route('password.email') }}">
+includes/recover.blade.php:17:			<div class="form_group pb_24 w-100">
+includes/recover.blade.php:32:		</form>
+includes/register.blade.php:15:		 <form method="POST" action="{{ route('register') }}">
+includes/register.blade.php:17:			<div class="form_group pb_24 w-100">
+includes/register.blade.php:24:			<div class="form_group w-100 account_info_form_group align-items-end">
+includes/register.blade.php:25:			    <div class="form_inner_wrap">
+includes/register.blade.php:41:			<div class="form_group w-100 account_info_form_group align-items-end">
+includes/register.blade.php:42:			    <div class="form_inner_wrap">
+includes/register.blade.php:72:	    </form>
+config/index.blade.php:26: <form method="POST" action="{{ route('login') }}">
+config/index.blade.php:45:																	     </form>
+config/index.blade.php:112:		    <form action="{{ route('config.update') }}" method="POST" class="contact_form">
+config/index.blade.php:115:			    <div class="form_groups d-flex gap_24 pb_20 align-items-center">
+config/index.blade.php:117:				    <div class="form_group w-50">
+config/index.blade.php:122:				    <div class="form_group w-50">
+config/index.blade.php:127:				    <div class="form_group w-50">
+config/index.blade.php:133:			    <div class="form_groups d-flex gap_24 pb_20 align-items-center">
+config/index.blade.php:135:				    <div class="form_group w-50">
+config/index.blade.php:140:				    <div class="form_group w-50">
+config/index.blade.php:147:			    <div class="form_group d-flex justify-content-end">
+config/index.blade.php:151:		    </form>
+template.blade.php:65:                                    <div class="form_group">
+template.blade.php:181:                                    <div class="form_groups template_font_styles pb_24 d-flex align-items-center">
+template.blade.php:182:                                        <div class="form_group">
+template.blade.php:199:                                        <div class="form_group">
+account.blade.php:25: <form method="POST" action="{{ route('login') }}">
+account.blade.php:44:																	     </form>
+account.blade.php:111:		    <form action="{{ route('password.update') }}" method="POST" class="contact_form">
+account.blade.php:114:			    <div class="form_groups d-flex gap_24 pb_20 align-items-center">
+account.blade.php:115:				    <div class="form_group w-100">
+account.blade.php:121:			    <div class="form_groups d-flex gap_24 pb_20 align-items-center">
+account.blade.php:123:				    <div class="form_group w-50">
+account.blade.php:128:				    <div class="form_group w-50">
+account.blade.php:133:				    <div class="form_group w-50">
+account.blade.php:140:			    <div class="form_group d-flex justify-content-end">
+account.blade.php:144:		    </form>
+customize.blade.php:99:                                        <form action="#" class="contact_form account_info">
+customize.blade.php:100:                                            <div class="form_groups d-flex gap_24 pb_20 align-items-center">
+customize.blade.php:101:                                                <div class="form_group w-50">
+customize.blade.php:106:                                                <div class="form_group w-50">
+customize.blade.php:113:                                            <div class="form_group w-100 pb_20">
+customize.blade.php:118:                                            <div class="form_group w-100">
+customize.blade.php:122:                                        </form>
+shareAccount.blade.php:62:                                            <div class="form_groups d-flex gap_24 pb_20 align-items-center">
+shareAccount.blade.php:63:                                                <div class="form_group w-100">
+shareAccount.blade.php:70:					    <form id="updateForm" action="/updateShareAccount" method="POST">
+shareAccount.blade.php:74:							<div class="form_groups d-flex gap_24 pb_20 align-items-center">
+shareAccount.blade.php:75:							<div class="form_group w-100">
+shareAccount.blade.php:84:							<div class="form_group d-flex justify-content-end">
+shareAccount.blade.php:96:					</form>
+auth/passwords/old:33:			 <form method="POST" action="{{ route('password.recover') }}">
+auth/passwords/old:38:				<div class="form_group w-100 account_info_form_group align-items-end">
+auth/passwords/old:39:				    <div class="form_inner_wrap">
+auth/passwords/old:55:				<div class="form_group w-100 account_info_form_group align-items-end">
+auth/passwords/old:56:				    <div class="form_inner_wrap">
+auth/passwords/old:71:				<div class="form_group w-100 account_info_form_group align-items-end">
+auth/passwords/old:72:				    <div class="form_inner_wrap">
+auth/passwords/old:92:		    </form>
+auth/passwords/reset.blade.php:47:			 <form method="POST" action="{{ route('password.recover') }}">
+auth/passwords/reset.blade.php:52:				<div class="form_group w-100 account_info_form_group align-items-end">
+auth/passwords/reset.blade.php:53:				    <div class="form_inner_wrap">
+auth/passwords/reset.blade.php:69:				<div class="form_group w-100 account_info_form_group align-items-end">
+auth/passwords/reset.blade.php:70:				    <div class="form_inner_wrap">
+auth/passwords/reset.blade.php:85:				<div class="form_group w-100 account_info_form_group align-items-end">
+auth/passwords/reset.blade.php:86:				    <div class="form_inner_wrap">
+auth/passwords/reset.blade.php:110:		    </form>
+appQuestions.blade.php:75:				<form id="download" action="{{ route('downloadQuestions') }}" method="POST" enctype="multipart/form-data">
+appQuestions.blade.php:86:				</form>
+newProduct.blade.php:16:	.form-select {
+newProduct.blade.php:65:                                            <div class="form_groups d-flex gap_24 pb_20 align-items-center">
+newProduct.blade.php:66:                                                <div class="form_group w-50">
+newProduct.blade.php:72:                                                <div class="form_group w-50">
+newProduct.blade.php:79:                                            <div class="form_groups d-flex gap_24 pb_20 align-items-center">
+newProduct.blade.php:80:                                                <div class="form_group w-50">
+newProduct.blade.php:83:							<select class="form-select input_field w-100" id="template">
+newProduct.blade.php:103:                                                <div class="form_group w-50">
+newProduct.blade.php:110:                                            <div class="form_group d-flex justify-content-end">
+contact.blade.php:57:			<form action="{{ route('send.email') }}" method="POST">
+contact.blade.php:59:                            <div class="form_group w-100 pb_20">
+contact.blade.php:64:                            <div class="form_group d-flex justify-content-end">
+contact.blade.php:67:                        </form>
