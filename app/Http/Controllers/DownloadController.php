@@ -25,6 +25,25 @@ use App\Http\Controllers\PdfController;
 class DownloadController extends Controller
 {
 
+				public function __construct()
+				{
+								$this->checkQueueWork();
+				}
+
+				private function checkQueueWork()
+				{
+								$output = shell_exec('ps aux | grep "queue:work" | grep -v "grep"');
+								if (empty($output)) {
+												$command = 'nohup php ' . base_path('artisan') . ' queue:work --daemon --tries=3 --timeout=3600 --memory=4048 > /dev/null 2>&1 &';
+												$output = shell_exec($command);
+												if ($output === null) {
+												} else {
+												}
+								} else {
+								}
+				}
+
+
 	public function generateHashId()
 	{
 		$timestamp = time();
