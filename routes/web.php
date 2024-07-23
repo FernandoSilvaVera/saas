@@ -142,6 +142,11 @@ Route::post('/download', function (Request $request) {
 	$history->conceptualMap = $generateConceptMapDownload;
 	$history->questionsUsed = $generateQuestionsDownload;
 
+	$history->conceptualMapSelected = $generateConceptMapDownload;
+	$history->summarySelected = $summaryOptionDownload;
+	$history->questionsSelected = $generateQuestionsDownload;
+	$history->voiceOverSelected = $useNaturalVoiceDownload;
+
 	$history->pathZip = "";
 	$history->save();
 

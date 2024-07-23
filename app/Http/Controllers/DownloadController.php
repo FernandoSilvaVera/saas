@@ -299,9 +299,16 @@ class DownloadController extends Controller
 			\Log::info('DownloadController el fichero es demasiado grande para su plan');
 			return false;
 		}else{
-			\Log::info('Se va a ejecutar el SCRIPT');
-			$command = "php {$scriptPath} {$word} {$path}/";
-			$output = shell_exec($command);
+
+			$files = scandir($path);
+			$files = array_diff($files, array('.', '..'));
+			if (empty($files)) {
+							\Log::info('Se va a ejecutar el SCRIPT');
+							$command = "php {$scriptPath} {$word} {$path}/";
+							$output = shell_exec($command);
+			}else{
+							\Log::info('YA HAY FICHEROS NO EJECUTAMOS EL SCRIPT');
+			}
 			ManageClientSubscription::consumeMaximumWords($palabras, $userId);
 
 
@@ -326,6 +333,7 @@ class DownloadController extends Controller
 			$voiceOver = true;
 			\Log::info('VOZ TERMINADA');
 			$history->status = "50%";
+			$history->voiceOverSelected = false;
 			$history->save();
 		}else{
 			$this->hiddenPremiumButtons($path);

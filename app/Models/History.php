@@ -7,22 +7,26 @@ use Illuminate\Database\Eloquent\Model;
 
 class History extends Model
 {
-    use HasFactory;
+				use HasFactory;
 
-    protected $table = 'history';
+				protected $table = 'history';
 
 
-    protected $fillable = [
-    	'id',
-        'name',
-	'userId',
-        'templateName',
-        'pathZip',
-	'wordsUsed',
-	'conceptualMap',
-	'summary',
-	'questionsUsed',
-	'voiceOver',
-	'status',
-    ];
+				protected $fillable = [
+								'id',
+								'name',
+								'userId',
+								'templateName',
+								'pathZip',
+								'wordsUsed',
+								'conceptualMap',
+								'summary',
+								'questionsUsed',
+								'voiceOver',
+								'status',
+								'conceptualMapSelected',
+								'summarySelected',
+								'questionsSelected',
+								'voiceOverSelected',
+				];
 }

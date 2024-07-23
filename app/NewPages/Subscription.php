@@ -65,6 +65,7 @@ class Subscription
 				$ok = $openai->conceptualMap($conceptualMapHTML, $conceptualMapHTMLScorm, $language);
 				if($ok){
 					$conceptualMap = 1;
+					$history->conceptualMapSelected = false;
 					$history->status = "60%";
 					$history->save();
 				}
@@ -85,6 +86,7 @@ class Subscription
 				$ok = $openai->summary($summaryHTML, $summaryHTMLScorm, $language);
 				if($ok){
 					$summary = 1;
+					$history->summarySelected = false;
 					$history->status = "70%";
 					$history->save();
 				}
@@ -99,6 +101,7 @@ class Subscription
 				$numQuestions = $generateQuestions;
 				$ok = $openai->questions($questionsHTML, $numQuestions, $questionsHTMLScorm, $language);
 				if($ok){
+					$history->questionsSelected = false;
 					$history->status = "80%";
 					$history->save();
 					$questions = $numQuestions;

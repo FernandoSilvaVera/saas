@@ -45,6 +45,7 @@ class HistoryController extends Controller
 
 	public function retry(Request $request)
 	{
+		$debug = env('DEBUG_DOWNLOAD');
 		$id = $request->input('id');
 		$history = History::find($id);
 		$history->status = "0% (Reintento)";
@@ -63,12 +64,10 @@ class HistoryController extends Controller
 		$fileName = $history->name;
 
 		$language = "es-ES";
-		$summaryOptionDownload = false;
-		$generateQuestionsDownload = false;
-		$generateConceptMapDownload = false;
-		$useNaturalVoiceDownload = false;
-
-		$debug = env('DEBUG_DOWNLOAD');
+		$summaryOptionDownload = $history->summarySelected;
+		$generateQuestionsDownload = $history->questionsSelected;
+		$generateConceptMapDownload = $history->conceptualMapSelected;
+		$useNaturalVoiceDownload = $history->voiceOverSelected;
 
 				if($debug){
 								$d = new DownloadController();
@@ -88,7 +87,6 @@ class HistoryController extends Controller
 		FileDownloadJob::dispatch($fileName, $templateId, $userId, $language, $summaryOptionDownload, $generateQuestionsDownload, $generateConceptMapDownload, $useNaturalVoiceDownload);
 
 		return redirect('/queuedDownload');
-
 	}
 
 }
