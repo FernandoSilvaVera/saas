@@ -8,6 +8,8 @@ use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
+use App\Models\History;
 
 use App\Http\Controllers\DownloadController;
 
@@ -54,6 +56,15 @@ class FileDownloadJob implements ShouldQueue{
 			$this->generateConceptMapDownload, 
 			$this->useNaturalVoiceDownload
 		);
+	}
+
+
+	public function failed($exception)
+	{
+					Log::error('Job fallido: ' . $exception->getMessage());
+					$history = History::where('name', $this->fileName)->first();
+					$history->status = "ERROR";
+					$history->save();
 	}
 
 }
