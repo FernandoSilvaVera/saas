@@ -94,10 +94,7 @@
 						    @if(strpos($history->status, 'ERROR') === false)
 							    <td>En proceso...</td>
 						    @else
-								<td class="text-center" 
-									style="{{ strpos($history->status, 'ERROR') !== false ? 'color: red;' : '' }}">
-									ERROR
-								</td>
+													<td><a href="{{ route('history.retry', ['id' => $history->id]) }}" class="button" style="background: #dc3545">Reintentar</a></td>
 						    @endif
 					@endif
 

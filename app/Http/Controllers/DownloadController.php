@@ -254,19 +254,22 @@ class DownloadController extends Controller
 	{
 		$history = History::where('name', $fileName)->first();
 
+//		throw new \Exception("depurar errores");
+
 		try {
-/*
+
 		$clientSubscription = ManageClientSubscription::getClientSubscription($userId);
 
 		if($generateQuestions > $clientSubscription->numero_preguntas){
 			$generateQuestions = $clientSubscription->numero_preguntas;
 		}
-*/
+
 		\Log::info('DownloadController Start ' . $language);
 
 		$user = User::find($userId);
 		\Log::info('DownloadController user');
 		$hashId = $this->generateHashId();
+		$hashId = $fileName;
 		\Log::info('DownloadController hashId');
 
 		$word = $this->getPath("FILE_PATH", $hashId, $user) . $fileName;
@@ -279,6 +282,7 @@ class DownloadController extends Controller
 		$path = $this->getPath("DOWNLOAD_PATH", $hashId, $user);
 		$zipFilePath = $path;
 		$userPath = $this->getPath("DOWNLOAD_PATH", null, $user);
+
 
 		\Log::info('DownloadController getPath after');
 

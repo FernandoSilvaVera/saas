@@ -68,6 +68,8 @@ Route::get('/plan', [PlansController::class, 'editPlan'])->name('plan');
 Route::get('/createUsers', [UsersController::class, 'createUsers'])->middleware('auth.redirect');
 Route::get('/listUsers', [UsersController::class, 'listUsers'])->middleware('auth.redirect');
 
+
+Route::get('/historyRetry', [HistoryController::class, 'retry'])->name('history.retry')->middleware('auth.redirect');
 Route::get('/historyDownload', [HistoryController::class, 'download'])->name('history.download')->middleware('auth.redirect');
 Route::get('/historyDownloadAiken', [HistoryController::class, 'downloadAiken'])->name('history.downloadAiken')->middleware('auth.redirect');
 
