@@ -132,7 +132,7 @@ Route::post('/download', function (Request $request) {
 	if($template){
 		$history->templateName = $template->template_name;
 	}
-	$history->status = "En proceso...";
+	$history->status = "0%";
 	$history->wordsUsed = "En proceso...";
 	$history->voiceOver = $useNaturalVoiceDownload;
 
@@ -191,7 +191,7 @@ Route::post('/downloadQuestions', function (Request $request) {
 	$history->name = $fileName;
 	$history->userId = $userId;
 	$history->templateName =" ";
-	$history->status = "En proceso...";
+	$history->status = "0%";
 	$history->wordsUsed = false;
 	$history->voiceOver = false;
 	$history->summary = false;
