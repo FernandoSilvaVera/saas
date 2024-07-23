@@ -1,0 +1,4 @@
+NewPages/a:1:Subscription.php:168:	public static function texToSpeech($contenido, $path, $userId, $history)
+NewPages/Subscription.php:168:	public static function texToSpeech($contenido, $path, $userId, $history)
+Http/Controllers/NewDow.php:332:			Subscription::texToSpeech($contenido, $path, $userId, $history);
+Http/Controllers/DownloadController.php:330:			Subscription::texToSpeech($contenido, $path, $userId, $history);

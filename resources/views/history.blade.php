@@ -88,7 +88,7 @@
 					</td>
 
 
-					@if($history->pathZip != "")
+					@if($history->pathZip != "" && strpos($history->status, 'ERROR') === false)
 						<td><a href="{{ route('history.download', ['id' => $history->id]) }}" class="button">Descargar</a></td>
 					@else
 						    @if(strpos($history->status, 'ERROR') === false)

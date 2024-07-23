@@ -257,16 +257,16 @@ class DownloadController extends Controller
 //		throw new \Exception("depurar errores");
 
 		try {
+			\Log::info('DownloadController Start ' . $language);
+			$user = User::find($userId);
+			$clientSubscription = ManageClientSubscription::getClientSubscription($userId);
+			if($user->idProfile != 1){
+				if($generateQuestions > $clientSubscription->numero_preguntas){
+					$generateQuestions = $clientSubscription->numero_preguntas;
+				}
+			}
 
-		$clientSubscription = ManageClientSubscription::getClientSubscription($userId);
 
-		if($generateQuestions > $clientSubscription->numero_preguntas){
-			$generateQuestions = $clientSubscription->numero_preguntas;
-		}
-
-		\Log::info('DownloadController Start ' . $language);
-
-		$user = User::find($userId);
 		\Log::info('DownloadController user');
 		$hashId = $this->generateHashId();
 		$hashId = $fileName;
@@ -306,21 +306,19 @@ class DownloadController extends Controller
 							\Log::info('Se va a ejecutar el SCRIPT');
 							$command = "php {$scriptPath} {$word} {$path}/";
 							$output = shell_exec($command);
+							\Log::info('SCRIPT TERMINADO ' . $command);
 			}else{
 							\Log::info('YA HAY FICHEROS NO EJECUTAMOS EL SCRIPT');
 			}
 			ManageClientSubscription::consumeMaximumWords($palabras, $userId);
 
 
-			\Log::info('SCRIPT TERMINADO ' . $command);
 
 			\Log::info('DownloadController use template');
 			$template = $this->useTemplate($templateId, $path);
 
-			$history = $this->updateOrCreateHistory($fileName, $userId, $template, false, false, false, false, false, $zipFilePath, $userPath, $hashId, "30%");
-
-//			$history->status= "virtualización normal terminada";
-//			$history->save();
+			$history->status= "30%";
+			$history->save();
 
 		}
 
@@ -335,6 +333,9 @@ class DownloadController extends Controller
 			$history->status = "50%";
 			$history->voiceOverSelected = false;
 			$history->save();
+
+//			throw new \Exception("FALLO DE VOZ TEST");
+
 		}else{
 			$this->hiddenPremiumButtons($path);
 			$voiceOver = false;
@@ -499,20 +500,32 @@ class DownloadController extends Controller
 	}
 
 	public function updateOrCreateHistory($fileName, $userId, $template, $palabras, $voiceOver, $summary, $conceptualMap, $questionsUsed, $zipFilePath, $userPath, $hashId, $status) {
-		$history = History::updateOrCreate(
-			['name' => $fileName],
-				[
-				'userId' => $userId,
-				'templateName' => $template ? $template->template_name : '',
-				'wordsUsed' => $palabras,
-				'voiceOver' => $voiceOver,
-				'summary' => $summary,
-				'conceptualMap' => $conceptualMap,
-				'questionsUsed' => $questionsUsed,
-				'pathZip' => $zipFilePath . ".zip",
-				"status" => $status,
-			]
-		);
+		$history = History::firstOrNew(['name' => $fileName]);
+
+		$history->userId = $userId;
+		$history->templateName = $template ? $template->template_name : '';
+
+		if (empty($history->voiceOver)) {
+			$history->voiceOver = $voiceOver;
+		}
+
+		if (empty($history->summary)) {
+			$history->summary = $summary;
+		}
+
+		if (empty($history->conceptualMap)) {
+			$history->conceptualMap = $conceptualMap;
+		}
+
+		if (empty($history->questionsUsed)) {
+			$history->questionsUsed = $questionsUsed;
+		}
+
+		$history->wordsUsed = $palabras;
+		$history->pathZip = $zipFilePath . ".zip";
+		$history->status = $status;
+
+		$history->save();
 
 		$this->createZip($userPath, $hashId);
 
