@@ -61,10 +61,10 @@ class FileDownloadJob implements ShouldQueue{
 
 	public function failed($exception)
 	{
-					Log::error('Job fallido: ' . $exception->getMessage());
-					$history = History::where('name', $this->fileName)->first();
-					$history->status = "ERROR";
-					$history->save();
+		Log::error('Job fallido: ' . $exception->getMessage());
+		$history = History::where('name', $this->fileName)->first();
+		$history->status = "ERROR";
+		$history->save();
 	}
 
 }

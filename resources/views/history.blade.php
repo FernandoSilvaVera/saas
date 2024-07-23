@@ -56,15 +56,15 @@
                             <h2>Historial</h2>
                         </div>
 
-                        <div class="table_wrap">
+                        <div class="table_wrap table-container">
                             <table>
                                 <thead>
                                     <tr>
-                                        <th>Fecha</th>
+                                        <th>Actualización</th>
                                         <th>Plantilla</th>
                                         <th>Palabras</th>
                                         <th>Resumen</th>
-                                        <th>Mapa conceptual</th>
+                                        <th>Mapa</th>
                                         <th>Preguntas</th>
                                         <th>Voz Natural</th>
                                         <th>Status</th>
@@ -82,12 +82,23 @@
                                         <td class="text-center">{{$history->conceptualMap}}</td>
                                         <td class="text-center">{{$history->questionsUsed}}</td>
                                         <td class="text-center">{{$history->voiceOver}}</td>
-                                        <td class="text-center">{{$history->status}}</td>
+                                        <td class="text-center" 
+						style="{{ strpos($history->status, 'ERROR') !== false ? 'color: red;' : '' }}">
+						{{$history->status}}
+					</td>
+
 
 					@if($history->pathZip != "")
 						<td><a href="{{ route('history.download', ['id' => $history->id]) }}" class="button">Descargar</a></td>
 					@else
-						<td>En proceso...</td>
+						    @if(strpos($history->status, 'ERROR') === false)
+							    <td>En proceso...</td>
+						    @else
+								<td class="text-center" 
+									style="{{ strpos($history->status, 'ERROR') !== false ? 'color: red;' : '' }}">
+									ERROR
+								</td>
+						    @endif
 					@endif
 
                                     </tr>
