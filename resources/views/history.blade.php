@@ -60,13 +60,14 @@
                             <table>
                                 <thead>
                                     <tr>
-                                        <th>Fecha generado</th>
+                                        <th>Fecha</th>
                                         <th>Plantilla</th>
                                         <th>Palabras</th>
                                         <th>Resumen</th>
                                         <th>Mapa conceptual</th>
                                         <th>Preguntas</th>
                                         <th>Voz Natural</th>
+                                        <th>Status</th>
                                         <th>Descargar</th>
                                     </tr>
                                 </thead>
@@ -81,6 +82,7 @@
                                         <td class="text-center">{{$history->conceptualMap}}</td>
                                         <td class="text-center">{{$history->questionsUsed}}</td>
                                         <td class="text-center">{{$history->voiceOver}}</td>
+                                        <td class="text-center">{{$history->status}}</td>
 
 					@if($history->pathZip != "")
 						<td><a href="{{ route('history.download', ['id' => $history->id]) }}" class="button">Descargar</a></td>

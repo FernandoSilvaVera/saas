@@ -43,7 +43,6 @@ class DownloadController extends Controller
 								}
 				}
 
-
 	public function generateHashId()
 	{
 		$timestamp = time();
@@ -209,7 +208,6 @@ class DownloadController extends Controller
 		}
 
 		if(ManageClientSubscription::haveQuestions($userId)){
-			$history->status = "Se van a generar las preguntas";
 			$history->save();
 			$numQuestions = $generateQuestions;
 			$openai = new OpenAI($word, $downloadPath, $userId, null, $history);
@@ -219,7 +217,6 @@ class DownloadController extends Controller
 
 			$ok = $openai->questions($filePath, $numQuestions, null);
 			if($ok){
-				$history->status = "Preguntas generadas";
 				$history->save();
 				$questions = $numQuestions;
 			}
@@ -255,17 +252,16 @@ class DownloadController extends Controller
 
 	public function download($fileName, $templateId, $userId, $language, $generateSummary, $generateQuestions, $generateConceptualMap, $generateVoiceOver)
 	{
-
 		$history = History::where('name', $fileName)->first();
 
 		try {
-
+/*
 		$clientSubscription = ManageClientSubscription::getClientSubscription($userId);
 
 		if($generateQuestions > $clientSubscription->numero_preguntas){
 			$generateQuestions = $clientSubscription->numero_preguntas;
 		}
-
+*/
 		\Log::info('DownloadController Start ' . $language);
 
 		$user = User::find($userId);
@@ -279,8 +275,11 @@ class DownloadController extends Controller
 		$scriptPath = resource_path('script/index.php');
 
 		\Log::info('DownloadController getPath before');
+
 		$path = $this->getPath("DOWNLOAD_PATH", $hashId, $user);
+		$zipFilePath = $path;
 		$userPath = $this->getPath("DOWNLOAD_PATH", null, $user);
+
 		\Log::info('DownloadController getPath after');
 
 		$palabras = @(new WordHelper)->getAllWords($word);
@@ -300,24 +299,31 @@ class DownloadController extends Controller
 			$command = "php {$scriptPath} {$word} {$path}/";
 			$output = shell_exec($command);
 			ManageClientSubscription::consumeMaximumWords($palabras, $userId);
+
+
 			\Log::info('SCRIPT TERMINADO ' . $command);
 
 			\Log::info('DownloadController use template');
 			$template = $this->useTemplate($templateId, $path);
-			$history->status= "virtualización normal terminada";
+
+			$history = $this->updateOrCreateHistory($fileName, $userId, $template, false, false, false, false, false, $zipFilePath, $userPath, $hashId);
+			$history->status = "30%";
 			$history->save();
+
+//			$history->status= "virtualización normal terminada";
+//			$history->save();
+
 		}
 
 		$contenido = @(new WordHelper)->convertToArray($word);
 
 		if($generateVoiceOver && ManageClientSubscription::haveVoiceOver($userId)){
-			$history->status = "generando voz natural";
 			$history->save();
 			\Log::info('VA A EMPEZAR EL PROCESO DE VOZ');
 			Subscription::texToSpeech($contenido, $path, $userId, $history);
 			$voiceOver = true;
 			\Log::info('VOZ TERMINADA');
-			$history->status = "terminado de generar el proceso de voz";
+			$history->status = "50%";
 			$history->save();
 		}else{
 			$this->hiddenPremiumButtons($path);
@@ -325,7 +331,6 @@ class DownloadController extends Controller
 		}
 
 		\Log::info('VA A EMPEZAR EL PROCESO IA');
-		$history->status = "VA A COMENZAR EL PROCESO IA";
 		$history->save();
 
 		list($conceptualMap, $summary, $questionsUsed) = Subscription::generateNewPages($contenido, $path, $userId, $generateSummary, $generateQuestions, $generateConceptualMap, $generateVoiceOver, $history, $language);
@@ -333,11 +338,6 @@ class DownloadController extends Controller
 		\Log::info('IA TERMINADO');
 		$history->status = "IA TERMINADO";
 		$history->save();
-
-		$zipFilePath = $path;
-
-		$command = "cd $userPath && zip -r {$hashId}.zip {$hashId}";
-		exec($command);
 
 		\Log::info('VAMOS A GUARDAR EL HISTORIAL ' . $fileName);
 
@@ -353,20 +353,8 @@ class DownloadController extends Controller
 			ManageClientSubscription::consumeQuestions($questionsUsed, $userId);
 		}
 
-		$history = History::updateOrCreate(
-			['name' => $fileName],
-			[
-				'userId' => $userId,
-				'templateName' => $template ? $template->template_name : '',
-				'wordsUsed' => $palabras,
-				'voiceOver' => $voiceOver,
-				'summary' => $summary,
-				'conceptualMap' => $conceptualMap,
-				'questionsUsed' => $questionsUsed,
-				'pathZip' => $zipFilePath . ".zip",
-				"status" => "OK",
-			]
-		);
+		$history = $this->updateOrCreateHistory($fileName, $userId, $template, $palabras, $voiceOver, $summary, $conceptualMap, $questionsUsed, $zipFilePath, $userPath, $hashId);
+		
 
 		\Log::info('FIN DEL HISTORIAL');
 
@@ -381,11 +369,10 @@ class DownloadController extends Controller
 //		return response()->download($zipFilePath . ".zip");
 
 		} catch (\Exception $e) {
-			$history->status = "ERROR EN EL PROCESO";
+			$history->status = "ERROR";
 			$history->save();
 			\Log::info('DownloadController End CON ERROR ' . $e->getMessage());
 		}
-
 	}
 
 	public function preview(Request $request)
@@ -422,7 +409,7 @@ class DownloadController extends Controller
 			} catch (\Exception $e) {
 
 				// Manejar la excepción
-				echo "Error al copiar el archivo: " . $e->getMessage();die;
+				echo "Error al copiar el archivo: " . $e->getMessage();
 			}
 		}else{
 			$fileName = $request->input('filePath');
@@ -501,6 +488,40 @@ class DownloadController extends Controller
 		return redirect()->route('/app');
 	}
 
+	public function updateOrCreateHistory($fileName, $userId, $template, $palabras, $voiceOver, $summary, $conceptualMap, $questionsUsed, $zipFilePath, $userPath, $hashId) {
+		$history = History::updateOrCreate(
+			['name' => $fileName],
+				[
+				'userId' => $userId,
+				'templateName' => $template ? $template->template_name : '',
+				'wordsUsed' => $palabras,
+				'voiceOver' => $voiceOver,
+				'summary' => $summary,
+				'conceptualMap' => $conceptualMap,
+				'questionsUsed' => $questionsUsed,
+				'pathZip' => $zipFilePath . ".zip",
+				"status" => "100%",
+			]
+		);
+
+		$this->createZip($userPath, $hashId);
+
+		return $history;;
+	}
+
+
+	public function createZip($userPath, $hashId) {
+		$zipFilePath = "{$userPath}/{$hashId}.zip";
+
+		// Eliminar el archivo ZIP si ya existe
+		if (file_exists($zipFilePath)) {
+			unlink($zipFilePath);
+		}
+
+		// Crear el nuevo archivo ZIP
+		$command = "cd $userPath && zip -r {$hashId}.zip {$hashId}";
+		exec($command);
+	}
 
 
 

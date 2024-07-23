@@ -60,13 +60,12 @@ class Subscription
 
 		if($generateConceptualMap){
 			if(ManageClientSubscription::haveConceptualMap($userId)){
-				$history->status = "Se va a generar el mapa conceptual";
 				$history->save();
 				\Log::info('IA CONCEPTUAL MAP NEW');
 				$ok = $openai->conceptualMap($conceptualMapHTML, $conceptualMapHTMLScorm, $language);
 				if($ok){
 					$conceptualMap = 1;
-					$history->status = "Mapa conceptual generado";
+					$history->status = "60%";
 					$history->save();
 				}
 			}else{
@@ -81,13 +80,12 @@ class Subscription
 
 		if($generateSummary){
 			if(ManageClientSubscription::haveSummaries($userId)){
-				$history->status = "Se va a generar el resumen";
 				$history->save();
 				\Log::info('IA RESUMEN');
 				$ok = $openai->summary($summaryHTML, $summaryHTMLScorm, $language);
 				if($ok){
 					$summary = 1;
-					$history->status = "Resumen creado";
+					$history->status = "70%";
 					$history->save();
 				}
 			}
@@ -96,13 +94,12 @@ class Subscription
 
 		if($generateQuestions){
 			if(ManageClientSubscription::haveQuestions($userId)){
-				$history->status = "Se van a generar las preguntas";
 				$history->save();
 				\Log::info('IA PREGUNTAS');
 				$numQuestions = $generateQuestions;
 				$ok = $openai->questions($questionsHTML, $numQuestions, $questionsHTMLScorm, $language);
 				if($ok){
-					$history->status = "Preguntas generadas";
+					$history->status = "80%";
 					$history->save();
 					$questions = $numQuestions;
 				}
@@ -213,7 +210,6 @@ class Subscription
 			if ($resolved) {
 				sleep(5);
 				\Log::info("Generando audio -> " . $posX);
-				$history->status = "Generando audio " . $posX;
 				$history->save();
 
 				foreach ($providers as $provider) {
